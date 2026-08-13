@@ -35,6 +35,66 @@
         "MCP_PROJECT_ROOT": "/home/zuo/Develop/artemichiko",
         "MCP_ENABLE_FILE_WATCHING": "false"
       }
+    },
+    "astro-docs": {
+      "type": "remote",
+      "url": "https://mcp.docs.astro.build/mcp",
+      "enabled": true
+    },
+    "cloudflare-api": {
+      "type": "remote",
+      "url": "https://mcp.cloudflare.com/mcp",
+      "enabled": true
+    },
+    "react-docs": {
+      "type": "local",
+      "command": [
+        "react-docs-mcp"
+      ],
+      "enabled": true,
+      "timeout": 120000
+    },
+    "tailwind-docs": {
+      "type": "local",
+      "command": [
+        "bun",
+        "run",
+        "/home/zuo/.local/share/mise/installs/node/24.19.0/lib/node_modules/tailwindcss-docs-mcp/dist/index.js"
+      ],
+      "enabled": true,
+      "timeout": 120000,
+      "environment": {
+        "TAILWIND_DOCS_MCP_DEFAULT_VERSION": "v4"
+      }
+    },
+    "gsap-mcp": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@vinhnguyen/gsap-mcp"
+      ],
+      "enabled": true,
+      "timeout": 120000
+    },
+    "r3f-mcp": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "r3f-mcp-server"
+      ],
+      "enabled": true,
+      "timeout": 120000
+    },
+    "lenis-mcp": {
+      "type": "local",
+      "command": [
+        "node",
+        "/home/zuo/Develop/lenis-mcp-server/dist/index.js"
+      ],
+      "enabled": true,
+      "timeout": 120000
     }
   }
 }
