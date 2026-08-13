@@ -1,5 +1,11 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-goal-plugin",
+    "opencode-notify",
+    "opencode-worktree",
+    "@plannotator/opencode"
+  ],
   "instructions": [
     "AGENTS.md",
     "6-ArteMichiko_Estrategia_Digital_Definitiva.md",
