@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "engram": {
+      "type": "local",
+      "command": [
+        "engram",
+        "mcp",
+        "--project",
+        "artemichiko"
+      ],
+      "enabled": true
+    },
+    "narsil-mcp": {
+      "type": "local",
+      "command": [
+        "narsil-mcp",
+        "--repos",
+        "/home/zuo/Develop/artemichiko",
+        "--git",
+        "--call-graph",
+        "--persist"
+      ],
+      "enabled": true
+    },
+    "vector-search": {
+      "type": "local",
+      "command": [
+        "mcp-vector-search-mcp",
+        "/home/zuo/Develop/artemichiko"
+      ],
+      "enabled": true,
+      "timeout": 180000,
+      "environment": {
+        "MCP_PROJECT_ROOT": "/home/zuo/Develop/artemichiko",
+        "MCP_ENABLE_FILE_WATCHING": "false"
+      }
+    }
+  }
+}
