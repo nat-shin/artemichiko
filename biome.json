@@ -1,0 +1,14 @@
+# ArteMichiko — config Biome (doc 7 §17.2: lint + formato en Rust)
+$schema = "https://biomejs.dev/schemas/1.9.4/schema.json"
+organizeImports.enabled = true
+
+formatter = { enabled = true, indentStyle = "space", indentWidth = 2 }
+
+linter = {
+  enabled = true,
+  rules = { recommended = true }
+}
+
+files = {
+  includes = ["apps/**/*.ts", "apps/**/*.tsx", "apps/**/*.js", "apps/**/*.jsx", "apps/**/*.astro"]
+}

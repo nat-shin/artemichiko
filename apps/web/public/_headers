@@ -1,0 +1,8 @@
+# ArteMichiko — headers de seguridad (doc 8 §25.1 + auditoría 2026)
+# Astro copia public/_headers al build; el adapter lo fusiona con el cache de /_astro/*
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains

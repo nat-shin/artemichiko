@@ -1,0 +1,33 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Supply-chain hardening (investigación 2026-08-13):
+# - allowBuilds: allowlist granular de build scripts (nada corre sin aprobación)
+# - strictDepBuilds: falla install si una dep no listada intenta build
+# - blockExoticSubdeps: rechaza subdeps de git:/tarball (bypass del registry)
+# - minimumReleaseAge: 1 día — evita ventana de malware recién publicado
+# - # trustPolicy: no-downgrade → desactivado: falsos positivos con @babel/core 7.29.7 (publicado hoy sin attestation; ver pnpm docs) — rechaza versiones cuya proveniencia bajó
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+  "@biomejs/biome": true
+  better-sqlite3: true
+  "@sentry/cli": true
+
+strictDepBuilds: true
+blockExoticSubdeps: true
+minimumReleaseAge: 1440
+# trustPolicy: no-downgrade → desactivado: falsos positivos con @babel/core 7.29.7 (publicado hoy sin attestation; ver pnpm docs)
+
+minimumReleaseAgeExclude:
+  - astro
+  - "@astrojs/cloudflare"
+  - "@astrojs/react"
+  - wrangler
+  - workerd
+  - "@sentry/astro"
+  - "@sentry/cli"
+  - miniflare
+  - "@cloudflare/vitest-pool-workers"

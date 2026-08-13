@@ -1,2 +1,15 @@
 # Versiones anteriores de la estrategia — NO versionar en el repo
 historico/
+
+# Dependencias
+node_modules/
+
+# Build
+dist/
+.wrangler/
+
+# Runtime local opencode
+.playwright-mcp/
+
+# Archivos del sistema
+.DS_Store
