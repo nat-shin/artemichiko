@@ -101,6 +101,21 @@ const {
         </ul>
         <div class="flex items-center gap-3">
           <Search />
+          <button
+            type="button"
+            id="menu-abrir"
+            class="menu-trigger md:hidden"
+            aria-label="Abrir menú"
+            aria-controls="menu-movil"
+            aria-expanded="false"
+            data-cursor
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
           <a
             href="/inscripcion"
             class="btn-magnetic rounded-full bg-oro-brillo px-5 py-2 text-sm font-medium text-tinta-negra transition-colors hover:bg-oro-viejo"
@@ -111,6 +126,49 @@ const {
         </div>
       </nav>
     </header>
+
+    <!-- Menú móvil — drawer lateral derecho (solo <md). Overlay: clic fuera cierra. -->
+    <div id="menu-overlay" class="menu-overlay" aria-hidden="true"></div>
+    <aside
+      id="menu-movil"
+      class="menu-panel flex flex-col bg-lienzo-blanco"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menú de navegación"
+      inert
+    >
+      <div class="flex items-center justify-between border-b border-tinta-negra/10 px-6 py-5">
+        <p class="font-display text-xl font-semibold tracking-tight">
+          Arte<span class="text-oro-brillo">Michiko</span>
+        </p>
+        <button
+          type="button"
+          id="menu-cerrar"
+          class="menu-close"
+          aria-label="Cerrar menú"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18" />
+            <line x1="18" y1="6" x2="6" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-1 px-6 py-8" aria-label="Secciones">
+        <a href="/galeria" class="menu-link" data-cursor>Galería</a>
+        <a href="/cursos" class="menu-link" data-cursor>Cursos</a>
+        <a href="/comunidad" class="menu-link" data-cursor>Comunidad</a>
+        <a href="/nosotros" class="menu-link" data-cursor>Nosotros</a>
+      </nav>
+      <div class="mt-auto px-6 pb-10">
+        <a
+          href="/inscripcion"
+          class="btn-magnetic block rounded-full bg-oro-brillo px-5 py-3 text-center text-sm font-medium text-tinta-negra transition-colors hover:bg-oro-viejo"
+          data-cursor
+        >
+          Inscribirme
+        </a>
+      </div>
+    </aside>
 
     <main id="main-content" tabindex="-1">
       <slot />
@@ -198,9 +256,121 @@ const {
         transform-origin: left;
       }
 
+      /* ── Menú móvil — hamburguesa + drawer lateral (solo <md) ── */
+      .menu-trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 9999px;
+        border: 1px solid rgba(17, 17, 14, 0.15);
+        background: transparent;
+        color: var(--color-tinta-negra);
+        cursor: pointer;
+        transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      }
+      .menu-trigger:hover {
+        border-color: var(--color-jade-profundo);
+        color: var(--color-jade-profundo);
+        transform: translateY(-1px);
+      }
+      .menu-trigger:focus-visible,
+      .menu-close:focus-visible,
+      .menu-link:focus-visible {
+        outline: 2px solid var(--color-jade-profundo);
+        outline-offset: 2px;
+      }
+
+      .menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(17, 17, 14, 0.55);
+        backdrop-filter: blur(4px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+      }
+      .menu-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .menu-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1001;
+        width: min(20rem, 86vw);
+        transform: translateX(100%);
+        transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+        box-shadow: -24px 0 64px rgba(17, 17, 14, 0.28);
+      }
+      .menu-panel.open {
+        transform: translateX(0);
+      }
+
+      .menu-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 9999px;
+        border: 1px solid rgba(17, 17, 14, 0.15);
+        background: transparent;
+        color: var(--color-tinta-negra);
+        cursor: pointer;
+        transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+      }
+      .menu-close:hover {
+        border-color: var(--color-jade-profundo);
+        color: var(--color-jade-profundo);
+        background: rgba(0, 166, 107, 0.06);
+      }
+
+      .menu-link {
+        display: block;
+        padding: 0.875rem 0.75rem;
+        border-radius: 6px;
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--color-tinta-negra);
+        transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+      }
+      .menu-link:hover {
+        color: var(--color-jade-profundo);
+        background: rgba(0, 166, 107, 0.06);
+        transform: translateX(4px);
+      }
+
+      /* En móvil el CTA vive en el drawer (header sin overflow). Touch targets ≥44px
+         (WCAG 2.5.8) — misma convención que .search-trigger en global.css. */
+      @media (max-width: 767px) {
+        .site-header a.btn-magnetic {
+          display: none;
+        }
+        .menu-trigger,
+        .menu-close {
+          min-width: 44px;
+          min-height: 44px;
+        }
+      }
+      @media (min-width: 768px) {
+        .menu-trigger {
+          display: none;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .cursor-dot { display: none; }
         .site-header { transition: none; }
+        .menu-overlay, .menu-panel { transition: none; }
       }
     </style>
 
@@ -281,6 +451,81 @@ const {
           })();
         }
       }
+
+      // ── Menú móvil — drawer lateral (funciona también con reduced-motion) ──
+      const menuTrigger = document.getElementById("menu-abrir");
+      const menuCloseBtn = document.getElementById("menu-cerrar");
+      const menuOverlay = document.getElementById("menu-overlay");
+      const menuPanel = document.getElementById("menu-movil");
+
+      let menuLastFocus: HTMLElement | null = null;
+
+      const openMenu = (): void => {
+        if (!menuPanel || !menuOverlay || !menuTrigger) return;
+        menuLastFocus = document.activeElement as HTMLElement | null;
+        menuPanel.removeAttribute("inert");
+        menuOverlay.setAttribute("aria-hidden", "false");
+        menuTrigger.setAttribute("aria-expanded", "true");
+        document.body.classList.add("no-scroll");
+        menuOverlay.classList.add("open");
+        menuPanel.classList.add("open");
+        window.setTimeout(() => menuCloseBtn?.focus(), 80);
+      };
+
+      const closeMenu = (restoreFocus = true): void => {
+        if (!menuPanel || !menuOverlay || !menuTrigger) return;
+        menuOverlay.classList.remove("open");
+        menuPanel.classList.remove("open");
+        menuOverlay.setAttribute("aria-hidden", "true");
+        menuTrigger.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("no-scroll");
+        menuPanel.setAttribute("inert", "");
+        if (restoreFocus) menuLastFocus?.focus();
+      };
+
+      menuTrigger?.addEventListener("click", () => {
+        if (menuPanel?.classList.contains("open")) closeMenu();
+        else openMenu();
+      });
+      menuCloseBtn?.addEventListener("click", () => closeMenu());
+      menuOverlay?.addEventListener("click", () => closeMenu());
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape" || !menuPanel?.classList.contains("open")) return;
+        closeMenu();
+      });
+
+      // Foco atrapado dentro del drawer (Tab cíclico, WCAG 2.1.2)
+      menuPanel?.addEventListener("keydown", (e) => {
+        if (e.key !== "Tab" || !menuPanel.classList.contains("open")) return;
+        const focusables = Array.from(
+          menuPanel.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || !menuPanel.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+
+      // Cerrar al navegar con un enlace del drawer
+      menuPanel?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => closeMenu(false));
+      });
+
+      // Si el viewport crece a md+, forzar cierre (el drawer solo existe <md)
+      const mqDesktop = window.matchMedia("(min-width: 768px)");
+      mqDesktop.addEventListener?.("change", (e) => {
+        if (e.matches) closeMenu(false);
+      });
     </script>
   </body>
 </html>
