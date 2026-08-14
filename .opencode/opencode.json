@@ -1,131 +1,97 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "plugin": [
-    "opencode-goal-plugin",
-    "opencode-notify",
-    "opencode-worktree",
-    "@plannotator/opencode"
-  ],
-  "instructions": [
-    "AGENTS.md",
-    "6-ArteMichiko_Estrategia_Digital_Definitiva.md",
-    "7-ArteMichiko_Posicionamiento_Digital_Stack_y_UXUI.md",
-    "8-ArteMichiko_Arquitectura_de_Vanguardia_2026.md"
-  ],
-  "formatter": {
-    "biome": {
-      "command": [
-        "npx",
-        "biome",
-        "format",
-        "--write",
-        "$FILE"
-      ],
-      "extensions": [
-        ".ts",
-        ".tsx",
-        ".js",
-        ".jsx",
-        ".astro",
-        ".json"
-      ]
-    }
-  },
-  "mcp": {
-    "engram": {
-      "type": "local",
-      "command": [
-        "engram",
-        "mcp",
-        "--project",
-        "artemichiko"
-      ],
-      "enabled": true
-    },
-    "narsil-mcp": {
-      "type": "local",
-      "command": [
-        "narsil-mcp",
-        "--repos",
-        "/home/zuo/Develop/artemichiko",
-        "--git",
-        "--call-graph",
-        "--persist"
-      ],
-      "enabled": true
-    },
-    "vector-search": {
-      "type": "local",
-      "command": [
-        "mcp-vector-search-mcp",
-        "/home/zuo/Develop/artemichiko"
-      ],
-      "enabled": true,
-      "timeout": 180000,
-      "environment": {
-        "MCP_PROJECT_ROOT": "/home/zuo/Develop/artemichiko",
-        "MCP_ENABLE_FILE_WATCHING": "false"
-      }
-    },
-    "astro-docs": {
-      "type": "remote",
-      "url": "https://mcp.docs.astro.build/mcp",
-      "enabled": true
-    },
-    "cloudflare-api": {
-      "type": "remote",
-      "url": "https://mcp.cloudflare.com/mcp",
-      "enabled": true
-    },
-    "react-docs": {
-      "type": "local",
-      "command": [
-        "react-docs-mcp"
-      ],
-      "enabled": true,
-      "timeout": 120000
-    },
-    "tailwind-docs": {
-      "type": "local",
-      "command": [
-        "bun",
-        "run",
-        "/home/zuo/.local/share/mise/installs/node/24.19.0/lib/node_modules/tailwindcss-docs-mcp/dist/index.js"
-      ],
-      "enabled": true,
-      "timeout": 120000,
-      "environment": {
-        "TAILWIND_DOCS_MCP_DEFAULT_VERSION": "v4"
-      }
-    },
-    "gsap-mcp": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@vinhnguyen/gsap-mcp"
-      ],
-      "enabled": true,
-      "timeout": 120000
-    },
-    "r3f-mcp": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "r3f-mcp-server"
-      ],
-      "enabled": true,
-      "timeout": 120000
-    },
-    "lenis-mcp": {
-      "type": "local",
-      "command": [
-        "node",
-        "/home/zuo/Develop/lenis-mcp-server/dist/index.js"
-      ],
-      "enabled": true,
-      "timeout": 120000
-    }
-  }
+	"$schema": "https://opencode.ai/config.json",
+	"plugin": [
+		"opencode-goal-plugin",
+		"opencode-notify",
+		"opencode-worktree",
+		"@plannotator/opencode"
+	],
+	"instructions": [
+		"AGENTS.md",
+		"6-ArteMichiko_Estrategia_Digital_Definitiva.md",
+		"7-ArteMichiko_Posicionamiento_Digital_Stack_y_UXUI.md",
+		"8-ArteMichiko_Arquitectura_de_Vanguardia_2026.md"
+	],
+	"formatter": {
+		"biome": {
+			"command": ["npx", "biome", "format", "--write", "$FILE"],
+			"extensions": [".ts", ".tsx", ".js", ".jsx", ".astro", ".json"]
+		}
+	},
+	"mcp": {
+		"engram": {
+			"type": "local",
+			"command": ["engram", "mcp", "--project", "artemichiko"],
+			"enabled": true
+		},
+		"narsil-mcp": {
+			"type": "local",
+			"command": [
+				"narsil-mcp",
+				"--repos",
+				"/home/zuo/Develop/artemichiko",
+				"--git",
+				"--call-graph",
+				"--persist"
+			],
+			"enabled": true
+		},
+		"vector-search": {
+			"type": "local",
+			"command": ["mcp-vector-search-mcp", "/home/zuo/Develop/artemichiko"],
+			"enabled": true,
+			"timeout": 180000,
+			"environment": {
+				"MCP_PROJECT_ROOT": "/home/zuo/Develop/artemichiko",
+				"MCP_ENABLE_FILE_WATCHING": "false"
+			}
+		},
+		"astro-docs": {
+			"type": "remote",
+			"url": "https://mcp.docs.astro.build/mcp",
+			"enabled": true
+		},
+		"cloudflare-api": {
+			"type": "remote",
+			"url": "https://mcp.cloudflare.com/mcp",
+			"enabled": true
+		},
+		"react-docs": {
+			"type": "local",
+			"command": ["react-docs-mcp"],
+			"enabled": true,
+			"timeout": 120000
+		},
+		"tailwind-docs": {
+			"type": "local",
+			"command": [
+				"bun",
+				"run",
+				"/home/zuo/.local/share/mise/installs/node/24.19.0/lib/node_modules/tailwindcss-docs-mcp/dist/index.js"
+			],
+			"enabled": true,
+			"timeout": 120000,
+			"environment": {
+				"TAILWIND_DOCS_MCP_DEFAULT_VERSION": "v4"
+			}
+		},
+		"gsap-mcp": {
+			"type": "local",
+			"command": ["npx", "-y", "@vinhnguyen/gsap-mcp"],
+			"enabled": true,
+			"timeout": 120000
+		},
+		"r3f-mcp": {
+			"type": "local",
+			"command": ["npx", "-y", "r3f-mcp-server"],
+			"enabled": true,
+			"timeout": 120000
+		},
+		"lenis-mcp": {
+			"type": "local",
+			"command": ["node", "/home/zuo/Develop/lenis-mcp-server/dist/index.js"],
+			"enabled": true,
+			"timeout": 120000
+		}
+	}
 }
