@@ -3,11 +3,14 @@
 // Doc 6 §2.3 adaptado: FASE 1-2 del embudo → formulario mínimo → wa.me pre-llenado
 import Layout from "../layouts/Layout.astro";
 const cursos = [
-	{ id: "dibujo-fundamentos", nombre: "Dibujo Fundamentos" },
+	{ id: "grafito", nombre: "Grafito" },
+	{
+		id: "color-tecnicas-alternas",
+		nombre: "Color y técnicas alternas (pastel, acuarela, acrílico)",
+	},
 	{ id: "pintura-oleo", nombre: "Pintura al Óleo" },
-	{ id: "acuarela", nombre: "Acuarela" },
-	{ id: "grabado-experimental", nombre: "Grabado Experimental" },
-	{ id: "caligrafia-oriental", nombre: "Caligrafía Oriental" },
+	{ id: "dibujo-rostro-anatomia", nombre: "Dibujo al rostro y anatomía" },
+	{ id: "letra-gotica", nombre: "Letra gótica" },
 	{ id: "tecnica-interna", nombre: "Técnica Interna" },
 ];
 ---
@@ -128,7 +131,7 @@ const cursos = [
     const curso = (document.getElementById("curso") as HTMLSelectElement).value;
     const telefono = (document.getElementById("telefono") as HTMLInputElement).value.trim();
     const msg = `Hola ArteMichiko, quiero inscribirme${curso ? ` al curso: ${curso}` : ""}. Mi nombre es ${nombre || "…"}${telefono ? ` · Tel: ${telefono}` : ""}`;
-    const url = `https://wa.me/5215500000000?text=${encodeURIComponent(msg)}`;
+    const url = `https://wa.me/5215512595906?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank", "noopener");
   });
 </script>

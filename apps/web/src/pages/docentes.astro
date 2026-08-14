@@ -5,69 +5,34 @@ import Layout from "../layouts/Layout.astro";
 
 const docentes = [
 	{
-		nombre: "Profr. José Guadalupe Cabrera",
-		especialidad: "Técnica Interna · Caligrafía Oriental",
-		bio: "Fundador y director de ArteMichiko. Su formación en China y la influencia taoísta que la acompañó dieron origen al sistema de Técnica Interna: el arte como cultivo interior, no como exhibición de destreza.",
-		credenciales: [
-			"Formación en escuelas de arte de China",
-			"35+ años de trayectoria docente",
-			"Creador del sistema de Técnica Interna",
-			"Presentado en Canal Once · Programa D Todo",
-		],
-		foto: "https://placehold.co/600x750/11110E/D4AF37?text=Prof.+Cabrera",
-	},
-	{
-		nombre: "Mtra. Elena Ríos Kanzaki",
-		especialidad: "Pintura al Óleo",
-		bio: "Pintora formada en La Esmeralda con residencias en Tokio. Investiga la luz lenta: veladuras que construyen atmósferas antes que formas, y el color como lenguaje emocional.",
+		nombre: "Mtro. José Guadalupe Cabrera Cabrera",
+		especialidad: "Pintura al Óleo · Director y Fundador Académico Artístico",
+		bio: "Fundador y director de ArteMichiko. Formado en La Esmeralda y becado para cursar el posgrado muralista en Beijing, expuso su obra en Beijing y Harbin y estudió de cerca los murales de Dunhuang. El grafito es la base de su método; el óleo, la culminación del camino.",
 		credenciales: [
 			"Escuela Nacional de Pintura, Escultura y Grabado La Esmeralda",
-			"Residencia artística en Tokio",
-			"15 años de docencia",
-			"Exposiciones individuales en CDMX",
+			"Beca de posgrado muralista en Beijing, China",
+			"Exposiciones en Beijing y Harbin · estudio de los murales de Dunhuang",
+			'Obra "La Flautista" formada en La Esmeralda',
+			"50+ años de trayectoria docente",
+			"Presentado en Canal Once · Programa D Todo",
 		],
-		foto: "https://placehold.co/600x750/E8E2D5/11110E?text=Mtra.+Rios",
+		foto: "https://placehold.co/600x750/11110E/D4AF37?text=Mtro.+Cabrera",
 	},
 	{
-		nombre: "Mtro. Hiroshi Tanaka Mendoza",
-		especialidad: "Acuarela · Sumi-e",
-		bio: "Acuarelista de tradición japonesa nacido en México. Heredero de la escuela Nihonga, enseña la economía del gesto: pocas pinceladas, máxima expresión, el agua como coautora.",
+		nombre: "Mtra. Elvira Mena",
+		especialidad: "Colores de Madera · Grafito · Subdirectora y Coordinadora",
+		bio: "Subdirectora y coordinadora de ArteMichiko. Acompaña los primeros pasos del alumno: introduce los colores de madera y consolida el grafito como base de todo el sistema de la academia, de los 5 a los 9 lápices.",
 		credenciales: [
-			"Descendiente de la escuela Nihonga",
-			"20 años en acuarela japonesa",
-			"Tallerista de sumi-e en CDMX y Monterrey",
-			"Obra en colecciones privadas de Asia",
+			"Subdirectora y coordinadora de ArteMichiko",
+			"Especialista en colores de madera y grafito",
+			"Acompaña a alumnos de todas las edades: desde los 5 hasta los 60 y 70 años",
 		],
-		foto: "https://placehold.co/600x750/EDE3D0/11110E?text=Mtro.+Tanaka",
-	},
-	{
-		nombre: "Lic. Carmen Suárez López",
-		especialidad: "Dibujo Fundamentos",
-		bio: "Egresada de la Academia de San Carlos y especialista en anatomía artística. Enseña a ver antes de dibujar: quince años convenciendo a principiantes de que la mano solo obedece al ojo.",
-		credenciales: [
-			"Academia de San Carlos, CDMX",
-			"Especialista en anatomía artística",
-			"15 años de docencia",
-			"Ilustradora científica",
-		],
-		foto: "https://placehold.co/600x750/EFE6D4/11110E?text=Lic.+Suarez",
-	},
-	{
-		nombre: "Mtro. Julián Ordaz Vela",
-		especialidad: "Grabado Experimental",
-		bio: "Grabador con maestría en gráfica por la UNAM. Entiende la estampa como laboratorio: la plancha que se transforma, el tórculo que sorprende y la edición como disciplina.",
-		credenciales: [
-			"Maestría en Artes Visuales, UNAM",
-			"Miembro de taller de gráfica colectivo",
-			"Premio nacional de estampa joven",
-			"Obra en museos de gráfica de México",
-		],
-		foto: "https://placehold.co/600x750/E2E8DF/11110E?text=Mtro.+Ordaz",
+		foto: "https://placehold.co/600x750/E8E2D5/11110E?text=Mtra.+Mena",
 	},
 ];
 ---
 
-<Layout title="Docentes" description="Los maestros de ArteMichiko: trayectorias reales, credenciales verificables y el sistema Oriental que hace única a la academia.">
+<Layout title="Docentes" description="Los maestros de ArteMichiko: trayectorias reales, credenciales verificables y el sistema de dibujo y pintura que hace única a la academia.">
 
   <script is:inline>
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -94,7 +59,7 @@ const docentes = [
       </h1>
 
       <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito md:text-xl">
-        En ArteMichiko el docente es primero artista y después maestro. Cada perfil reúne trayectoria verificable, oficio vivo y el mismo principio: enseñar a revelar, no a copiar.
+        En ArteMichiko el docente es primero artista y después maestro. Cada perfil reúne trayectoria verificable, oficio vivo y el mismo principio: enseñar a revelar, no a copiar. Dos maestros sostienen el claustro: el fundador, formado en La Esmeralda y en el posgrado muralista de Beijing, y la subdirectora que acompaña los primeros trazos.
       </p>
     </div>
   </section>
@@ -144,10 +109,10 @@ const docentes = [
           El claustro <span class="text-oro-brillo">crece</span>
         </h2>
         <p class="mt-4 leading-relaxed text-lienzo-hueso/70">
-          Buscamos artistas con obra viva y vocación docente para sumarse al sistema Oriental de la academia.
+          Buscamos artistas con obra viva y vocación docente para sumarse al sistema de dibujo y pintura de la academia.
         </p>
         <a
-          href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20soy%20artista-docente%20y%20quiero%20sumarme%20al%20claustro"
+          href="https://wa.me/5215512595906?text=Hola%20ArteMichiko%2C%20soy%20artista-docente%20y%20quiero%20sumarme%20al%20claustro"
           target="_blank"
           rel="noopener"
           data-cursor
@@ -159,7 +124,7 @@ const docentes = [
     </div>
   </section>
 
-  <!-- ═══════ NOTA DEL FUNDADOR — narrativa heredada (China / taoísmo) ═══════ -->
+  <!-- ═══════ NOTA DEL FUNDADOR — trayectoria real: La Esmeralda → posgrado muralista en Beijing ═══════ -->
   <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
     <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
@@ -175,7 +140,7 @@ const docentes = [
               class="mask-img h-full w-full object-cover"
             />
             <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/80 to-transparent p-5 font-mono text-xs tracking-[0.2em] text-lienzo-hueso uppercase">
-              Profr. José Guadalupe Cabrera · Fundador
+              Mtro. José Guadalupe Cabrera Cabrera · Fundador
             </figcaption>
           </figure>
         </div>
@@ -187,13 +152,13 @@ const docentes = [
           </h2>
           <div class="fade-up mt-8 max-w-2xl space-y-5 leading-relaxed text-lienzo-hueso/75">
             <p>
-              Mi formación en China me dejó una certeza que sostiene toda la academia: la técnica es el camino, no la meta. En la tradición taoísta, el artista no impone forma a la materia — aprende a dejar que la forma aparezca. Ese principio, traído a México hace más de 35 años, es el corazón de la Técnica Interna.
+              Mi formación comenzó en La Esmeralda, donde pinté "La Flautista", y se completó con la beca que me llevó a Beijing para el posgrado muralista. Ahí expuse en Beijing y en Harbin, y me detuve largo tiempo frente a los murales de Dunhuang: entendí que el mural no impone forma a la pared — aprende a dejar que la forma aparezca. Ese principio, con más de 50 años de trayectoria docente, sostiene toda la academia.
             </p>
             <p>
-              Aquí no formamos copistas. Acompañamos a cada alumno a descubrir el talento que ya trae, y le damos el oficio para que ese talento viva en el papel, la tela o la tinta.
+              Mi especialidad es el óleo, pero el camino empieza siempre en el grafito: el lápiz es la base, el color de madera su primer eco, y el óleo la culminación de quien recorre el sistema completo. Aquí no formamos copistas. Acompañamos a cada alumno a descubrir el talento que ya trae, y le damos el oficio para que ese talento viva en el papel, la tela o la tinta.
             </p>
             <p class="font-display text-xl text-oro-brillo italic">
-              — Profr. José Guadalupe Cabrera, fundador y director
+              — Mtro. José Guadalupe Cabrera Cabrera, director y fundador académico artístico
             </p>
           </div>
 
