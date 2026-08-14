@@ -1,0 +1,129 @@
+---
+// ArteMichiko — 404: "Te perdiste en el taller" · kintsugi (línea dorada) + sello 印
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Página no encontrada" description="Te perdiste en el taller. Regresa a la galería de ArteMichiko y encuentra el camino de vuelta.">
+  <section class="relative flex min-h-screen items-center overflow-hidden pt-24">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-4xl px-6 py-24 text-center">
+      <!-- Sello 印 -->
+      <div class="sello fade-up flex items-center justify-center gap-3">
+        <span class="flex h-12 w-12 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+      </div>
+
+      <!-- Número 404 en serif con máscara -->
+      <p class="fade-up mt-10 font-mono text-xs tracking-[0.3em] text-tinta-humo uppercase">Error 404 · Camino sin trazo</p>
+
+      <h1 class="mt-6 font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-7xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inline inline-block">Te perdiste</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inline inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">en el taller</span>
+        </span>
+      </h1>
+
+      <!-- Kintsugi: vasija rota, reparada con oro -->
+      <div class="fade-up mt-14 flex justify-center" aria-hidden="true">
+        <svg viewBox="0 0 220 140" width="220" height="140" fill="none" class="kintsugi-bowl">
+          <!-- Fragmento izquierdo -->
+          <path d="M40 130 C40 70 70 40 110 38 C95 42 80 55 74 75 C68 96 72 114 86 128 L40 130 Z" fill="none" stroke="currentColor" stroke-width="2.5" class="text-tinta-negra" />
+          <!-- Fragmento derecho -->
+          <path d="M180 130 C180 70 150 40 110 38 C125 42 140 55 146 75 C152 96 148 114 134 128 L180 130 Z" fill="none" stroke="currentColor" stroke-width="2.5" class="text-tinta-negra" />
+          <!-- Línea dorada — la reparación -->
+          <path d="M110 38 C103 50 100 66 103 82 C106 98 104 112 96 128" stroke="#d4af37" stroke-width="3" stroke-linecap="round" class="kintsugi-line" />
+          <path d="M103 82 C112 88 118 98 114 110" stroke="#d4af37" stroke-width="2" stroke-linecap="round" class="kintsugi-line" opacity="0.7" />
+          <!-- Base dorada -->
+          <path d="M60 132 C90 142 130 142 160 132" stroke="#d4af37" stroke-width="2" stroke-linecap="round" class="kintsugi-line" opacity="0.6" />
+        </svg>
+      </div>
+
+      <p class="fade-up mx-auto mt-12 max-w-md leading-relaxed text-tinta-grafito">
+        Lo roto, en este taller, se repara con oro. La página que buscas no existe — o se movió a otro caballete.
+      </p>
+
+      <div class="fade-up mt-12 flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/galeria"
+          data-cursor
+          class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo"
+        >
+          Volver a la galería
+        </a>
+        <a
+          href="/"
+          data-cursor
+          class="rounded-full border border-tinta-negra px-8 py-3 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo"
+        >
+          Ir al inicio
+        </a>
+      </div>
+
+      <p class="fade-up mt-16 font-mono text-xs tracking-[0.25em] text-tinta-humo uppercase">
+        ArteMichiko · Centro Cultural Académico de Dibujo y Pintura · CDMX
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Tinta lavada sumi-e */
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0, 166, 107, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212, 175, 55, 0.07), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17, 17, 14, 0.04), transparent 60%);
+  }
+
+  /* Kintsugi: la línea dorada aparece con trazo lento */
+  .kintsugi-bowl { color: #11110e; }
+  .kintsugi-line {
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    animation: kintsugi-draw 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  }
+
+  @keyframes kintsugi-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kintsugi-line {
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // Text reveal
+    gsap.set(".reveal-inner", { y: "110%" });
+    gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
+
+    // Fade-ups
+    gsap.utils.toArray(".fade-up").forEach((el, i) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 28,
+        duration: 0.9,
+        delay: 0.2 + i * 0.12,
+        ease: "expo.out",
+      });
+    });
+  }
+</script>

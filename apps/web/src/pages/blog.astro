@@ -1,0 +1,238 @@
+---
+// ArteMichiko — Blog / Revista: grid de artículos + plantilla AEO/GEO (TL;DR)
+// Pilares de contenido: guías por medio · exposiciones CDMX · recorrido del alumno
+import Layout from "../layouts/Layout.astro";
+
+const articulos = [
+	{
+		slug: "guia-dibujo-grafito",
+		categoria: "Dibujo",
+		titulo: "Guía de dibujo con grafito: del trazo al volumen",
+		fecha: "2026-08-10",
+		imagen: "https://placehold.co/800x600/F5F0E6/11110E?text=Grafito",
+		extracto:
+			"Respuesta directa: el grafito se domina en tres etapas — trazo, valores y volumen — con lápices 2H a 6B y dos horas de práctica diaria.",
+	},
+	{
+		slug: "el-oleo-y-sus-veladuras",
+		categoria: "Pintura",
+		titulo: "El óleo y sus veladuras: pintar con luz",
+		fecha: "2026-08-02",
+		imagen: "https://placehold.co/800x600/EDE3D0/11110E?text=Oleo",
+		extracto:
+			"Respuesta directa: la veladura es una capa de óleo diluido en médium que deja ver la capa inferior; aquí explicamos cuándo y con qué médium aplicarla.",
+	},
+	{
+		slug: "acuarela-agua-y-pigmento",
+		categoria: "Acuarela",
+		titulo: "Acuarela: agua y pigmento en equilibrio",
+		fecha: "2026-07-21",
+		imagen: "https://placehold.co/800x600/EFE6D4/11110E?text=Acuarela",
+		extracto:
+			"Respuesta directa: en acuarela el agua manda — controlar la humedad del papel (seco, húmedo, mojado) define el 90% del resultado.",
+	},
+	{
+		slug: "grabado-experimental",
+		categoria: "Grabado",
+		titulo: "Grabado experimental: presión, tinta y papel",
+		fecha: "2026-07-08",
+		imagen: "https://placehold.co/800x600/E2E8DF/11110E?text=Grabado",
+		extracto:
+			"Respuesta directa: el grabado es imagen por transferencia — placa, tinta y prensa — y se puede empezar con materiales accesibles sin invertir en tórculo.",
+	},
+	{
+		slug: "exposiciones-cdmx",
+		categoria: "Comunidad",
+		titulo: "Exposiciones de arte en CDMX este mes",
+		fecha: "2026-08-01",
+		imagen: "https://placehold.co/800x600/11110E/D4AF37?text=CDMX",
+		extracto:
+			"Respuesta directa: museos, galerías independientes y las salas donde los alumnos de ArteMichiko exponen obra cada mes en la Ciudad de México.",
+	},
+	{
+		slug: "un-dia-en-artemichiko",
+		categoria: "Recorrido del alumno",
+		titulo: "Un día en ArteMichiko: el recorrido de un alumno",
+		fecha: "2026-07-15",
+		imagen: "https://placehold.co/800x600/F0EBDF/11110E?text=El+taller",
+		extracto:
+			"Respuesta directa: una sesión real dura tres horas — corrección individual, práctica guiada y revisión colectiva — contada desde adentro.",
+	},
+];
+---
+
+<Layout
+  title="Blog y Revista"
+  description="Guías por medio artístico, exposiciones en CDMX y el recorrido de los alumnos de ArteMichiko. Respuestas directas, sin relleno."
+>
+  <!-- ═══════ HERO — text reveal ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-20 md:pt-48">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-60" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="sello mb-8 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Blog · Revista del taller</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">La revista</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">del taller</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito">
+        Guías por medio artístico, exposiciones en CDMX y el recorrido de quienes ya estudian aquí. Cada artículo abre con la respuesta directa — para quien lee y para quien pregunta.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ DESTACADO + TL;DR (plantilla AEO/GEO) ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto max-w-7xl px-6 py-20">
+      <article class="fade-up group grid gap-10 lg:grid-cols-2 lg:items-center">
+        <a href={`/blog/${articulos[0].slug}`} class="mask-frame block overflow-hidden rounded-sm" data-mask data-cursor>
+          <img
+            src={articulos[0].imagen}
+            alt={articulos[0].titulo}
+            loading="lazy"
+            width="800"
+            height="600"
+            class="mask-img aspect-[4/3] w-full object-cover"
+          />
+        </a>
+        <div>
+          <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">{articulos[0].categoria}</p>
+          <h2 class="mt-4 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+            <a href={`/blog/${articulos[0].slug}`} data-cursor class="transition-colors duration-300 hover:text-jade-profundo">{articulos[0].titulo}</a>
+          </h2>
+          <p class="mt-3 font-mono text-xs text-tinta-humo">{articulos[0].fecha}</p>
+
+          <!-- TL;DR — respuesta directa, plantilla obligatoria AEO/GEO -->
+          <div class="mt-8 border-l-2 border-oro-brillo bg-lienzo-hueso/60 p-6">
+            <p class="font-mono text-xs tracking-[0.25em] text-oro-viejo uppercase">TL;DR</p>
+            <p class="mt-3 leading-relaxed text-tinta-negra">{articulos[0].extracto}</p>
+          </div>
+
+          <a
+            href={`/blog/${articulos[0].slug}`}
+            data-cursor
+            class="mt-8 inline-flex items-center gap-2 font-medium text-jade-profundo transition-all duration-300 hover:gap-4"
+          >
+            Leer artículo completo <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════ GRID DE ARTÍCULOS ═══════ -->
+  <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="mx-auto max-w-7xl px-6 py-24">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Archivo</p>
+      <h2 class="fade-up mt-4 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        Todos los <span class="text-oro-brillo">artículos</span>
+      </h2>
+
+      <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+        {articulos.slice(1).map((art) => (
+          <article class="fade-up group flex flex-col">
+            <a href={`/blog/${art.slug}`} class="mask-frame block overflow-hidden rounded-sm" data-mask data-cursor>
+              <img
+                src={art.imagen}
+                alt={art.titulo}
+                loading="lazy"
+                width="800"
+                height="600"
+                class="mask-img aspect-[4/3] w-full object-cover"
+              />
+            </a>
+            <div class="flex flex-1 flex-col pt-6">
+              <div class="flex items-center justify-between gap-4">
+                <p class="font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">{art.categoria}</p>
+                <p class="font-mono text-xs text-tinta-humo">{art.fecha}</p>
+              </div>
+              <h3 class="mt-3 font-display text-2xl leading-snug font-semibold">
+                <a href={`/blog/${art.slug}`} data-cursor class="transition-colors duration-300 hover:text-jade-profundo">{art.titulo}</a>
+              </h3>
+              <p class="mt-4 flex-1 text-sm leading-relaxed text-tinta-grafito">{art.extracto}</p>
+              <a
+                href={`/blog/${art.slug}`}
+                data-cursor
+                class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-jade-profundo transition-all duration-300 hover:gap-4"
+              >
+                Leer artículo <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Tinta lavada sumi-e */
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0, 166, 107, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212, 175, 55, 0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17, 17, 14, 0.04), transparent 60%);
+  }
+
+  /* Mask reveal de imágenes */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // Text reveal del hero
+    gsap.set(".reveal-inner", { y: "110%" });
+    gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
+
+    // Fade-ups
+    gsap.utils.toArray(".fade-up").forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 32,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+
+    // Mask reveal de imágenes
+    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: frame, start: "top 85%" },
+        }
+      );
+    });
+  }
+</script>

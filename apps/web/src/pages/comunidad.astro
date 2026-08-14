@@ -1,0 +1,322 @@
+---
+// ArteMichiko — Comunidad: redes + trabajo de alumnos + talleres abiertos
+// Identidad: blanco/negro/dorado/jade · mask reveal · fade-up
+import Layout from "../layouts/Layout.astro";
+
+const redes = [
+	{
+		nombre: "Instagram",
+		handle: "@arte_michiko",
+		url: "https://www.instagram.com/arte_michiko",
+		desc: "Obra en proceso, sesiones del taller y el día a día de la academia.",
+		sello: "IG",
+	},
+	{
+		nombre: "Facebook",
+		handle: "centroculturalmichiko",
+		url: "https://www.facebook.com/centroculturalmichiko",
+		desc: "Eventos, avisos de exposiciones y la comunidad que empezó todo.",
+		sello: "FB",
+	},
+	{
+		nombre: "YouTube",
+		handle: "@centroculturalacademicoded7862",
+		url: "https://www.youtube.com/@centroculturalacademicoded7862",
+		desc: "Demostraciones, presentaciones y el método Oriental explicado.",
+		sello: "YT",
+	},
+	{
+		nombre: "TikTok",
+		handle: "@arte_michiko",
+		url: "https://www.tiktok.com",
+		desc: "Procesos en corto: del trazo al resultado en sesenta segundos.",
+		sello: "TK",
+	},
+];
+
+const obras = [
+	{
+		src: "https://placehold.co/600x750/F5F0E6/11110E?text=Retrato+a+grafito",
+		alt: "Retrato a grafito de alumna",
+		autor: "Alumna · 2024",
+		tecnica: "Grafito sobre papel",
+	},
+	{
+		src: "https://placehold.co/600x750/EDE3D0/11110E?text=Bodegon+al+oleo",
+		alt: "Bodegón al óleo de alumno",
+		autor: "Alumno · 2024",
+		tecnica: "Óleo sobre tela",
+	},
+	{
+		src: "https://placehold.co/600x750/11110E/D4AF37?text=Tinta+china",
+		alt: "Paisaje en tinta china",
+		autor: "Alumno · 2023",
+		tecnica: "Tinta china",
+	},
+	{
+		src: "https://placehold.co/600x750/EFE6D4/11110E?text=Acuarela+floral",
+		alt: "Acuarela floral de alumna",
+		autor: "Alumna · 2025",
+		tecnica: "Acuarela",
+	},
+	{
+		src: "https://placehold.co/600x750/E2E8DF/11110E?text=Grabado+01",
+		alt: "Grabado experimental",
+		autor: "Alumno · 2024",
+		tecnica: "Grabado",
+	},
+	{
+		src: "https://placehold.co/600x750/F0EBDF/11110E?text=Carboncillo",
+		alt: "Estudio al carboncillo",
+		autor: "Alumna · 2025",
+		tecnica: "Carboncillo",
+	},
+	{
+		src: "https://placehold.co/600x750/E9DFC8/11110E?text=Paisaje+al+oleo",
+		alt: "Paisaje al óleo",
+		autor: "Alumno · 2023",
+		tecnica: "Óleo sobre tela",
+	},
+	{
+		src: "https://placehold.co/600x750/DCE7DD/11110E?text=Caligrafia",
+		alt: "Caligrafía de alumna",
+		autor: "Alumna · 2025",
+		tecnica: "Caligrafía",
+	},
+];
+
+const eventos = [
+	{
+		fecha: "SÁB 22",
+		mes: "AGO 2026",
+		hora: "11:00 – 13:00",
+		titulo: "Taller abierto de dibujo con grafito",
+		lugar: "Aula principal · CDMX",
+	},
+	{
+		fecha: "SÁB 29",
+		mes: "AGO 2026",
+		hora: "11:00 – 13:00",
+		titulo: "Exposición mensual de obra de alumnos",
+		lugar: "Sala de exposiciones",
+	},
+	{
+		fecha: "SÁB 05",
+		mes: "SEP 2026",
+		hora: "16:00 – 18:00",
+		titulo: "Sesión abierta: acuarela para principiantes",
+		lugar: "Terraza del taller",
+	},
+	{
+		fecha: "SÁB 12",
+		mes: "SEP 2026",
+		hora: "11:00 – 13:00",
+		titulo: "Charla: el sistema Oriental de ArteMichiko",
+		lugar: "Aula principal · CDMX",
+	},
+];
+---
+
+<Layout
+  title="Comunidad"
+  description="Visita las redes de ArteMichiko, conoce el trabajo de nuestros alumnos y acompáñanos en talleres y exposiciones abiertas en CDMX."
+>
+  <!-- ═══════ HERO — text reveal ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-20 md:pt-48">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-60" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="sello mb-8 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">El círculo del arte · CDMX</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Visita nuestros</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">sitios y redes</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito">
+        La academia no termina en el aula. Sigue el trabajo de los alumnos en vivo, entra a los talleres abiertos y comparte el camino.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ REDES SOCIALES — cards con hover jade ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto max-w-7xl px-6 py-20">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Redes oficiales</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        Donde el taller <span class="text-oro-brillo">respira</span>
+      </h2>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {redes.map((red) => (
+          <a
+            href={red.url}
+            target="_blank"
+            rel="noopener"
+            data-cursor
+            class="fade-up group flex flex-col border-t-2 border-tinta-negra pt-8 transition-colors duration-300 hover:border-jade-base"
+          >
+            <div class="flex items-center justify-between">
+              <span class="flex h-12 w-12 items-center justify-center rounded-sm border border-tinta-negra/20 font-mono text-sm text-tinta-grafito transition-colors duration-300 group-hover:border-jade-base group-hover:text-jade-profundo" aria-hidden="true">{red.sello}</span>
+              <span class="font-mono text-xs text-jade-profundo opacity-0 transition-all duration-300 group-hover:opacity-100" aria-hidden="true">→</span>
+            </div>
+            <h3 class="mt-6 font-display text-2xl font-semibold">{red.nombre}</h3>
+            <p class="mt-1 font-mono text-xs text-tinta-humo">{red.handle}</p>
+            <p class="mt-4 flex-1 text-sm leading-relaxed text-tinta-grafito">{red.desc}</p>
+            <span class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-tinta-negra transition-colors duration-300 group-hover:text-jade-profundo">
+              Ver en {red.nombre}
+              <span aria-hidden="true">↗</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ GALERÍA DE ALUMNOS — mask reveal ═══════ -->
+  <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
+    <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-28">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Trabajo de alumnos</p>
+      <h2 class="fade-up mt-4 max-w-3xl font-display text-4xl font-semibold tracking-tight md:text-6xl">
+        Lo que el taller <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">hace posible</span>
+      </h2>
+      <p class="fade-up mt-6 max-w-xl leading-relaxed text-lienzo-hueso/70">
+        Cada pieza nació en una sesión de clase. La obra de los alumnos es la prueba pública del método.
+      </p>
+
+      <div class="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+        {obras.map((obra) => (
+          <figure class="mask-frame group relative aspect-[4/5] overflow-hidden rounded-sm" data-mask>
+            <img
+              src={obra.src}
+              alt={obra.alt}
+              loading="lazy"
+              width="600"
+              height="750"
+              class="mask-img h-full w-full object-cover"
+            />
+            <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-tinta-negra/90 to-transparent p-4 pt-10">
+              <p class="font-mono text-[11px] text-jade-claro">{obra.tecnica}</p>
+              <p class="mt-1 font-mono text-xs text-lienzo-hueso/80">{obra.autor}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <p class="fade-up mt-12 text-center font-mono text-xs tracking-[0.25em] text-lienzo-hueso/50 uppercase">
+        Obra publicada con consentimiento de autor · Parte 6.3
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ EVENTOS / TALLERES ABIERTOS ═══════ -->
+  <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="mx-auto max-w-7xl px-6 py-24">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Agenda abierta</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        Talleres y exposiciones <span class="text-oro-brillo">abiertos</span>
+      </h2>
+      <p class="fade-up mt-5 max-w-xl leading-relaxed text-tinta-grafito">
+        Entrada libre, previo registro por WhatsApp. Ven a dibujar, a mirar o simplemente a conocer el taller.
+      </p>
+
+      <div class="mt-14 divide-y divide-tinta-negra/10 border-y border-tinta-negra/10">
+        {eventos.map((ev) => (
+          <article class="fade-up group flex flex-col gap-6 py-8 transition-colors duration-300 md:flex-row md:items-center md:gap-12">
+            <div class="flex shrink-0 items-center gap-4 md:w-48">
+              <div class="flex h-16 w-16 flex-col items-center justify-center border-2 border-tinta-negra text-center transition-colors duration-300 group-hover:border-jade-base">
+                <span class="font-display text-lg leading-none font-semibold text-tinta-negra">{ev.fecha}</span>
+                <span class="mt-1 font-mono text-[10px] tracking-widest text-tinta-humo">{ev.mes}</span>
+              </div>
+              <p class="font-mono text-xs text-jade-profundo">{ev.hora}</p>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-display text-2xl font-semibold transition-colors duration-300 group-hover:text-jade-profundo">{ev.titulo}</h3>
+              <p class="mt-2 font-mono text-xs tracking-[0.2em] text-tinta-humo uppercase">{ev.lugar}</p>
+            </div>
+            <a
+              href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20quiero%20registrarme%20a%20un%20taller%20abierto"
+              target="_blank"
+              rel="noopener"
+              data-cursor
+              class="shrink-0 self-start rounded-full border border-tinta-negra px-6 py-3 text-sm font-medium transition-all duration-300 hover:border-jade-base hover:text-jade-profundo md:self-center"
+            >
+              Reservar lugar
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Tinta lavada sumi-e */
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0, 166, 107, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212, 175, 55, 0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17, 17, 14, 0.04), transparent 60%);
+  }
+
+  /* Mask reveal de imágenes */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // Text reveal del hero
+    gsap.set(".reveal-inner", { y: "110%" });
+    gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
+
+    // Fade-ups
+    gsap.utils.toArray(".fade-up").forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 32,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+
+    // Mask reveal de obras
+    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: frame, start: "top 85%" },
+        }
+      );
+    });
+  }
+</script>

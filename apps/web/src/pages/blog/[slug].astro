@@ -1,0 +1,375 @@
+---
+// ArteMichiko — Artículo de blog: TL;DR + H2 como pregunta + cita dorada + Article JSON-LD
+import Layout from "../../layouts/Layout.astro";
+
+interface Post {
+	slug: string;
+	categoria: string;
+	titulo: string;
+	fecha: string;
+	fechaModificada: string;
+	imagen: string;
+	tldr: string;
+	parrafos: string[];
+	preguntas: { titulo: string; respuesta: string }[];
+	cita: { texto: string; autor: string };
+}
+
+export function getStaticPaths() {
+	const posts: Post[] = [
+		{
+			slug: "guia-dibujo-grafito",
+			categoria: "Dibujo",
+			titulo: "Guía de dibujo con grafito: del trazo al volumen",
+			fecha: "2026-08-10",
+			fechaModificada: "2026-08-13",
+			imagen: "https://placehold.co/1200x700/F5F0E6/11110E?text=Grafito",
+			tldr: "El grafito se domina en tres etapas — trazo, valores y volumen — con lápices 2H a 6B y dos horas de práctica diaria. No necesitas borrar: necesitas entender la luz.",
+			parrafos: [
+				"El grafito es el medio más honesto del taller. No esconde errores ni los disculpa: cada presión, cada dirección del trazo, queda registrada en el papel. Por eso es el fundamento de nuestro sistema Oriental — antes del color, el alumno aprende a ver en negro, blanco y gris.",
+				"La primera etapa es el trazo. Con lápices duros (2H a HB) se construye línea continua, segura, sin repasos. El objetivo no es un contorno perfecto sino una relación correcta entre las partes: la distancia entre los ojos, la inclinación del hombro, el peso de una sombra.",
+				"La segunda etapa son los valores. Aquí entran los lápices blandos (2B a 6B) y la técnica de veladura seca: capas finas, siempre en la misma dirección, que oscurecen sin ensuciar. Un gris medio correcto vale más que cien negros apresurados.",
+			],
+			preguntas: [
+				{
+					titulo: "¿Qué lápices necesito para empezar?",
+					respuesta:
+						"Un set de 2H, HB, 2B, 4B y 6B cubre el 100% de la práctica de primer año. Suma un papel de grano fino (90–120 g) y un lápiz difumino. No se requieren gomas de precisión al inicio: preferimos enseñar a construir luz que a corregir.",
+				},
+				{
+					titulo: "¿Cuánto tiempo de práctica se necesita para ver avance?",
+					respuesta:
+						"Con dos horas diarias, el avance es visible a las tres semanas — la primera señal es que el alumno deja de medir por intuición y empieza a ver proporciones. La práctica constante pesa más que la sesión larga ocasional.",
+				},
+			],
+			cita: {
+				texto: "Dibujar es decidir qué luz se queda y qué sombra se va.",
+				autor: "Profr. José Guadalupe Cabrera · fundador",
+			},
+		},
+		{
+			slug: "el-oleo-y-sus-veladuras",
+			categoria: "Pintura",
+			titulo: "El óleo y sus veladuras: pintar con luz",
+			fecha: "2026-08-02",
+			fechaModificada: "2026-08-13",
+			imagen: "https://placehold.co/1200x700/EDE3D0/11110E?text=Oleo",
+			tldr: "La veladura es una capa de óleo diluido en médium que deja ver la capa inferior. Se aplica sobre capa seca, siempre de oscuro a claro, y es la técnica que da profundidad real a la piel y a la tela.",
+			parrafos: [
+				"Velar es pintar con transparencia. En lugar de mezclar el color en la paleta, se superponen capas delgadas de pigmento diluido: la luz atraviesa cada velo, rebota en la capa blanca de abajo y vuelve al ojo del espectador con una profundidad que ninguna mezcla directa reproduce.",
+				"La regla del taller es sencilla: capa grasa sobre capa seca. Cada veladura espera al menos 48 horas antes de recibir la siguiente. La prisa es el único enemigo real del óleo — por eso nuestros cursos de pintura enseñan a trabajar varias obras en paralelo.",
+				"El médium importa tanto como el pigmento. Una veladura con exceso de aceite se cuartea en meses; una con exceso de disolvente se apaga. La proporción correcta — dos partes de médium por una de pigmento — es la primera lección de alquimia del alumno.",
+			],
+			preguntas: [
+				{
+					titulo: "¿Cuánto tarda en secar una veladura?",
+					respuesta:
+						"Entre 24 y 48 horas en condiciones normales de CDMX, según el pigmento y la humedad. Los blancos y los tierras secan más lento; los sienas y umbras, más rápido. Nunca se vela sobre capa fresca.",
+				},
+				{
+					titulo: "¿Se puede usar la veladura en otras técnicas?",
+					respuesta:
+						"Sí — el mismo principio de capas transparentes se traslada al acrílico (con médium acrílico) y, con reservas, a la acuarela. En ArteMichiko se enseña primero en óleo, donde el control del secado es más generoso.",
+				},
+			],
+			cita: {
+				texto: "El óleo no se termina: se deja respirar entre velos.",
+				autor: "Docente de pintura · ArteMichiko",
+			},
+		},
+		{
+			slug: "acuarela-agua-y-pigmento",
+			categoria: "Acuarela",
+			titulo: "Acuarela: agua y pigmento en equilibrio",
+			fecha: "2026-07-21",
+			fechaModificada: "2026-08-13",
+			imagen: "https://placehold.co/1200x700/EFE6D4/11110E?text=Acuarela",
+			tldr: "En acuarela el agua manda: controlar la humedad del papel (seco, húmedo o mojado) define el 90% del resultado. Trabaja siempre de claro a oscuro y reserva el blanco del papel.",
+			parrafos: [
+				"La acuarela es el medio de la confianza. No hay corrección que no deje huella, así que el alumno aprende a decidir antes de tocar el papel. Esa disciplina — decidir, luego hacer — es exactamente lo que el sistema Oriental cultiva.",
+				"El control del agua se entrena en tres estados: papel seco (bordes definidos), papel húmedo (bordes suaves) y papel mojado (veladuras que se funden solas). Cada estado produce un lenguaje distinto, y el alumno avanza dominándolos en ese orden.",
+				"El blanco es el papel. Los principiantes compran blanco opaco y pierden la transparencia; el estudiante avanzado reserva las luces con gesto seguro y deja que el agua haga el resto.",
+			],
+			preguntas: [
+				{
+					titulo: "¿Qué papel usar para acuarela?",
+					respuesta:
+						"Algodón, de 300 g/m² como mínimo, prensado en frío para la práctica general. Un papel de celulosa delgada se ondula y mata la técnica antes de empezar. Es el único material donde no conviene economizar.",
+				},
+				{
+					titulo: "¿Por qué la acuarela se ve sucia?",
+					respuesta:
+						"Por mezclar tres pigmentos o más, o por retocar sobre zonas húmedas que ya no debían moverse. La regla: máximo dos pigmentos por mezcla, y una pincelada que se deja vivir.",
+				},
+			],
+			cita: {
+				texto: "En acuarela, el agua es la que dibuja; el alumno solo la guía.",
+				autor: "Docente de acuarela · ArteMichiko",
+			},
+		},
+		{
+			slug: "grabado-experimental",
+			categoria: "Grabado",
+			titulo: "Grabado experimental: presión, tinta y papel",
+			fecha: "2026-07-08",
+			fechaModificada: "2026-08-13",
+			imagen: "https://placehold.co/1200x700/E2E8DF/11110E?text=Grabado",
+			tldr: "El grabado es imagen por transferencia — placa, tinta y presión — y se puede empezar con linóleo y cuchara de madera, sin tórculo. Cada impresión es original: ese es su misterio y su economía.",
+			parrafos: [
+				"Grabar es dibujar al revés y dos veces: primero se piensa la imagen en espejo, después se confía en que la prensa devolverá lo que la placa prometió. No hay medio que enseñe más sobre la relación entre gesto y resultado.",
+				"El linóleo es la puerta de entrada: blando, barato y perdonador. Con gubias y una cuchara de madera como prensa doméstica, el alumno produce su primera edición en una sesión. De ahí se escala a punta seca, a la madera y, para los pacientes, a la técnica interna de entintado a mano.",
+				"La tinta de grabado no es tinta común: es más densa, se entinta con rodillo y pide un papel que la reciba sin romperse. El taller enseña a leer la primera prueba — la famosa 'prueba de estado' — como un maestro silencioso.",
+			],
+			preguntas: [
+				{
+					titulo: "¿Necesito un tórculo para grabar?",
+					respuesta:
+						"No para empezar: linóleo + gubias + cuchara de madera + papel de arroz producen ediciones reales. El tórculo llega cuando la técnica lo pide — normalmente con punta seca y madera.",
+				},
+				{
+					titulo: "¿Todas las impresiones son iguales?",
+					respuesta:
+						"No, y esa es la virtud: cada estampa de una edición es original por presión y entintado. Se numeran (1/10, 2/10…) como testimonio de que ninguna es copia de la otra.",
+				},
+			],
+			cita: {
+				texto: "La prensa no imprime la placa: imprime la intención.",
+				autor: "Docente de grabado · ArteMichiko",
+			},
+		},
+		{
+			slug: "exposiciones-cdmx",
+			categoria: "Comunidad",
+			titulo: "Exposiciones de arte en CDMX este mes",
+			fecha: "2026-08-01",
+			fechaModificada: "2026-08-13",
+			imagen: "https://placehold.co/1200x700/11110E/D4AF37?text=CDMX",
+			tldr: "Agosto en CDMX ofrece tres circuitos: los museos grandes (MUAC, MUNAL, Tamayo), las galerías de Roma–Juárez, y la sala propia de ArteMichiko, donde los alumnos exponen obra el último sábado de cada mes.",
+			parrafos: [
+				"La Ciudad de México es una de las capitales del arte de América Latina, y un alumno de academia no debe vivirla por fotografía. El taller organiza salidas mensuales: se visita, se dibuja en sala y se regresa a clase con lo aprendido.",
+				"El circuito de museos grandes cambia cada temporada. En agosto, la recomendación del taller es empezar por el MUAC para arte contemporáneo y cerrar con el MUNAL para pintura académica — los dos extremos entre los que trabaja nuestro sistema.",
+				"El circuito de galerías de Roma–Juárez es el mejor entrenamiento de ojo: piezas a la altura, precios reales y conversación directa con los artistas. Los alumnos avanzados lo recorren con cuaderno de notas obligatorio.",
+				"Y está la sala propia: el último sábado de cada mes, la obra del trimestre se monta en la sala de exposiciones de la academia. Entrada libre, registro por WhatsApp. Es la cita fija de la comunidad de ArteMichiko.",
+			],
+			preguntas: [
+				{
+					titulo: "¿Las salidas a museos tienen costo adicional?",
+					respuesta:
+						"No para alumnos activos: el boleto y la guía del docente van incluidos. Los acompañantes externos pagan su entrada en taquilla. La salida mensual se anuncia con una semana de anticipación en el grupo de WhatsApp.",
+				},
+				{
+					titulo: "¿Puedo exponer mi obra en la sala de la academia?",
+					respuesta:
+						"Sí: al cerrar cada trimestre, los docentes seleccionan obra de todos los niveles — no solo de avanzados. La primera exposición de un alumno suele ser en esta sala.",
+				},
+			],
+			cita: {
+				texto:
+					"Un artista que no visita exposiciones es un músico que no escucha.",
+				autor: "Profr. José Guadalupe Cabrera · fundador",
+			},
+		},
+		{
+			slug: "un-dia-en-artemichiko",
+			categoria: "Recorrido del alumno",
+			titulo: "Un día en ArteMichiko: el recorrido de un alumno",
+			fecha: "2026-07-15",
+			fechaModificada: "2026-08-13",
+			imagen: "https://placehold.co/1200x700/F0EBDF/11110E?text=El+taller",
+			tldr: "Una sesión real dura tres horas: media de corrección individual, dos de práctica guiada y media de revisión colectiva. Sin evaluación punitiva — la obra del trimestre se exhibe en la sala de la academia.",
+			parrafos: [
+				"Llego diez minutos antes. La sala huele a trementina y papel; alguien ya trabaja en un bodegón de la semana pasada. El docente saluda por nombre — aquí nadie es una matrícula.",
+				"La primera media hora es corrección individual: cada alumno muestra su trabajo de casa y recibe observaciones específicas. No hay calificaciones, hay criterio. 'Tu valor medio está mejor que la semana pasada — ahora trabaja el borde suave', me dice.",
+				"Las siguientes dos horas son práctica guiada. El docente circula, detiene, corrige en vivo. Se trabaja en silencio conversado — la concentración aquí es colectiva, no solitaria. Cuando dudo en una sombra, la mano del maestro dibuja junto a la mía, no sobre ella.",
+				"La última media hora es revisión colectiva: las obras del día se cuelgan juntas y todos miramos. Se aprende tanto de la obra ajena como de la propia. El sello 印 se estampa solo en la pieza que el alumno — y no el docente — considera terminada.",
+			],
+			preguntas: [
+				{
+					titulo: "¿Necesito experiencia previa para inscribirme?",
+					respuesta:
+						"No. El sistema Oriental de ArteMichiko está pensado para revelar talento desde cero — los grupos se organizan por nivel de observación, no por años de práctica. La mayoría de nuestros alumnos nunca había dibujado.",
+				},
+				{
+					titulo: "¿Qué materiales llevo el primer día?",
+					respuesta:
+						"Solo cuaderno y lápiz. El primer trimestre se trabaja con grafito y papel; los materiales de pintura se van incorporando cuando el método lo indica. La academia entrega la lista exacta en la primera sesión.",
+				},
+			],
+			cita: {
+				texto:
+					"Aquí nadie es una matrícula: todos son una mirada en formación.",
+				autor: "Alumna de tercer trimestre · 2026",
+			},
+		},
+	];
+
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
+
+const { post } = Astro.props as { post: Post };
+
+const articleSchema = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: post.titulo,
+	datePublished: post.fecha,
+	dateModified: post.fechaModificada,
+	image: post.imagen,
+	articleSection: post.categoria,
+	inLanguage: "es-MX",
+	author: {
+		"@type": "Organization",
+		name: "ArteMichiko — Centro Cultural Académico de Dibujo y Pintura Artística",
+		url: "https://artemichiko.com",
+	},
+	publisher: {
+		"@type": "Organization",
+		name: "ArteMichiko",
+		logo: {
+			"@type": "ImageObject",
+			url: "https://artemichiko.com/favicon.svg",
+		},
+	},
+	mainEntityOfPage: `https://artemichiko.com/blog/${post.slug}`,
+};
+---
+
+<Layout title={post.titulo} description={post.tldr}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <!-- ═══════ CABECERA DEL ARTÍCULO ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-14 md:pt-48">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-4xl px-6">
+      <div class="flex flex-wrap items-center gap-4">
+        <a href="/blog" data-cursor class="font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase transition-colors hover:text-jade-tinta">← Revista</a>
+        <span class="h-px w-8 bg-tinta-negra/20" aria-hidden="true"></span>
+        <p class="font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">{post.categoria}</p>
+      </div>
+
+      <h1 class="mt-8 font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-6xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inline inline-block">{post.titulo}</span></span>
+      </h1>
+
+      <div class="mt-6 flex items-center gap-4 font-mono text-xs text-tinta-humo">
+        <time datetime={post.fecha}>Publicado {post.fecha}</time>
+        <span aria-hidden="true">·</span>
+        <time datetime={post.fechaModificada}>Actualizado {post.fechaModificada}</time>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ IMAGEN DE PORTADA ═══════ -->
+  <div class="mx-auto max-w-5xl px-6">
+    <figure class="mask-frame overflow-hidden rounded-sm" data-mask>
+      <img src={post.imagen} alt={post.titulo} loading="lazy" width="1200" height="700" class="mask-img aspect-[12/7] w-full object-cover" />
+    </figure>
+  </div>
+
+  <!-- ═══════ CUERPO ═══════ -->
+  <article class="mx-auto max-w-3xl px-6 py-14 md:py-20">
+    <!-- TL;DR — respuesta directa (plantilla AEO/GEO) -->
+    <div class="fade-up border-l-2 border-oro-brillo bg-lienzo-hueso/60 p-6 md:p-8">
+      <p class="font-mono text-xs tracking-[0.25em] text-oro-viejo uppercase">TL;DR</p>
+      <p class="mt-3 text-lg leading-relaxed font-medium text-tinta-negra">{post.tldr}</p>
+    </div>
+
+    <div class="fade-up mt-12 space-y-7 text-lg leading-relaxed text-tinta-grafito">
+      {post.parrafos.map((p) => (
+        <p>{p}</p>
+      ))}
+    </div>
+
+    <!-- Cita destacada — borde dorado -->
+    <blockquote class="fade-up my-14 border-l-2 border-oro-brillo pl-8 md:pl-10">
+      <p class="font-display text-2xl leading-snug font-medium text-tinta-negra md:text-3xl">
+        “{post.cita.texto}”
+      </p>
+      <footer class="mt-5 font-mono text-xs tracking-[0.2em] text-tinta-humo uppercase">— {post.cita.autor}</footer>
+    </blockquote>
+
+    <!-- H2 como preguntas — AEO -->
+    <div class="mt-4 space-y-12">
+      {post.preguntas.map((q) => (
+        <section class="fade-up">
+          <h2 class="font-display text-2xl font-semibold tracking-tight md:text-3xl">{q.titulo}</h2>
+          <p class="mt-4 text-lg leading-relaxed text-tinta-grafito">{q.respuesta}</p>
+        </section>
+      ))}
+    </div>
+
+    <!-- CTA de cierre -->
+    <div class="fade-up mt-16 border-t border-tinta-negra/10 pt-10 text-center">
+      <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">¿Esto se practica en el taller?</p>
+      <p class="mx-auto mt-4 max-w-md leading-relaxed text-tinta-grafito">
+        Sí. Cada guía de la revista corresponde a una técnica que se enseña en ArteMichiko, con docente en sala y corrección individual.
+      </p>
+      <a
+        href="/inscripcion"
+        data-cursor
+        class="mt-8 inline-block rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo"
+      >
+        Conocer los cursos
+      </a>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Mask reveal de imágenes */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // Text reveal del título
+    gsap.set(".reveal-inline", { y: "110%" });
+    gsap.to(".reveal-inline", { y: "0%", duration: 1, ease: "power4.out" });
+
+    // Fade-ups
+    gsap.utils.toArray(".fade-up").forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 32,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+
+    // Mask reveal de la portada
+    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: frame, start: "top 85%" },
+        }
+      );
+    });
+  }
+</script>

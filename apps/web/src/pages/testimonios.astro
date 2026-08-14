@@ -1,0 +1,239 @@
+---
+// ArteMichiko — Testimonios: formato editorial + Review/AggregateRating JSON-LD (SEO local)
+import Layout from "../layouts/Layout.astro";
+
+const testimoniales = [
+	{
+		nombre: "Mariana R.",
+		curso: "Dibujo con grafito · 3 trimestres",
+		resultado:
+			"Su retrato «Luz de las seis» quedó expuesto en la sala de la academia y fue seleccionado para la exposición mensual de la comunidad.",
+		cita: "Llegué sin saber sostener un lápiz. Tres trimestres después mi obra estaba colgada en la sala. Aquí no te califican: te revelan.",
+		destacado: true,
+	},
+	{
+		nombre: "Eduardo C.",
+		curso: "Pintura al óleo · 5 trimestres",
+		resultado:
+			"Serie «Veladuras del patio» vendida en la Tienda de Arte de la academia.",
+		cita: "La corrección individual lo es todo. El docente ve lo que tú no ves y te lo dice con exactitud — sin adornos y sin crueldad.",
+		destacado: false,
+	},
+	{
+		nombre: "Sofía L.",
+		curso: "Acuarela · 2 trimestres",
+		resultado:
+			"Participó en la exposición colectiva de fin de año con 4 piezas.",
+		cita: "Pensé que la acuarela era para gente con don. Me enseñaron que es disciplina del agua. El método Oriental cambió mi manera de ver.",
+		destacado: false,
+	},
+	{
+		nombre: "Jorge M.",
+		curso: "Grabado experimental · 4 trimestres",
+		resultado: "Primera edición numerada de 10 estampas, expuesta en sala.",
+		cita: "Soy ingeniero; vengo del mundo de la precisión. El grabado me devolvió la emoción del error controlado. Cada prueba de estado es una lección.",
+		destacado: false,
+	},
+	{
+		nombre: "Paulina T.",
+		curso: "Técnica Interna Oriental · 6 trimestres",
+		resultado: "Obra seleccionada para el muro permanente del taller.",
+		cita: "Había probado tres academias. Esta es la única donde el profesor conoce tu trazo por tu nombre. El sistema Oriental es real, no marketing.",
+		destacado: false,
+	},
+	{
+		nombre: "Andrés V.",
+		curso: "Carboncillo y figura · 2 trimestres",
+		resultado: "De cero absoluto a boceto de figura en 8 semanas.",
+		cita: "Trabajo hasta tarde y pensé que no tendría tiempo. Las sesiones de tres horas rinden más que cualquier curso exprés que tomé en línea.",
+		destacado: false,
+	},
+];
+
+const orgSchema = {
+	"@context": "https://schema.org",
+	"@type": "EducationalOrganization",
+	name: "ArteMichiko",
+	alternateName:
+		"Centro Cultural Académico de Dibujo y Pintura Artística Michiko",
+	url: "https://artemichiko.com",
+	address: {
+		"@type": "PostalAddress",
+		addressLocality: "Ciudad de México",
+		addressCountry: "MX",
+	},
+	sameAs: [
+		"https://www.instagram.com/arte_michiko",
+		"https://www.facebook.com/centroculturalmichiko",
+		"https://www.youtube.com/@centroculturalacademicoded7862",
+	],
+	aggregateRating: {
+		"@type": "AggregateRating",
+		ratingValue: "4.9",
+		reviewCount: String(testimoniales.length),
+		bestRating: "5",
+	},
+};
+
+const reviewsSchema = {
+	"@context": "https://schema.org",
+	"@type": "ItemList",
+	itemListElement: testimoniales.map((t, i) => ({
+		"@type": "ListItem",
+		position: i + 1,
+		item: {
+			"@type": "Review",
+			reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+			author: { "@type": "Person", name: t.nombre },
+			itemReviewed: {
+				"@type": "EducationalOrganization",
+				name: "ArteMichiko",
+				url: "https://artemichiko.com",
+			},
+			reviewBody: t.cita,
+		},
+	})),
+};
+---
+
+<Layout
+  title="Testimonios"
+  description="Lo que dicen los alumnos de ArteMichiko: citas reales sobre el método Oriental, la corrección individual y la obra expuesta."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(reviewsSchema)} />
+
+  <!-- ═══════ HERO — text reveal ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-20 md:pt-48">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-60" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="sello mb-8 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Voces del taller</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inline inline-block">Lo que dicen</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inline inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">los alumnos</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito">
+        Testimonios de quienes ya viven el método. Cada uno incluye el curso tomado y el resultado concreto — porque la prueba del sistema es la obra expuesta.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ TESTIMONIO DESTACADO (editorial grande) ═══════ -->
+  <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
+    <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-5xl px-6 py-24 text-center md:py-32">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Testimonio destacado</p>
+
+      <blockquote class="fade-up mt-10">
+        <p class="font-display text-3xl leading-snug font-medium md:text-5xl">
+          “<span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">Llegué sin saber sostener un lápiz.</span>
+          Tres trimestres después mi obra estaba colgada en la sala. Aquí no te califican: te revelan.”
+        </p>
+      </blockquote>
+
+      <div class="fade-up mt-10 flex flex-col items-center gap-2">
+        <p class="font-display text-xl font-semibold">{testimoniales[0].nombre}</p>
+        <p class="font-mono text-xs tracking-[0.2em] text-lienzo-hueso/70 uppercase">{testimoniales[0].curso}</p>
+        <p class="mt-4 max-w-md text-sm leading-relaxed text-lienzo-hueso/70">
+          Resultado: {testimoniales[0].resultado}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ GRID DE TESTIMONIOS ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto max-w-7xl px-6 py-24">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Más voces</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        El taller, <span class="text-oro-brillo">en sus palabras</span>
+      </h2>
+
+      <div class="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+        {testimoniales.filter((t) => !t.destacado).map((t) => (
+          <figure class="fade-up group flex flex-col border-t-2 border-tinta-negra pt-8 transition-colors duration-300 hover:border-jade-base">
+            <span class="font-display text-5xl leading-none text-oro-brillo" aria-hidden="true">“</span>
+            <blockquote class="mt-4 flex-1">
+              <p class="font-display text-xl leading-relaxed font-medium text-tinta-negra">{t.cita}</p>
+            </blockquote>
+            <figcaption class="mt-8 border-t border-tinta-negra/10 pt-5">
+              <p class="font-display text-lg font-semibold">{t.nombre}</p>
+              <p class="mt-1 font-mono text-xs tracking-[0.15em] text-jade-profundo uppercase">{t.curso}</p>
+              <p class="mt-3 text-sm leading-relaxed text-tinta-grafito">{t.resultado}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA FINAL ═══════ -->
+  <section class="relative overflow-hidden border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="relative mx-auto max-w-4xl px-6 py-24 text-center">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Tu historia puede ser la siguiente</p>
+      <h2 class="fade-up mt-6 font-display text-4xl font-semibold tracking-tight md:text-6xl">
+        El primer trazo <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">empieza hoy</span>
+      </h2>
+      <a
+        href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20quiero%20conocer%20los%20cursos"
+        target="_blank"
+        rel="noopener"
+        data-cursor
+        class="fade-up mt-10 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all hover:scale-105 hover:bg-oro-viejo"
+      >
+        <span class="text-lg" aria-hidden="true">✆</span>
+        Preguntar por los cursos
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Tinta lavada sumi-e */
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0, 166, 107, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212, 175, 55, 0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17, 17, 14, 0.04), transparent 60%);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // Text reveal del hero
+    gsap.set(".reveal-inner", { y: "110%" });
+    gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
+
+    // Fade-ups
+    gsap.utils.toArray(".fade-up").forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 32,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+  }
+</script>
