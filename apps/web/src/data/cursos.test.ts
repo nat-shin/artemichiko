@@ -5,7 +5,10 @@ import { describe, expect, it } from "vitest";
 // Este test valida la estructura del bloque declarado para detectar drift accidental
 // (un curso sin docente o con slug duplicado rompería catálogo y fichas /cursos/[slug]).
 
-const src = readFileSync(new URL("./cursos.astro", import.meta.url), "utf8");
+const src = readFileSync(
+	new URL("../pages/cursos.astro", import.meta.url),
+	"utf8",
+);
 
 function bloqueCursos(fuente: string): string {
 	const inicio = fuente.indexOf("const cursos = [");
