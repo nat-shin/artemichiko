@@ -70,12 +70,6 @@ const faqJson = JSON.stringify(faqSchema);
   <script type="application/ld+json" is:inline set:html={faqJson} />
 
   <!-- Estado inicial de animación: se aplica ANTES del primer paint (sin JS = contenido visible) -->
-  <script is:inline>
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      document.documentElement.classList.add("anim-ready");
-    }
-  </script>
-
   <!-- ═══════ HERO ═══════ -->
   <section class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-24" aria-labelledby="faq-titulo">
     <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>

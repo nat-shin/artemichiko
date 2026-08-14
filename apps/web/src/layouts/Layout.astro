@@ -375,6 +375,10 @@ const {
     </style>
 
     <script>
+      // anim-ready: activa animaciones si el usuario no prefiere motion reducida
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("anim-ready");
+      }
       // ── Lenis smooth scroll (base de toda la sensación premium) ──
       import Lenis from "lenis";
       import { gsap } from "gsap";
