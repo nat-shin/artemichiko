@@ -185,3 +185,95 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .back-to-top { transition: none; }
 }
+
+/* ═══════════ MÓVIL GLOBAL — overflow, viewport, a11y, safe-areas ═══════════ */
+
+/* ── 1. Overflow horizontal ──
+   `hidden` en html/body rompe position:sticky (la galería usa sticky
+   zoom-parallax): convierte el elemento en scroll container y el sticky
+   deja de pegarse. `clip` recorta sin crear scroll container → sticky
+   intacto. Fallback `hidden` solo para navegadores sin soporte de clip. */
+html,
+body {
+  overflow-x: hidden;
+}
+@supports (overflow: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+/* ── 2. Viewport dinámico ──
+   100vh es más alto que lo visible en móvil (barras del navegador) →
+   secciones full-screen se desbordan. 100dvh mide el viewport visible
+   real. Override de las utilities de Tailwind (dvh con fallback vh para
+   navegadores sin soporte). */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.h-screen {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* ── 3. Skip-link (WCAG 2.4.1) — fuera de pantalla, visible en foco ── */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 1rem;
+  z-index: 10000;
+  transform: translateY(-150%);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  background: var(--color-tinta-negra);
+  color: var(--color-lienzo-blanco);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--color-oro-brillo);
+  outline-offset: 2px;
+}
+
+/* ── 4. Safe areas (notch / home indicator) ──
+   max() mantiene el padding base donde env() es 0. */
+.site-header nav {
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+}
+.site-footer .footer-inner {
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+  padding-bottom: max(3rem, env(safe-area-inset-bottom));
+}
+.back-to-top {
+  bottom: max(24px, env(safe-area-inset-bottom));
+}
+
+/* ── 5. Touch targets ≥44px (WCAG 2.5.8) — header en móvil ── */
+@media (max-width: 767px) {
+  .site-header .search-trigger {
+    /* min-* gana sobre el width/height scoped de Search.astro (40px) sin !important */
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .site-header a.btn-magnetic {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+}
+
+/* ── 6. Sin auto-zoom de texto en móvil (iOS Safari al rotar / focar input) ── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}

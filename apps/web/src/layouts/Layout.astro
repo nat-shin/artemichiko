@@ -67,6 +67,9 @@ const {
     </script>
   </head>
   <body class="bg-lienzo-blanco text-tinta-negra font-sans antialiased">
+    <!-- Skip-link a11y (WCAG 2.4.1 Bypass Blocks): visible solo al recibir foco -->
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+
     <!-- Scroll progress (barra dorada de lectura) -->
     <div id="scroll-progress" class="fixed top-0 left-0 z-[9997] h-[2px] w-0 bg-oro-brillo" aria-hidden="true"></div>
 
@@ -109,12 +112,12 @@ const {
       </nav>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <slot />
     </main>
 
-    <footer class="mt-24 border-t border-tinta-negra/10 bg-tinta-negra text-lienzo-blanco">
-      <div class="mx-auto max-w-7xl px-6 py-12">
+    <footer class="site-footer mt-24 border-t border-tinta-negra/10 bg-tinta-negra text-lienzo-blanco">
+      <div class="footer-inner mx-auto max-w-7xl px-6 py-12">
         <div class="flex flex-col items-start justify-between gap-8 md:flex-row">
           <div>
             <p class="font-display text-xl">Arte<span class="text-oro-brillo">Michiko</span></p>
