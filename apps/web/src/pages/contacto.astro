@@ -84,6 +84,15 @@ const localBusiness = {
 };
 
 const localBusinessJson = JSON.stringify(localBusiness);
+
+// Google Maps embebido sin API key (el link share de Google resolvió a una búsqueda, no a un embed pb=)
+const mapaEmbed =
+	"https://www.google.com/maps?q=Av.+Revoluci%C3%B3n+718-101,+San+Jos%C3%A9+Insurgentes,+Ciudad+de+M%C3%A9xico&output=embed";
+const mapaRuta =
+	"https://www.google.com/maps/dir/?api=1&destination=Av.+Revoluci%C3%B3n+718-101,+03910+CDMX";
+
+// CSP: permite el iframe de Google Maps solo en esta página (sin tocar astro.config.mjs)
+Astro.csp.insertDirective("frame-src https://www.google.com");
 ---
 
 <Layout
@@ -177,22 +186,28 @@ const localBusinessJson = JSON.stringify(localBusiness);
         </div>
       </div>
 
-      <!-- Mapa placeholder -->
+      <!-- Mapa — Google Maps embebido -->
       <div class="fade-up lg:col-span-2">
-        <div class="relative flex aspect-[4/5] flex-col items-center justify-center overflow-hidden rounded-sm bg-tinta-negra text-lienzo-blanco lg:aspect-auto lg:h-full lg:min-h-[480px]">
-          <div class="grain absolute inset-0 pointer-events-none opacity-30" aria-hidden="true"></div>
-          <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(245,240,230,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,230,0.12) 1px, transparent 1px); background-size: 44px 44px;" aria-hidden="true"></div>
-          <div class="relative text-center">
-            <svg viewBox="0 0 24 24" class="mx-auto h-12 w-12 text-oro-brillo" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z" />
-              <circle cx="12" cy="10" r="2.5" />
-            </svg>
-            <p class="mt-6 font-mono text-xs tracking-[0.3em] text-oro-brillo uppercase">Mapa — ubicación</p>
-            <p class="mt-3 max-w-xs px-6 text-sm leading-relaxed text-lienzo-hueso/70">
-              {NAP.calle}, {NAP.colonia}, {NAP.ciudad}. Pronto: mapa interactivo con ruta desde tu zona.
-            </p>
-          </div>
+        <div class="relative aspect-[4/5] overflow-hidden rounded-md border border-oro-viejo/50 bg-lienzo-hueso lg:aspect-auto lg:h-full lg:min-h-[480px]">
+          <iframe
+            src={mapaEmbed}
+            title="Mapa de Google Maps — ArteMichiko, Av. Revolución 718-101, San José Insurgentes, Ciudad de México"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+            class="absolute inset-0 h-full w-full border-0"
+          ></iframe>
         </div>
+        <a
+          href={mapaRuta}
+          target="_blank"
+          rel="noopener"
+          data-cursor
+          class="mt-6 inline-flex items-center gap-2 rounded-full border border-tinta-negra px-8 py-4 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo"
+        >
+          Cómo llegar
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </section>
