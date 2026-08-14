@@ -1,0 +1,197 @@
+---
+// ArteMichiko — Ficha de obra individual
+// Identidad: blanco/negro/dorado/jade · acento según colorTheme (jade/oro/neutro)
+// Entrada suave: View Transitions nativas cross-document (@view-transition en global.css)
+import Layout from "../../layouts/Layout.astro";
+import { obras } from "../../data/obras";
+
+export function getStaticPaths() {
+	return obras.map((obra) => ({
+		params: { slug: obra.slug },
+		props: { obra },
+	}));
+}
+
+const { obra } = Astro.props;
+
+// Relacionadas: primero misma técnica, luego el resto de la colección
+const relacionadas = [
+	...obras.filter((o) => o.slug !== obra.slug && o.tecnica === obra.tecnica),
+	...obras.filter((o) => o.slug !== obra.slug && o.tecnica !== obra.tecnica),
+].slice(0, 3);
+---
+
+<Layout title={obra.titulo} description={`${obra.titulo} — ${obra.tecnica}, ${obra.ano}. ${obra.descripcion}`}>
+  <article class="relative overflow-hidden pt-32 pb-24 md:pt-40">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-6">
+
+      <!-- ═══════ VOLVER ═══════ -->
+      <a
+        href="/galeria"
+        data-cursor
+        class="fade-up group inline-flex items-center gap-3 font-mono text-xs tracking-[0.25em] text-tinta-grafito uppercase transition-colors hover:text-jade-profundo"
+      >
+        <span class="inline-block transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-1.5" aria-hidden="true">←</span>
+        Volver a la galería
+      </a>
+
+      <!-- ═══════ OBRA ═══════ -->
+      <div class="mt-10 grid gap-12 lg:grid-cols-2 lg:gap-20">
+        <figure class="mask-frame relative aspect-[3/4] overflow-hidden rounded-sm bg-lienzo-hueso" data-mask>
+          <img
+            src={obra.imagen}
+            alt={`${obra.titulo} — ${obra.tecnica}, ${obra.ano}`}
+            width="800"
+            height="1000"
+            class="mask-img h-full w-full object-cover"
+            data-parallax
+          />
+          <span class={`tema-${obra.colorTheme} absolute right-5 top-5 flex h-12 w-12 items-center justify-center rounded-sm border-2 bg-lienzo-blanco/85 font-display text-lg backdrop-blur-sm`} aria-hidden="true">印</span>
+        </figure>
+
+        <div class="flex flex-col justify-center">
+          <p class={`texto-${obra.colorTheme} fade-up font-mono text-xs tracking-[0.3em] uppercase`}>{obra.tecnica}</p>
+          <h1 class="fade-up mt-4 font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-7xl">
+            {obra.titulo}
+          </h1>
+
+          <div class="fade-up mt-10 h-px w-full bg-tinta-negra/10" aria-hidden="true"></div>
+
+          <dl class="fade-up mt-8 grid grid-cols-2 gap-6 font-mono text-sm sm:grid-cols-3">
+            <div>
+              <dt class="text-xs tracking-[0.2em] text-tinta-humo uppercase">Técnica</dt>
+              <dd class="mt-2">{obra.tecnica}</dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-[0.2em] text-tinta-humo uppercase">Año</dt>
+              <dd class="mt-2 tabular-nums">{obra.ano}</dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-[0.2em] text-tinta-humo uppercase">Medidas</dt>
+              <dd class="mt-2 tabular-nums">{obra.dimensiones}</dd>
+            </div>
+          </dl>
+
+          <p class="fade-up mt-10 max-w-lg text-lg leading-relaxed text-tinta-grafito">{obra.descripcion}</p>
+
+          <div class="fade-up mt-10" aria-hidden="true">
+            <span class={`acento-${obra.colorTheme} block h-[3px] w-16`}></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ RELACIONADAS ═══════ -->
+      <section class="mt-28 border-t border-tinta-negra/10 pt-16 md:mt-36">
+        <div class="fade-up flex items-end justify-between gap-6">
+          <div>
+            <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Continúa explorando</p>
+            <h2 class="mt-3 font-display text-4xl font-semibold tracking-tight md:text-5xl">Obras relacionadas</h2>
+          </div>
+          <a href="/galeria" data-cursor class="hidden font-mono text-xs tracking-[0.25em] text-tinta-grafito uppercase transition-colors hover:text-jade-profundo sm:block">
+            Ver todas →
+          </a>
+        </div>
+
+        <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {relacionadas.map((rel) => (
+            <a href={`/galeria/${rel.slug}`} data-cursor class="group block">
+              <div class="mask-frame relative aspect-[3/4] overflow-hidden rounded-sm bg-lienzo-hueso" data-mask>
+                <img
+                  src={rel.imagen}
+                  alt={`${rel.titulo} — ${rel.tecnica}`}
+                  loading="lazy"
+                  width="800"
+                  height="1000"
+                  class="mask-img h-full w-full object-cover"
+                  data-parallax
+                />
+                <span class={`acento-${rel.colorTheme} absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100`} aria-hidden="true"></span>
+              </div>
+              <h3 class="mt-4 font-display text-xl font-semibold tracking-tight transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-1">
+                {rel.titulo}
+              </h3>
+              <p class="mt-1 font-mono text-xs tracking-[0.2em] text-tinta-humo uppercase">{rel.tecnica} · {rel.ano}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Mask reveal de imágenes: la obra "viaja dentro de su marco" */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+
+  /* Acentos por colorTheme (clases estáticas — CSP: sin style="" inline) */
+  .acento-jade { background-color: #00a86b; }
+  .acento-oro { background-color: #d4af37; }
+  .acento-neutro { background-color: #4a4a46; }
+
+  /* Sello de la obra (borde + glifo) según tema */
+  .tema-jade { border-color: #00a86b; color: #00a86b; }
+  .tema-oro { border-color: #d4af37; color: #d4af37; }
+  .tema-neutro { border-color: #4a4a46; color: #4a4a46; }
+
+  /* Etiqueta de técnica según tema (oro-viejo para contraste AA) */
+  .texto-jade { color: #00965f; }
+  .texto-oro { color: #ca9e3b; }
+  .texto-neutro { color: #4a4a46; }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // ── Fade-ups ──
+    gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 32,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+
+    // ── Mask reveal + parallax interno ──
+    gsap.utils.toArray<HTMLElement>("[data-mask]").forEach((frame) => {
+      const img = frame.querySelector(".mask-img");
+      if (!img) return;
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: frame, start: "top 85%" },
+        }
+      );
+      gsap.to(img, {
+        yPercent: -10,
+        ease: "none",
+        scrollTrigger: { trigger: frame, scrub: 0.6 },
+      });
+    });
+
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  }
+</script>

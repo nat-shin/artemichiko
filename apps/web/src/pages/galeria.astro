@@ -1,0 +1,244 @@
+---
+// ArteMichiko — Galería: grid editorial + filtrado por técnica sin recarga
+// Identidad: blanco/negro/dorado/jade · mask reveal + parallax + chips jade
+// Filtrado client-side (JS vanilla); GSAP solo anima ocultar/reordenar.
+import Layout from "../layouts/Layout.astro";
+import { obras, tecnicas } from "../data/obras";
+---
+
+<Layout title="Galería" description="Galería de obras de ArteMichiko — dibujo, pintura, grabado, acuarela, óleo y Técnica Interna. Colección del taller y del alumnado.">
+  <!-- ═══════ CABECERA ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-16 md:pt-48">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="sello mb-10 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Colección · CDMX</p>
+      </div>
+      <h1 class="fade-up max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+        Galería
+      </h1>
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito md:text-xl">
+        Obras del taller y del alumnado: cada pieza guarda un ejercicio de paciencia, tinta y silencio.
+        Filtra por técnica o recorre la colección completa.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ FILTROS (chips) ═══════ -->
+  <div class="mx-auto max-w-7xl px-6 pb-14">
+    <div class="fade-up flex flex-wrap items-center gap-3" role="group" aria-label="Filtrar por técnica">
+      <button type="button" data-filter="Todas" class="chip active" aria-pressed="true">Todas</button>
+      {tecnicas.map((t) => (
+        <button type="button" data-filter={t} class="chip" aria-pressed="false">{t}</button>
+      ))}
+    </div>
+  </div>
+
+  <!-- ═══════ GRID DE OBRAS ═══════ -->
+  <div class="mx-auto max-w-7xl px-6 pb-24">
+    <div id="grid-obras" class="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
+      {obras.map((obra, i) => (
+        <a
+          href={`/galeria/${obra.slug}`}
+          data-tecnica={obra.tecnica}
+          data-cursor
+          class="obra-card group block"
+        >
+          <div class="mask-frame relative aspect-[3/4] overflow-hidden rounded-sm bg-lienzo-hueso" data-mask>
+            <img
+              src={obra.imagen}
+              alt={`${obra.titulo} — ${obra.tecnica}, ${obra.ano}`}
+              loading="lazy"
+              width="800"
+              height="1000"
+              class="mask-img h-full w-full object-cover"
+              data-parallax
+            />
+            <span class="absolute inset-x-0 top-0 z-10 h-[3px] origin-left scale-x-0 bg-jade-base transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-x-100" aria-hidden="true"></span>
+            <span class="absolute inset-0 flex items-end bg-gradient-to-t from-tinta-negra/75 via-tinta-negra/10 to-transparent p-6 opacity-0 transition-opacity duration-500 group-hover:opacity-100" aria-hidden="true">
+              <span class="font-mono text-xs tracking-[0.25em] text-lienzo-hueso uppercase">Ver obra →</span>
+            </span>
+          </div>
+          <div class="mt-5 flex items-baseline justify-between gap-4">
+            <h2 class="font-display text-2xl font-semibold tracking-tight transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-x-1">
+              {obra.titulo}
+            </h2>
+            <span class="font-mono text-xs text-tinta-humo tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+          </div>
+          <p class="mt-1 font-mono text-xs tracking-[0.2em] text-tinta-humo uppercase">
+            {obra.tecnica} · {obra.ano}
+          </p>
+          <span class={`acento-${obra.colorTheme} mt-4 block h-px w-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full`} aria-hidden="true"></span>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Tinta lavada sumi-e */
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212,175,55,0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17,17,14,0.04), transparent 60%);
+  }
+
+  /* Mask reveal de imágenes: la obra "viaja dentro de su marco" */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+
+  /* Acentos por colorTheme (clases estáticas — CSP: sin style="" inline) */
+  .acento-jade { background-color: #00a86b; }
+  .acento-oro { background-color: #d4af37; }
+  .acento-neutro { background-color: #4a4a46; }
+
+  /* Chips de filtro */
+  .chip {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.3rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(17, 17, 14, 0.25);
+    color: var(--color-tinta-grafito);
+    background: transparent;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+  .chip:hover {
+    border-color: #00a86b;
+    color: #00965f;
+  }
+  .chip:focus-visible {
+    outline: 2px solid #00a86b;
+    outline-offset: 2px;
+  }
+  .chip.active {
+    background: #00965f;
+    border-color: #00965f;
+    color: #fdfbf7;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function init() {
+    // Limpieza defensiva por si el módulo se re-ejecuta
+    ScrollTrigger.getAll().forEach((st) => st.kill());
+
+    if (!prefersReduced) {
+      // ── Fade-ups ──
+      gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el) => {
+        gsap.from(el, {
+          opacity: 0,
+          y: 32,
+          duration: 0.9,
+          ease: "expo.out",
+          scrollTrigger: { trigger: el, start: "top 88%" },
+        });
+      });
+
+      // ── Mask reveal + parallax interno ──
+      gsap.utils.toArray<HTMLElement>("[data-mask]").forEach((frame) => {
+        const img = frame.querySelector(".mask-img");
+        if (!img) return;
+        gsap.fromTo(
+          frame,
+          { clipPath: "inset(100% 0 0 0)" },
+          {
+            clipPath: "inset(0% 0 0 0)",
+            duration: 1.2,
+            ease: "power4.out",
+            scrollTrigger: { trigger: frame, start: "top 85%" },
+          }
+        );
+        gsap.to(img, {
+          yPercent: -10,
+          ease: "none",
+          scrollTrigger: { trigger: frame, scrub: 0.6 },
+        });
+      });
+    }
+
+    // ── Filtrado client-side (lógica vanilla; GSAP solo anima) ──
+    const botones = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(".obra-card"));
+
+    botones.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        botones.forEach((b) => {
+          b.classList.remove("active");
+          b.setAttribute("aria-pressed", "false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
+        const filtro = btn.dataset.filter;
+
+        let delay = 0;
+        cards.forEach((card) => {
+          const coincide = filtro === "Todas" || card.dataset.tecnica === filtro;
+          if (coincide) {
+            card.style.display = "";
+            if (prefersReduced) {
+              card.style.opacity = "1";
+              card.style.transform = "none";
+            } else {
+              gsap.killTweensOf(card);
+              gsap.to(card, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                delay,
+                ease: "power3.out",
+                onComplete: () => {
+                  card.style.opacity = "";
+                  card.style.transform = "";
+                },
+              });
+            }
+          } else if (prefersReduced) {
+            card.style.display = "none";
+          } else {
+            gsap.killTweensOf(card);
+            gsap.to(card, {
+              opacity: 0,
+              scale: 0.95,
+              duration: 0.35,
+              ease: "power2.in",
+              onComplete: () => {
+                card.style.display = "none";
+              },
+            });
+          }
+          delay += 0.04;
+        });
+
+        if (!prefersReduced) ScrollTrigger.refresh();
+      });
+    });
+
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  }
+
+  init();
+</script>

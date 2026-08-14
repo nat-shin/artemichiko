@@ -1,6 +1,17 @@
 @import "tailwindcss";
 
 /* ============================================================
+   View Transitions nativas entre documentos (MPA)
+   Cross-fade suave entre páginas sin JS y compatible con csp:true
+   (ClientRouter es incompatible con la CSP de Astro — doc oficial).
+   Degrada sin animación donde el navegador no las soporta y
+   respeta prefers-reduced-motion automáticamente.
+   ============================================================ */
+@view-transition {
+  navigation: auto;
+}
+
+/* ============================================================
    ArteMichiko — Sistema de Diseño "Barro y Tinta" (Edición Oro)
    Paleta institucional: BLANCO + NEGRO + DORADO + JADE (poco)
    Fuente de verdad: MAESTRO E.35/E.38
