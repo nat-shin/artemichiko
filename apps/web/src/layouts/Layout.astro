@@ -1,0 +1,75 @@
+---
+// ArteMichiko — Layout base (header + footer con redes)
+// Identidad: blanco/negro/dorado/jade (E.35/E.38)
+import "../styles/global.css";
+interface Props {
+	title?: string;
+	description?: string;
+}
+const {
+	title = "ArteMichiko",
+	description = "Centro Cultural Académico de Dibujo y Pintura Artística",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} · ArteMichiko</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="bg-lienzo-blanco text-tinta-negra font-sans antialiased">
+    <header class="border-b border-tinta-negra/10">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5" aria-label="Principal">
+        <a href="/" class="font-display text-2xl font-semibold tracking-tight">
+          Arte<span class="text-oro-brillo">Michiko</span>
+        </a>
+        <ul class="hidden gap-8 text-sm tracking-wide md:flex">
+          <li><a href="/galeria" class="hover:text-oro-viejo transition-colors">Galería</a></li>
+          <li><a href="/cursos" class="hover:text-oro-viejo transition-colors">Cursos</a></li>
+          <li><a href="/comunidad" class="hover:text-oro-viejo transition-colors">Comunidad</a></li>
+          <li><a href="/nosotros" class="hover:text-oro-viejo transition-colors">Nosotros</a></li>
+        </ul>
+        <a
+          href="/inscripcion"
+          class="rounded-full bg-oro-brillo px-5 py-2 text-sm font-medium text-tinta-negra transition-colors hover:bg-oro-viejo"
+        >
+          Inscribirme
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="mt-24 border-t border-tinta-negra/10 bg-tinta-negra text-lienzo-blanco">
+      <div class="mx-auto max-w-7xl px-6 py-12">
+        <div class="flex flex-col items-start justify-between gap-8 md:flex-row">
+          <div>
+            <p class="font-display text-xl">Arte<span class="text-oro-brillo">Michiko</span></p>
+            <p class="mt-2 max-w-xs text-sm text-lienzo-hueso/70">
+              Centro Cultural Académico de Dibujo y Pintura Artística. Sistema Oriental único en México.
+            </p>
+          </div>
+          <div>
+            <p class="text-sm font-medium tracking-widest text-oro-brillo uppercase">Visita nuestras redes</p>
+            <ul class="mt-3 flex gap-4 text-sm text-lienzo-hueso/80">
+              <li><a href="https://www.instagram.com/arte_michiko" target="_blank" rel="noopener" class="hover:text-jade-base transition-colors">Instagram</a></li>
+              <li><a href="https://www.facebook.com/centroculturalmichiko" target="_blank" rel="noopener" class="hover:text-jade-base transition-colors">Facebook</a></li>
+              <li><a href="https://www.youtube.com/@centroculturalacademicoded7862" target="_blank" rel="noopener" class="hover:text-jade-base transition-colors">YouTube</a></li>
+              <li><a href="https://www.tiktok.com" target="_blank" rel="noopener" class="hover:text-jade-base transition-colors">TikTok</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="mt-10 border-t border-lienzo-blanco/10 pt-6 text-xs text-lienzo-hueso/50">
+          © {new Date().getFullYear()} ArteMichiko · CDMX
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

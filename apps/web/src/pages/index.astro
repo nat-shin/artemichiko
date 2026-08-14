@@ -1,17 +1,84 @@
 ---
-
+// ArteMichiko — Home (estructura base; dirección visual final desde mockup Open Design)
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Centro Cultural Académico de Dibujo y Pintura" description="ArteMichiko — academia de arte con sistema Oriental único en México. Dibujo, pintura, grabado y más.">
+  <!-- HERO — statement de marca (la coreografía de 4 etapas vendrá del mockup + GSAP) -->
+  <section class="relative mx-auto max-w-7xl px-6 pt-24 pb-16 md:pt-32">
+    <p class="font-mono text-sm tracking-widest text-jade-profundo uppercase">Centro Cultural · CDMX</p>
+    <h1 class="mt-6 max-w-3xl font-display text-5xl leading-tight font-semibold tracking-tight md:text-7xl">
+      El arte como <span class="text-oro-brillo">estado del alma</span>
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-relaxed text-tinta-grafito">
+      Sistema Oriental único en México para revelar los talentos del alumnado: dibujo, pintura, grabado y técnicas tradicionales.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a href="/inscripcion" class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra transition-colors hover:bg-oro-viejo">
+        Explorar cursos
+      </a>
+      <a href="/galeria" class="rounded-full border border-tinta-negra px-8 py-3 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo">
+        Ver galería
+      </a>
+    </div>
+  </section>
+
+  <!-- SECCIÓN VIDEO CANAL 11 — prueba de autoridad (E.37: click-to-play, thumbnail primero) -->
+  <section class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid items-center gap-10 md:grid-cols-2">
+      <div>
+        <p class="font-mono text-sm tracking-widest text-jade-profundo uppercase">En los medios</p>
+        <h2 class="mt-4 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+          Canal Once nos visitó
+        </h2>
+        <p class="mt-4 leading-relaxed text-tinta-grafito">
+          El programa "D Todo" de Canal Once presentó el centro cultural, sus técnicas y su filosofía. Un vistazo a lo que hacemos.
+        </p>
+        <a href="#video" class="mt-6 inline-flex items-center gap-2 font-medium text-oro-viejo hover:text-oro-brillo">
+          Ver el video →
+        </a>
+      </div>
+      <div id="video" class="relative aspect-video overflow-hidden rounded-lg border border-tinta-negra/10 bg-tinta-negra">
+        <img
+          src="https://i.ytimg.com/vi/KsFEtwfALnQ/hqdefault.jpg"
+          alt="Video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)"
+          class="h-full w-full object-cover opacity-80"
+          loading="lazy"
+          width="480"
+          height="360"
+        />
+        <!-- Click-to-play: el iframe se monta al hacer clic (protege LCP/INP) -->
+        <a
+          href="https://www.youtube-nocookie.com/embed/KsFEtwfALnQ"
+          data-video="KsFEtwfALnQ"
+          class="group absolute inset-0 flex items-center justify-center"
+          aria-label="Reproducir video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)"
+        >
+          <span class="flex h-16 w-16 items-center justify-center rounded-full bg-oro-brillo text-tinta-negra shadow-lg transition-transform group-hover:scale-110">
+            ▶
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Click-to-play para el video de Canal 11 (E.37) — el iframe solo se monta al hacer clic
+  document.querySelectorAll("a[data-video]").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = link.dataset.video;
+      const wrap = link.closest("div.relative");
+      if (!wrap || wrap.querySelector("iframe")) return;
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+      iframe.title = "Video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)";
+      iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.className = "absolute inset-0 h-full w-full";
+      link.remove();
+      wrap.appendChild(iframe);
+    });
+  });
+</script>

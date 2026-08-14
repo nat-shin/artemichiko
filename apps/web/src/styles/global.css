@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* ============================================================
+   ArteMichiko — Sistema de Diseño "Barro y Tinta" (Edición Oro)
+   Paleta institucional: BLANCO + NEGRO + DORADO + JADE (poco)
+   Fuente de verdad: MAESTRO E.35/E.38
+   ============================================================ */
+
+@theme {
+  /* ── Lienzo (blancos cálidos, NUNCA #FFFFFF puro) ── */
+  --color-lienzo-blanco: #fdfbf7;
+  --color-lienzo-hueso: #f5f0e6;
+
+  /* ── Tinta (negros profundos, NUNCA #000 puro) ── */
+  --color-tinta-negra: #11110e;
+  --color-tinta-grafito: #4a4a46;
+  --color-tinta-humo: #9a968c;
+
+  /* ── Oro (joyas — cobertura 5-15%, metálico) ── */
+  --color-oro-brillo: #d4af37;
+  --color-oro-viejo: #ca9e3b;
+  --color-oro-arena: #ebdab0;
+
+  /* ── Jade (acento secundario cultural — POCO) ── */
+  --color-jade-base: #00a86b;
+  --color-jade-profundo: #00965f;
+  --color-jade-tinta: #00452c;
+  --color-jade-claro: #00e08f;
+  --color-jade-lechoso: #8bbba6;
+  --color-jade-matte: #67906e;
+
+  /* ── Sello (firma de artista/obra, única aparición) ── */
+  --color-sello-cinabrio: #c3272b;
+
+  /* ── Tipografía ── */
+  --font-display: "Playfair Display", "Didot", "Bodoni", serif;
+  --font-sans: "Geist", "Satoshi", "Helvetica Neue", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* ── Espaciado (escala 8pt + space-ma) ── */
+  --spacing-ma: 6rem;
+
+  /* ── Elevación ── */
+  --shadow-lujo: 0 1px 0 0 var(--color-tinta-negra);
+}
