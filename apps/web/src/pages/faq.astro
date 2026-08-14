@@ -1,0 +1,249 @@
+---
+// ArteMichiko — FAQ: acordeón details/summary (animación transform/opacity, borde jade al abrir)
+// FAQPage JSON-LD con las mismas preguntas → dato estructurado #1 para GEO/AEO (doc 6 §5.2)
+import Layout from "../layouts/Layout.astro";
+
+const preguntas = [
+	{
+		q: "¿Necesito experiencia previa para tomar clases?",
+		a: "No. Los grupos se forman por nivel, no por edad ni por trayectoria. Si nunca has dibujado, empiezas desde el primer trazo con acompañamiento cercano; si ya pintas, el Sistema Oriental te ayuda a soltar los vicios que se acumulan con los años.",
+	},
+	{
+		q: "¿Qué materiales están incluidos en el curso?",
+		a: "En los cursos regulares el taller pone caballete, tablero y modelo; los materiales finos (lápices, pinceles, papeles, óleo) corren por cuenta del alumno según la lista del curso. En los talleres intensivos, el kit básico suele estar incluido — lo confirmas al inscribirte por WhatsApp.",
+	},
+	{
+		q: "¿Hay cursos para niños y adolescentes?",
+		a: "Sí. Existen grupos infantiles y juveniles con programas propios. Los menores se inscriben siempre a través de su tutor, quien firma el consentimiento y recibe la información del curso — así protegemos a los alumnos más jóvenes desde el primer contacto.",
+	},
+	{
+		q: "¿Otorgan certificado o constancia al terminar?",
+		a: "Al concluir un programa completo recibes una constancia de la academia con horas y nivel cursados. Es el documento que acredita tu formación ante instituciones y convocatorias; los programas de mayor duración incluyen además la exposición colectiva de cierre.",
+	},
+	{
+		q: "¿Puedo tomar una clase de prueba antes de inscribirme?",
+		a: "Sí, y te lo recomendamos. La clase muestra te permite conocer el espacio, el método y al docente antes de comprometerte. Escríbenos por WhatsApp y agendamos tu visita.",
+	},
+	{
+		q: "¿Cómo me inscribo?",
+		a: "Todo empieza por WhatsApp: nos cuentas qué te interesa (dibujo, pintura, grabado, acuarela), tu horario disponible y si vienes con experiencia. Te proponemos el grupo correcto, confirmas cupo y quedas inscrito. Sin formularios eternos.",
+	},
+	{
+		q: "¿Cuánto duran los cursos?",
+		a: "Depende del programa: los talleres trimestrales duran de 3 a 4 meses con sesiones semanales, y los intensivos van de una a varias semanas con sesiones más frecuentes. La duración exacta de cada curso aparece en su ficha al consultar por WhatsApp.",
+	},
+	{
+		q: "¿Aceptan alumnos internacionales?",
+		a: "Sí. Recibimos alumnos del extranjero, sobre todo en talleres intensivos y temporadas. Te orientamos sobre estancias cortas, métodos de pago desde el extranjero y fechas que empalman con tu viaje — escríbenos con tu país de origen y las semanas que tienes disponibles.",
+	},
+	{
+		q: "¿Qué es el Sistema Oriental o Técnica Interna?",
+		a: "Es el método propio de la academia, desarrollado por el Profr. José Guadalupe Cabrera a partir de su formación en China: combina el rigor académico del dibujo con la respiración, la postura y la observación de la estética zen. No es un estilo de dibujo — es una forma de enseñar a ver.",
+	},
+	{
+		q: "¿Qué pasa si falto a una clase?",
+		a: "La reposición depende del grupo y del cupo. En la mayoría de los talleres puedes recuperar en un horario paralelo de la misma semana; escríbenos y lo acomodamos. La constancia de la academia es de asistencia, así que conviene no soltar el ritmo.",
+	},
+];
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: preguntas.map((p) => ({
+		"@type": "Question",
+		name: p.q,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: p.a,
+		},
+	})),
+};
+
+const faqJson = JSON.stringify(faqSchema);
+---
+
+<Layout
+  title="Preguntas frecuentes"
+  description="Respuestas directas sobre cursos, materiales, inscripción, certificados y alumnos internacionales en ArteMichiko — academia de arte en CDMX."
+>
+
+  <script type="application/ld+json" set:html={faqJson} />
+
+  <!-- ═══════ HERO ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-24">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="fade-up mb-10 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Preguntas frecuentes</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Lo que más</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">nos preguntan</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito md:text-xl">
+        Respuestas cortas y sin letra pequeña. Si tu duda no está aquí, escríbenos por WhatsApp y te
+        contestamos en el día.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ ACORDEÓN ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto max-w-4xl px-6 py-20 md:py-28">
+      <div class="space-y-4">
+        {
+          preguntas.map((p, i) => (
+            <details class="faq-item fade-up group" name="faq">
+              <summary class="flex items-center justify-between gap-6 p-6 md:p-7">
+                <h2 class="font-display text-xl font-semibold tracking-tight md:text-2xl">
+                  <span class="mr-3 font-mono text-sm text-jade-profundo tabular-nums" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {p.q}
+                </h2>
+                <span class="faq-icon shrink-0 text-jade-profundo transition-colors group-hover:text-oro-brillo" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-answer">
+                <div>
+                  <p class="px-6 pb-7 leading-relaxed text-tinta-grafito md:px-7 md:pl-[3.4rem]">{p.a}</p>
+                </div>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+
+      <!-- Cierre → WhatsApp -->
+      <div class="fade-up mt-16 border-t border-tinta-negra/10 pt-12 text-center">
+        <p class="font-display text-2xl font-semibold">¿Otra pregunta?</p>
+        <p class="mx-auto mt-3 max-w-md text-tinta-grafito">Escríbenos por WhatsApp y te respondemos personalmente.</p>
+        <a
+          href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20tengo%20una%20pregunta"
+          target="_blank"
+          rel="noopener"
+          data-cursor
+          class="mt-8 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo"
+        >
+          <span aria-hidden="true">✆</span>
+          Preguntar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212,175,55,0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17,17,14,0.04), transparent 60%);
+  }
+
+  .reveal-inner {
+    will-change: transform;
+    transform: translateY(110%);
+    animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .reveal-line:nth-child(2) .reveal-inner { animation-delay: 0.12s; }
+  @keyframes reveal-up {
+    to { transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-up.is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Acordeón: borde jade al abrir + contenido con transform/opacity ── */
+  .faq-item {
+    border: 1px solid rgba(17, 17, 14, 0.14);
+    background: rgba(253, 251, 247, 0.6);
+    transition: border-color 0.35s ease, background-color 0.35s ease;
+  }
+  .faq-item[open] {
+    border-color: var(--color-jade-base);
+    background: var(--color-lienzo-blanco);
+  }
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary:focus-visible {
+    outline: 2px solid var(--color-jade-base);
+    outline-offset: 4px;
+  }
+
+  /* Ícono + (gira a — al abrir, solo transform) */
+  .faq-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+  }
+  .faq-icon::before,
+  .faq-icon::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .faq-icon::before { left: 0; top: 7px; width: 16px; height: 1.5px; }
+  .faq-icon::after { left: 7px; top: 0; width: 1.5px; height: 16px; }
+  .faq-item[open] .faq-icon::after { transform: scaleY(0); }
+  .faq-item[open] .faq-icon::before { transform: rotate(180deg); }
+
+  /* Contenido: fade + deslizamiento al abrir (transform/opacity) */
+  .faq-answer > div {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.4s ease 0.05s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s;
+  }
+  .faq-item[open] .faq-answer > div {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-inner { animation: none; transform: none; }
+    .fade-up { opacity: 1; transform: none; transition: none; }
+    .faq-item, .faq-icon::before, .faq-icon::after, .faq-answer > div { transition: none; }
+  }
+</style>
+
+<script>
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReduced) {
+    document.querySelectorAll(".fade-up").forEach((el) => el.classList.add("is-in"));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    document.querySelectorAll(".fade-up").forEach((el) => io.observe(el));
+  }
+</script>

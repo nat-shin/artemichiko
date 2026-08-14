@@ -1,0 +1,296 @@
+---
+// ArteMichiko — Contacto: NAP consistente (SEO local), mapa placeholder, redes, WhatsApp como CTA principal
+// LocalBusiness JSON-LD alineado con GBP/Apple Maps/Bing Places (doc 6 §5.3, Parte 11 sameAs)
+import Layout from "../layouts/Layout.astro";
+
+const NAP = {
+	nombre:
+		"ArteMichiko — Centro Cultural Académico de Dibujo y Pintura Artística",
+	calle: "Av. del Taller 45",
+	colonia: "Col. San Rafael",
+	delegacion: "Cuauhtémoc",
+	ciudad: "Ciudad de México",
+	cp: "06470",
+	telefono: "+52 55 0000 0000",
+	whatsapp:
+		"https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20me%20gustar%C3%ADa%20informaci%C3%B3n",
+	email: "contacto@artemichiko.com",
+};
+
+const redes = [
+	{
+		nombre: "Instagram",
+		handle: "@arte_michiko",
+		url: "https://www.instagram.com/arte_michiko",
+		texto: "Obra de alumnos, proceso de taller y anuncios de exposiciones.",
+	},
+	{
+		nombre: "Facebook",
+		handle: "centroculturalmichiko",
+		url: "https://www.facebook.com/centroculturalmichiko",
+		texto:
+			"La comunidad más antigua de la academia: avisos, fotos y conversación.",
+	},
+	{
+		nombre: "YouTube",
+		handle: "@centroculturalacademicoded7862",
+		url: "https://www.youtube.com/@centroculturalacademicoded7862",
+		texto: "Demostraciones, presentaciones en medios y cápsulas del método.",
+	},
+	{
+		nombre: "TikTok",
+		handle: "@artemichiko",
+		url: "https://www.tiktok.com",
+		texto: "Trazo en 60 segundos: sumi-e, acuarela y el día a día del taller.",
+	},
+];
+
+const localBusiness = {
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	name: NAP.nombre,
+	description:
+		"Academia de arte en la Ciudad de México con Sistema Oriental único en México: dibujo, pintura, grabado y acuarela para todas las edades.",
+	telephone: NAP.telefono,
+	email: NAP.email,
+	url: "https://artemichiko.com",
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: `${NAP.calle}, ${NAP.colonia}`,
+		addressLocality: `${NAP.delegacion}, ${NAP.ciudad}`,
+		postalCode: NAP.cp,
+		addressCountry: "MX",
+	},
+	openingHoursSpecification: [
+		{
+			"@type": "OpeningHoursSpecification",
+			dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+			opens: "09:00",
+			closes: "20:00",
+		},
+		{
+			"@type": "OpeningHoursSpecification",
+			dayOfWeek: "Saturday",
+			opens: "09:00",
+			closes: "14:00",
+		},
+	],
+	sameAs: [
+		"https://www.instagram.com/arte_michiko",
+		"https://www.facebook.com/centroculturalmichiko",
+		"https://www.youtube.com/@centroculturalacademicoded7862",
+		"https://www.tiktok.com/@artemichiko",
+	],
+};
+
+const localBusinessJson = JSON.stringify(localBusiness);
+---
+
+<Layout
+  title="Contacto"
+  description="Visita el Centro Cultural ArteMichiko en CDMX. Dirección, horarios, teléfono y WhatsApp para inscribirte a clases de dibujo y pintura."
+>
+
+  <script type="application/ld+json" set:html={localBusinessJson} />
+
+  <!-- ═══════ HERO — text reveal ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-24">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="fade-up mb-10 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Contacto · CDMX</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Hablemos</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">de arte</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito md:text-xl">
+        La puerta del taller siempre está abierta. Escríbenos por WhatsApp — es el camino más rápido
+        para conocer horarios, cursos y el Sistema Oriental.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ INFORMACIÓN + MAPA ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto grid max-w-7xl gap-14 px-6 py-24 md:py-28 lg:grid-cols-5">
+      <!-- Columna de datos (NAP consistente) -->
+      <div class="space-y-12 lg:col-span-3">
+        <div class="fade-up">
+          <h2 class="font-display text-3xl font-semibold tracking-tight">Visítanos</h2>
+          <address class="mt-6 space-y-1 not-italic leading-relaxed text-tinta-grafito">
+            <p class="font-medium text-tinta-negra">ArteMichiko</p>
+            <p>Centro Cultural Académico de Dibujo y Pintura Artística</p>
+            <p>{NAP.calle}, {NAP.colonia},</p>
+            <p>{NAP.delegacion}, {NAP.ciudad}, C.P. {NAP.cp}</p>
+          </address>
+        </div>
+
+        <div class="fade-up grid gap-10 sm:grid-cols-2">
+          <div>
+            <p class="font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">Horarios</p>
+            <ul class="mt-4 space-y-2 text-tinta-grafito">
+              <li class="flex justify-between gap-6 border-b border-tinta-negra/10 pb-2"><span>Lunes a viernes</span><span class="font-mono text-sm tabular-nums">9:00 – 20:00</span></li>
+              <li class="flex justify-between gap-6 border-b border-tinta-negra/10 pb-2"><span>Sábados</span><span class="font-mono text-sm tabular-nums">9:00 – 14:00</span></li>
+              <li class="flex justify-between gap-6"><span>Domingos</span><span class="font-mono text-sm">Descanso</span></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">Directo</p>
+            <ul class="mt-4 space-y-3 text-tinta-grafito">
+              <li>
+                <a href={`tel:${NAP.telefono.replace(/\s/g, "")}`} data-cursor class="transition-colors hover:text-jade-profundo">
+                  {NAP.telefono}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${NAP.email}`} data-cursor class="underline decoration-jade-base decoration-1 underline-offset-4 transition-colors hover:text-jade-profundo">
+                  {NAP.email}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- CTA principal -->
+        <div class="fade-up flex flex-wrap items-center gap-4">
+          <a
+            href={NAP.whatsapp}
+            target="_blank"
+            rel="noopener"
+            data-cursor
+            class="inline-flex items-center gap-3 rounded-full bg-oro-brillo px-8 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo"
+          >
+            <span class="text-lg" aria-hidden="true">✆</span>
+            Escribir por WhatsApp
+          </a>
+          <a href="/inscripcion" data-cursor class="rounded-full border border-tinta-negra px-8 py-4 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo">
+            Ver proceso de inscripción
+          </a>
+        </div>
+      </div>
+
+      <!-- Mapa placeholder -->
+      <div class="fade-up lg:col-span-2">
+        <div class="relative flex aspect-[4/5] flex-col items-center justify-center overflow-hidden rounded-sm bg-tinta-negra text-lienzo-blanco lg:aspect-auto lg:h-full lg:min-h-[480px]">
+          <div class="grain absolute inset-0 pointer-events-none opacity-30" aria-hidden="true"></div>
+          <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(245,240,230,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(245,240,230,0.12) 1px, transparent 1px); background-size: 44px 44px;" aria-hidden="true"></div>
+          <div class="relative text-center">
+            <svg viewBox="0 0 24 24" class="mx-auto h-12 w-12 text-oro-brillo" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            <p class="mt-6 font-mono text-xs tracking-[0.3em] text-oro-brillo uppercase">Mapa — ubicación</p>
+            <p class="mt-3 max-w-xs px-6 text-sm leading-relaxed text-lienzo-hueso/70">
+              {NAP.calle}, {NAP.colonia}, {NAP.ciudad}. Pronto: mapa interactivo con ruta desde tu zona.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ REDES SOCIALES — cards ═══════ -->
+  <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="mx-auto max-w-7xl px-6 py-24 md:py-28">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Redes sociales</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        El taller también vive <span class="text-oro-brillo">en línea</span>
+      </h2>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          redes.map((red) => (
+            <a
+              href={red.url}
+              target="_blank"
+              rel="noopener"
+              data-cursor
+              class="fade-up group block border-t-2 border-tinta-negra p-6 pt-8 transition-colors hover:border-jade-base"
+            >
+              <p class="font-mono text-sm text-jade-profundo">{red.nombre}</p>
+              <p class="mt-3 font-display text-xl font-semibold transition-colors group-hover:text-oro-viejo">{red.handle}</p>
+              <p class="mt-3 text-sm leading-relaxed text-tinta-grafito">{red.texto}</p>
+              <p class="mt-5 font-mono text-xs text-tinta-humo uppercase transition-colors group-hover:text-jade-profundo">Visitar →</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ BANDA NAP (refuerzo SEO local, texto plano) ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto max-w-7xl px-6 py-10">
+      <p class="fade-up text-center font-mono text-xs tracking-[0.2em] text-tinta-humo uppercase">
+        ArteMichiko · {NAP.calle}, {NAP.colonia}, {NAP.ciudad} · {NAP.telefono} · {NAP.email}
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212,175,55,0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17,17,14,0.04), transparent 60%);
+  }
+
+  .reveal-inner {
+    will-change: transform;
+    transform: translateY(110%);
+    animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .reveal-line:nth-child(2) .reveal-inner { animation-delay: 0.12s; }
+  @keyframes reveal-up {
+    to { transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-up.is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-inner { animation: none; transform: none; }
+    .fade-up { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReduced) {
+    document.querySelectorAll(".fade-up").forEach((el) => el.classList.add("is-in"));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    document.querySelectorAll(".fade-up").forEach((el) => io.observe(el));
+  }
+</script>

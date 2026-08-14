@@ -1,0 +1,328 @@
+---
+// ArteMichiko — Nosotros: historia del Profr. Cabrera, línea de tiempo, filosofía, misión/visión
+// Identidad: blanco/negro/dorado/jade · text reveal + fade-up (solo transform/opacity)
+import Layout from "../layouts/Layout.astro";
+
+const hitos = [
+	{
+		año: "1985",
+		titulo: "Formación en China",
+		texto:
+			"El Profr. José Guadalupe Cabrera estudia dibujo y pintura en China, donde se forma en la tradición taoísta y la estética zen que darían raíz a su método.",
+	},
+	{
+		año: "2000",
+		titulo: "Fundación del Centro Cultural",
+		texto:
+			"Nace el Centro Cultural Académico de Dibujo y Pintura Artística Michiko en la Ciudad de México, con un puñado de alumnos y un tablero de dibujo por cada silla.",
+	},
+	{
+		año: "2008",
+		titulo: "El Sistema Oriental se consolida",
+		texto:
+			"La Técnica Interna —el método propio de la academia— se estructura como sistema de enseñanza y empieza a formar a las primeras generaciones de egresados.",
+	},
+	{
+		año: "2016",
+		titulo: "Reconocimiento y crecimiento",
+		texto:
+			"La academia amplía sus talleres a pintura, grabado y acuarela. La obra de sus alumnos llega a exposiciones y al circuito cultural de la ciudad.",
+	},
+	{
+		año: "2026",
+		titulo: "XXVI aniversario",
+		texto:
+			"Veintiséis años después, ArteMichiko sigue sostenida por la misma idea: el arte como estado del alma, enseñado con la disciplina de Oriente y el calor de México.",
+	},
+];
+
+const filosofia = [
+	{
+		nombre: "Sumi-e",
+		kanji: "墨絵",
+		texto:
+			"Tinta sobre papel. El trazo se decide en un solo gesto, sin corrección: lo que queda es la honestidad del momento.",
+	},
+	{
+		nombre: "Wabi-sabi",
+		kanji: "侘寂",
+		texto:
+			"La belleza de lo imperfecto. Una línea temblorosa, una mancha de tinta, la marca de la mano: ahí vive el arte que ninguna máquina repite.",
+	},
+	{
+		nombre: "Ma",
+		kanji: "間",
+		texto:
+			"El vacío con intención. El silencio entre dos trazos es tan importante como el trazo mismo — en el papel y en el aula.",
+	},
+];
+---
+
+<Layout
+  title="Nosotros"
+  description="Historia y filosofía del Centro Cultural ArteMichiko: 35+ años de trayectoria del Profr. José Guadalupe Cabrera, Sistema Oriental único en México."
+>
+
+  <!-- ═══════ HERO — text reveal ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-20 md:pt-48 md:pb-28">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="fade-up mb-10 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Nosotros · 1985–2026</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Un trazo que lleva</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">treinta y cinco años</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito md:text-xl">
+        ArteMichiko es el Centro Cultural Académico de Dibujo y Pintura Artística fundado por el
+        <strong class="font-medium text-tinta-negra">Profr. José Guadalupe Cabrera</strong>: más de
+        tres décadas de oficio, formado en China, con raíces taoístas, estética zen y una vocación
+        mexicana de abrir el arte a todo el que quiera aprenderlo.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ HISTORIA — retrato + texto ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 md:grid-cols-2 md:py-32">
+      <figure class="fade-up mask-frame group relative aspect-[4/5] overflow-hidden rounded-sm bg-lienzo-hueso" data-mask>
+        <img
+          src="https://placehold.co/800x1000/F5F0E6/11110E?text=Retrato+del+fundador"
+          alt="Retrato del Profr. José Guadalupe Cabrera, fundador y director de ArteMichiko"
+          loading="lazy"
+          width="800"
+          height="1000"
+          class="mask-img h-full w-full object-cover"
+        />
+        <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/70 to-transparent p-5 font-mono text-xs text-lienzo-hueso">
+          Profr. José Guadalupe Cabrera · Fundador y director
+        </figcaption>
+      </figure>
+
+      <div>
+        <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">La historia</p>
+        <h2 class="fade-up mt-4 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+          De China a la Ciudad <span class="text-oro-brillo">de México</span>
+        </h2>
+        <div class="fade-up mt-6 space-y-4 leading-relaxed text-tinta-grafito">
+          <p>
+            Todo empezó con un viaje. En China, el Profr. Cabrera se formó en el dibujo y la pintura
+            académicos, y regresó a México con algo que no venía en los libros: una manera de entender
+            el arte como disciplina interior — taoísmo, quietud, repetición consciente.
+          </p>
+          <p>
+            Esa formación dio origen al <strong class="font-medium text-tinta-negra">Sistema Oriental</strong>,
+            un método propio que combina el rigor académico de Occidente con la respiración y el silencio
+            de Oriente. Hoy, la academia enseña dibujo, pintura, grabado y acuarela con esa misma raíz,
+            y su comunidad reúne tradiciones japonesas, mexicanas y de Medio Oriente en un solo taller.
+          </p>
+          <p>
+            El nombre lo dice: <em>Michiko</em> — "hija de la belleza". Un taller donde cada alumno,
+            sin importar su edad o su punto de partida, aprende a ver.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ LÍNEA DE TIEMPO (border-jade + años en font-mono) ═══════ -->
+  <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Cronología</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        Veintiséis años, <span class="text-oro-brillo">cinco momentos</span>
+      </h2>
+
+      <ol class="mt-16 space-y-0 border-l-2 border-jade-lechoso/40">
+        {
+          hitos.map((hito, i) => (
+            <li class="fade-up group relative pl-10 pb-14 last:pb-0">
+              <span class="absolute -left-[7px] top-1 h-3 w-3 rounded-full border-2 border-lienzo-blanco bg-jade-base transition-colors group-hover:bg-oro-brillo" aria-hidden="true"></span>
+              <p class="font-mono text-sm tracking-[0.25em] text-jade-profundo tabular-nums">{hito.año}</p>
+              <h3 class="mt-2 font-display text-2xl font-semibold md:text-3xl">{hito.titulo}</h3>
+              <p class="mt-3 max-w-2xl leading-relaxed text-tinta-grafito">{hito.texto}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══════ FILOSOFÍA — iconografía simple ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Filosofía</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        Tres ideas que <span class="text-oro-brillo">sostienen el taller</span>
+      </h2>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-3">
+        {
+          filosofia.map((f, i) => (
+            <article class="fade-up group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
+              <div class="flex items-center justify-between">
+                <svg viewBox="0 0 48 48" class="h-12 w-12 text-jade-profundo transition-colors group-hover:text-oro-brillo" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  {
+                    i === 0 ? (
+                      <path d="M10 36 C16 12 26 10 34 24 C38 30 40 30 44 26 M12 14 C18 10 24 8 30 8" stroke-linecap="round" />
+                    ) : i === 1 ? (
+                      <>
+                        <circle cx="24" cy="24" r="17" />
+                        <path d="M14 16 L20 22 L18 32 L27 30 L33 24" stroke-linecap="round" />
+                      </>
+                    ) : (
+                      <path d="M8 24 A16 16 0 1 1 34 32" stroke-linecap="round" />
+                    )
+                  }
+                </svg>
+                <p class="font-display text-xl text-tinta-humo" aria-hidden="true">{f.kanji}</p>
+              </div>
+              <h3 class="mt-6 font-display text-3xl font-semibold">{f.nombre}</h3>
+              <p class="mt-3 leading-relaxed text-tinta-grafito">{f.texto}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ MISIÓN / VISIÓN — text reveal ═══════ -->
+  <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
+    <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <div class="grid gap-16 md:grid-cols-2">
+        <div>
+          <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Misión</p>
+          <h2 class="mt-6 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+            <span class="reveal-line block overflow-hidden">
+              <span class="reveal-inner inline-block">Revelar el talento</span>
+            </span>
+            <span class="reveal-line block overflow-hidden">
+              <span class="reveal-inner inline-block text-oro-brillo">que ya vive en cada alumno</span>
+            </span>
+          </h2>
+          <p class="fade-up mt-6 max-w-md leading-relaxed text-lienzo-hueso/70">
+            Enseñamos dibujo y pintura desde la convicción de que el arte no se impone: se despierta.
+            El Sistema Oriental es el camino para que cada persona encuentre su propio trazo.
+          </p>
+        </div>
+        <div class="md:border-l md:border-lienzo-blanco/10 md:pl-16">
+          <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Visión</p>
+          <h2 class="mt-6 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+            <span class="reveal-line block overflow-hidden">
+              <span class="reveal-inner inline-block">Ser la referencia del arte</span>
+            </span>
+            <span class="reveal-line block overflow-hidden">
+              <span class="reveal-inner inline-block text-oro-brillo">con raíces orientales en México</span>
+            </span>
+          </h2>
+          <p class="fade-up mt-6 max-w-md leading-relaxed text-lienzo-hueso/70">
+            Una academia donde la técnica académica y la estética zen se enseñan juntas, y donde cada
+            generación de alumnos deja su obra — y su testimonio — para la siguiente.
+          </p>
+        </div>
+      </div>
+
+      <div class="fade-up mt-20 flex flex-wrap items-center gap-6">
+        <a
+          href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20quiero%20conocer%20los%20cursos"
+          target="_blank"
+          rel="noopener"
+          data-cursor
+          class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo"
+        >
+          Conoce los cursos por WhatsApp
+        </a>
+        <a href="/contacto" data-cursor class="font-medium text-lienzo-hueso/80 underline decoration-jade-base decoration-1 underline-offset-8 transition-colors hover:text-jade-claro">
+          Visitar el taller →
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Texturas compartidas (grano + tinta lavada) */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212,175,55,0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17,17,14,0.04), transparent 60%);
+  }
+
+  /* ── Reveal por línea (máscara overflow-hidden + translateY) ── */
+  .reveal-inner {
+    will-change: transform;
+    transform: translateY(110%);
+    animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .reveal-line:nth-child(2) .reveal-inner { animation-delay: 0.12s; }
+  @keyframes reveal-up {
+    to { transform: translateY(0); }
+  }
+
+  /* ── Fade-up por intersección ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-up.is-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Mask reveal de imágenes ── */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), clip-path 1s cubic-bezier(0.16, 1, 0.3, 1);
+    clip-path: inset(0% 0 0 0);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+  .mask-frame:not(.is-in) .mask-img { clip-path: inset(100% 0 0 0); }
+
+  /* ── prefers-reduced-motion: todo visible, sin animación ── */
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-inner { animation: none; transform: none; }
+    .fade-up { opacity: 1; transform: none; transition: none; }
+    .mask-img { clip-path: none; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReduced) {
+    document.querySelectorAll(".fade-up").forEach((el) => el.classList.add("is-in"));
+  } else {
+    // Reveal del hero al cargar (ya cubierto por animation-delay CSS)
+    // Fade-ups + mask reveal por intersección
+    const targets = document.querySelectorAll(".fade-up, .mask-frame");
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    targets.forEach((el) => io.observe(el));
+  }
+</script>
