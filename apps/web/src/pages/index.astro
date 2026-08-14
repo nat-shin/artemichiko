@@ -1,7 +1,6 @@
 ---
-import VideoModal from "../components/VideoModal.astro";
 // ArteMichiko — Home nivel Awwwards (preloader + text reveal + zoom-parallax + máscaras)
-// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38 · Video Canal 11 como modal
+// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38 · Video Canal 11 como tour cinematográfico
 import Layout from "../layouts/Layout.astro";
 ---
 
@@ -33,7 +32,7 @@ import Layout from "../layouts/Layout.astro";
       <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-9xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">El arte como</span></span>
         <span class="reveal-line block overflow-hidden">
-          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">estado del alma</span>
+          <span class="reveal-inner inline-block gold-shine">estado del alma</span>
         </span>
       </h1>
 
@@ -53,10 +52,45 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </section>
 
+  <!-- ═══════ TOUR CINEMATOGRÁFICO — ArteMichiko en Canal Once (poster + click-to-play) ═══════ -->
+  <section class="relative mx-auto w-[90%] max-w-[1600px]" aria-label="Video: Un tour por ArteMichiko en Canal Once">
+    <div class="tour-frame relative overflow-hidden rounded-lg" data-tour-reveal>
+      <!-- Poster + play (click para montar el iframe) -->
+      <button type="button" class="tour-poster group relative block w-full cursor-pointer text-left" data-tour-poster aria-label="Reproducir video: Un tour por ArteMichiko en el programa D Todo del Canal Once">
+        <img
+          src="https://i.ytimg.com/vi/KsFEtwfALnQ/maxresdefault.jpg"
+          alt="Portada del video de ArteMichiko en el programa D Todo del Canal Once"
+          width="1280"
+          height="720"
+          loading="lazy"
+          class="aspect-video w-full object-cover"
+        />
+        <!-- Light leak dorado (se anima el overlay, nunca el video) -->
+        <span class="tour-lightleak pointer-events-none absolute inset-0 mix-blend-screen" aria-hidden="true"></span>
+        <!-- Degradado inferior para legibilidad del título -->
+        <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-tinta-negra/85 via-tinta-negra/25 to-transparent" aria-hidden="true"></span>
+        <!-- Título sobre el poster -->
+        <span class="pointer-events-none absolute inset-x-0 bottom-0 block p-6 md:p-10">
+          <span class="block font-mono text-xs tracking-[0.3em] text-oro-brillo uppercase">Canal Once · Programa D Todo</span>
+          <span class="mt-2 block font-display text-3xl font-semibold text-lienzo-blanco md:text-5xl">Un tour por ArteMichiko</span>
+          <span class="mt-3 block max-w-xl text-sm leading-relaxed text-lienzo-hueso/85 md:text-base">Así nos presentó el programa D Todo del Canal Once — el centro, las técnicas y el método Oriental.</span>
+        </span>
+        <!-- Play glassmorphism -->
+        <span class="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
+          <span class="flex h-20 w-20 items-center justify-center rounded-full border border-lienzo-blanco/40 bg-lienzo-blanco/10 backdrop-blur-[10px] transition-transform duration-300 group-hover:scale-110 group-focus-visible:scale-110 md:h-24 md:w-24">
+            <svg class="ml-1 h-8 w-8 text-oro-brillo md:h-10 md:w-10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          </span>
+        </span>
+      </button>
+      <!-- iframe montado solo al hacer clic -->
+      <div class="tour-embed relative hidden aspect-video" data-tour-embed></div>
+    </div>
+  </section>
+
   <!-- ═══════ MARQUEE de técnicas (banda de ritmo, pausa en hover) ═══════ -->
   <section class="seigaiha border-y border-tinta-negra/10 bg-tinta-negra py-4 overflow-hidden" aria-label="Técnicas de la academia">
-    <div class="marquee flex whitespace-nowrap" data-marquee>
-      <div class="marquee-track flex shrink-0 gap-12 pr-12 font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase">
+    <div class="marquee flex w-full max-w-full overflow-hidden whitespace-nowrap" data-marquee>
+      <div class="marquee-track flex w-max shrink-0 gap-12 pr-12 font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase">
         <span>Dibujo</span><span class="text-oro-brillo">◆</span>
         <span>Pintura</span><span class="text-oro-brillo">◆</span>
         <span>Grabado</span><span class="text-oro-brillo">◆</span>
@@ -65,7 +99,7 @@ import Layout from "../layouts/Layout.astro";
         <span>Caligrafía</span><span class="text-oro-brillo">◆</span>
         <span>Técnica Interna</span><span class="text-oro-brillo">◆</span>
       </div>
-      <div class="marquee-track flex shrink-0 gap-12 pr-12 font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase" aria-hidden="true">
+      <div class="marquee-track flex w-max shrink-0 gap-12 pr-12 font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase" aria-hidden="true">
         <span>Dibujo</span><span class="text-oro-brillo">◆</span>
         <span>Pintura</span><span class="text-oro-brillo">◆</span>
         <span>Grabado</span><span class="text-oro-brillo">◆</span>
@@ -172,15 +206,9 @@ import Layout from "../layouts/Layout.astro";
         El círculo <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">del arte</span>
       </h2>
       <p class="fade-up mx-auto mt-6 max-w-xl leading-relaxed text-lienzo-hueso/70">
-        Talleres abiertos, exposiciones y el colectivo de artistas que sostienen ArteMichiko. Mira la presentación de nuestra academia en el programa cultural del Canal Once.
+        Talleres abiertos, exposiciones y el colectivo de artistas que sostienen ArteMichiko. Síguenos y sé parte del círculo.
       </p>
       <div class="fade-up mt-10 flex flex-wrap items-center gap-4">
-        <VideoModal
-          id="video-canal11"
-          videoId="KsFEtwfALnQ"
-          title="ArteMichiko en Canal Once · Programa D Todo"
-          label="Ver video de la academia"
-        />
         <a href="https://www.instagram.com/arte_michiko" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">Instagram</a>
         <a href="https://www.facebook.com/centroculturalmichiko" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">Facebook</a>
         <a href="https://www.youtube.com/@centroculturalacademicoded7862" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">YouTube</a>
@@ -227,6 +255,37 @@ import Layout from "../layouts/Layout.astro";
   /* Reveal por línea (máscara overflow-hidden + translateY) */
   .reveal-inner { will-change: transform; }
 
+  /* Shimmer dorado — "estado del alma" (sustituye al text scramble) */
+  .gold-shine {
+    color: transparent;
+    background: linear-gradient(110deg, #8a6d1f 0%, #cb9b51 22%, #f6e27a 50%, #cb9b51 78%, #8a6d1f 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: shine 6s linear infinite;
+  }
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gold-shine { animation: none; }
+  }
+
+  /* Tour cinematográfico — light leak dorado sobre el poster */
+  .tour-lightleak {
+    background:
+      radial-gradient(ellipse 55% 45% at 25% 30%, rgba(246,226,122,0.22), transparent 70%),
+      radial-gradient(ellipse 45% 40% at 78% 65%, rgba(203,155,81,0.18), transparent 70%);
+    animation: tourLeak 7s ease-in-out infinite alternate;
+  }
+  @keyframes tourLeak {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tour-lightleak { animation: none; }
+  }
+
   /* Mask reveal de imágenes: la obra "viaja dentro de su marco" */
   .mask-frame { position: relative; }
   .mask-img {
@@ -257,33 +316,6 @@ import Layout from "../layouts/Layout.astro";
         // Entrega el hero inmediatamente después
         gsap.set(".reveal-inner", { y: "110%" });
         gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
-
-        // ── 1b. TEXT SCRAMBLE: "estado del alma" se resuelve tras el reveal ──
-        const goldTarget = document.querySelector<HTMLElement>(".reveal-inner.bg-gradient-to-r");
-        if (goldTarget && window.matchMedia("(pointer: fine)").matches && window.innerWidth > 768) {
-          const finalText = goldTarget.textContent ?? "";
-          const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
-          const scramble = { p: 0 };
-          gsap.delayedCall(1.2, () => {
-            gsap.to(scramble, {
-              p: 1,
-              duration: 1.2,
-              ease: "power3.out",
-              onUpdate: () => {
-                const revealCount = Math.floor(scramble.p * finalText.length);
-                let out = "";
-                for (let i = 0; i < finalText.length; i++) {
-                  const ch = finalText[i];
-                  out += ch === " " ? " " : i < revealCount ? ch : chars[Math.floor(Math.random() * chars.length)];
-                }
-                goldTarget.textContent = out;
-              },
-              onComplete: () => {
-                goldTarget.textContent = finalText;
-              },
-            });
-          });
-        }
       },
     });
     preTl.to(counter, {
@@ -309,6 +341,25 @@ import Layout from "../layouts/Layout.astro";
         scrollTrigger: { trigger: el, start: "top 88%" },
       });
     });
+
+    // ── 2b. TOUR CINEMATOGRÁFICO: reveal scroll-driven (scale 0.85→1 + blur 24→0) ──
+    // Móvil: solo fade/scale (sin blur ni clip-path, más barato)
+    const tourFrame = document.querySelector<HTMLElement>("[data-tour-reveal]");
+    if (tourFrame) {
+      const mobile = window.innerWidth < 768;
+      gsap.fromTo(
+        tourFrame,
+        mobile ? { opacity: 0, scale: 0.92 } : { scale: 0.85, filter: "blur(24px)" },
+        {
+          opacity: 1,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: { trigger: tourFrame, start: "top 85%" },
+        }
+      );
+    }
 
     // ── 3. MASK REVEAL de imágenes (la obra viaja en su marco) ──
     gsap.utils.toArray<HTMLElement>("[data-mask]").forEach((frame) => {
@@ -365,4 +416,34 @@ import Layout from "../layouts/Layout.astro";
       marquee.addEventListener("mouseleave", () => tween.timeScale(1));
     });
   }
+
+  // ── TOUR CINEMATOGRÁFICO: click-to-play (funciona siempre, incluso con
+  //    prefers-reduced-motion — es interacción del usuario, no animación) ──
+  const tourPoster = document.querySelector<HTMLElement>("[data-tour-poster]");
+  const tourEmbed = document.querySelector<HTMLElement>("[data-tour-embed]");
+
+  // Fallback CSP-safe del poster: si maxresdefault no existe, usar hqdefault
+  // (no se usa atributo onerror inline — lo bloquea la CSP de default-src 'self').
+  // OJO: i.ytimg.com responde 404 CON un JPEG placeholder 120x90 válido, así que
+  // el evento "error" NUNCA dispara — hay que detectar el placeholder por tamaño.
+  const tourImg = tourPoster?.querySelector<HTMLImageElement>("img");
+  const fallbackPoster = () => {
+    if (!tourImg || tourImg.dataset.fallback) return;
+    tourImg.dataset.fallback = "1";
+    tourImg.src = "https://i.ytimg.com/vi/KsFEtwfALnQ/hqdefault.jpg";
+  };
+  tourImg?.addEventListener("load", () => {
+    if (tourImg.naturalWidth <= 120) fallbackPoster();
+  });
+  // Si la imagen ya cargó antes de atar el listener (race con lazy-load), evaluar ya
+  if (tourImg?.complete && tourImg.naturalWidth <= 120) fallbackPoster();
+
+  tourPoster?.addEventListener("click", () => {
+    if (!tourEmbed || tourEmbed.dataset.loaded) return;
+    tourEmbed.dataset.loaded = "1";
+    tourEmbed.classList.remove("hidden");
+    tourEmbed.innerHTML =
+      '<iframe src="https://www.youtube-nocookie.com/embed/KsFEtwfALnQ?autoplay=1&enablejsapi=1" title="Un tour por ArteMichiko — Canal Once" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="absolute inset-0 h-full w-full"></iframe>';
+    tourPoster.classList.add("hidden");
+  });
 </script>
