@@ -334,8 +334,9 @@ const filosofia = [
 <script>
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
 
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, SplitText);
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const counters = document.querySelectorAll<HTMLElement>("[data-count]");
@@ -377,5 +378,29 @@ const filosofia = [
         },
       });
     });
+
+    // ── SplitText mask en H2 de sección (fallback: si falla, quedan visibles) ──
+    try {
+      gsap.utils.toArray<HTMLElement>("h2").forEach((h2) => {
+        // Misión/Visión ya tienen reveal por líneas (reveal-inner) — no doblar
+        if (h2.querySelector(".reveal-inner")) return;
+        const split = new SplitText(h2, { type: "words" });
+        h2.style.overflow = "hidden";
+        gsap.from(split.words, {
+          yPercent: 100,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.04,
+          ease: "power4.out",
+          scrollTrigger: { trigger: h2, start: "top 85%" },
+          onComplete: () => {
+            h2.style.overflow = "";
+            split.revert();
+          },
+        });
+      });
+    } catch {
+      // SplitText no disponible: los H2 quedan visibles (no_js_fallback intacto)
+    }
   }
 </script>

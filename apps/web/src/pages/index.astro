@@ -257,6 +257,33 @@ import VideoModal from "../components/VideoModal.astro";
         // Entrega el hero inmediatamente después
         gsap.set(".reveal-inner", { y: "110%" });
         gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
+
+        // ── 1b. TEXT SCRAMBLE: "estado del alma" se resuelve tras el reveal ──
+        const goldTarget = document.querySelector<HTMLElement>(".reveal-inner.bg-gradient-to-r");
+        if (goldTarget && window.matchMedia("(pointer: fine)").matches && window.innerWidth > 768) {
+          const finalText = goldTarget.textContent ?? "";
+          const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
+          const scramble = { p: 0 };
+          gsap.delayedCall(1.9, () => {
+            gsap.to(scramble, {
+              p: 1,
+              duration: 1.2,
+              ease: "power3.out",
+              onUpdate: () => {
+                const revealCount = Math.floor(scramble.p * finalText.length);
+                let out = "";
+                for (let i = 0; i < finalText.length; i++) {
+                  const ch = finalText[i];
+                  out += ch === " " ? " " : i < revealCount ? ch : chars[Math.floor(Math.random() * chars.length)];
+                }
+                goldTarget.textContent = out;
+              },
+              onComplete: () => {
+                goldTarget.textContent = finalText;
+              },
+            });
+          });
+        }
       },
     });
     preTl.to(counter, {
