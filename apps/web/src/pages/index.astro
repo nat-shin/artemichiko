@@ -1,82 +1,262 @@
 ---
-// ArteMichiko — Home (estructura base; dirección visual final desde mockup Open Design)
+// ArteMichiko — Home ESPECTACULAR (texturas + GSAP + video 4x)
+// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Centro Cultural Académico de Dibujo y Pintura" description="ArteMichiko — academia de arte con sistema Oriental único en México. Dibujo, pintura, grabado y más.">
-  <!-- HERO — statement de marca (la coreografía de 4 etapas vendrá del mockup + GSAP) -->
-  <section class="relative mx-auto max-w-7xl px-6 pt-24 pb-16 md:pt-32">
-    <p class="font-mono text-sm tracking-widest text-jade-profundo uppercase">Centro Cultural · CDMX</p>
-    <h1 class="mt-6 max-w-3xl font-display text-5xl leading-tight font-semibold tracking-tight md:text-7xl">
-      El arte como <span class="text-oro-brillo">estado del alma</span>
-    </h1>
-    <p class="mt-6 max-w-xl text-lg leading-relaxed text-tinta-grafito">
-      Sistema Oriental único en México para revelar los talentos del alumnado: dibujo, pintura, grabado y técnicas tradicionales.
-    </p>
-    <div class="mt-10 flex flex-wrap gap-4">
-      <a href="/inscripcion" class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra transition-colors hover:bg-oro-viejo">
-        Explorar cursos
-      </a>
-      <a href="/galeria" class="rounded-full border border-tinta-negra px-8 py-3 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo">
-        Ver galería
-      </a>
+
+  <!-- ═══════ HERO con textura de grano + revelación GSAP ═══════ -->
+  <section class="hero relative overflow-hidden">
+    <!-- Textura de grano de papel (SVG noise, 0KB JS) -->
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <!-- Patrón de barro/tinta sutil -->
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6 pt-28 pb-24 md:pt-40 md:pb-32">
+      <!-- Sello jade (firma de la academia) -->
+      <div class="sello mb-10 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Centro Cultural · CDMX</p>
+      </div>
+
+      <!-- Statement de marca (revelado por etapas) -->
+      <h1 class="hero-title max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
+        El arte como
+        <span class="hero-gold block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">
+          estado del alma
+        </span>
+      </h1>
+
+      <div class="hero-sub mt-8 flex max-w-2xl flex-col gap-6">
+        <p class="text-lg leading-relaxed text-tinta-grafito md:text-xl">
+          Sistema Oriental único en México para revelar los talentos del alumnado: dibujo, pintura, grabado y técnicas tradicionales.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/inscripcion" class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo">
+            Explorar cursos
+          </a>
+          <a href="/galeria" class="rounded-full border border-tinta-negra px-8 py-3 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo">
+            Ver galería
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Marquee de técnicas (banda de ritmo) -->
+    <div class="hero-marquee relative border-y border-tinta-negra/10 bg-tinta-negra py-4 overflow-hidden">
+      <div class="marquee-track flex gap-12 whitespace-nowrap font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase">
+        <span>Dibujo</span><span class="text-oro-brillo">◆</span>
+        <span>Pintura</span><span class="text-oro-brillo">◆</span>
+        <span>Grabado</span><span class="text-oro-brillo">◆</span>
+        <span>Acuarela</span><span class="text-oro-brillo">◆</span>
+        <span>Óleo</span><span class="text-oro-brillo">◆</span>
+        <span>Caligrafía</span><span class="text-oro-brillo">◆</span>
+        <span>Técnica Interna</span><span class="text-oro-brillo">◆</span>
+        <span>Dibujo</span><span class="text-oro-brillo">◆</span>
+        <span>Pintura</span><span class="text-oro-brillo">◆</span>
+        <span>Grabado</span><span class="text-oro-brillo">◆</span>
+        <span>Acuarela</span><span class="text-oro-brillo">◆</span>
+        <span>Óleo</span><span class="text-oro-brillo">◆</span>
+        <span>Caligrafía</span><span class="text-oro-brillo">◆</span>
+        <span>Técnica Interna</span><span class="text-oro-brillo">◆</span>
+      </div>
     </div>
   </section>
 
-  <!-- SECCIÓN VIDEO CANAL 11 — prueba de autoridad (E.37: click-to-play, thumbnail primero) -->
-  <section class="mx-auto max-w-7xl px-6 py-16">
-    <div class="grid items-center gap-10 md:grid-cols-2">
-      <div>
-        <p class="font-mono text-sm tracking-widest text-jade-profundo uppercase">En los medios</p>
-        <h2 class="mt-4 font-display text-3xl font-semibold tracking-tight md:text-4xl">
-          Canal Once nos visitó
+  <!-- ═══════ VIDEO CANAL 11 — 4x más grande + animación de entrada ═══════ -->
+  <section class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+    <div class="video-block grid items-center gap-12 md:grid-cols-[1fr_1.6fr]">
+      <div class="video-text">
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">En los medios</p>
+        <h2 class="mt-4 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+          Canal Once <span class="text-oro-brillo">nos visitó</span>
         </h2>
-        <p class="mt-4 leading-relaxed text-tinta-grafito">
-          El programa "D Todo" de Canal Once presentó el centro cultural, sus técnicas y su filosofía. Un vistazo a lo que hacemos.
+        <p class="mt-6 leading-relaxed text-tinta-grafito">
+          El programa <em>"D Todo"</em> de Canal Once presentó el centro cultural, sus técnicas, su filosofía y el sistema Oriental que lo hace único. Una mirada íntima a nuestro taller.
         </p>
-        <a href="#video" class="mt-6 inline-flex items-center gap-2 font-medium text-oro-viejo hover:text-oro-brillo">
-          Ver el video →
-        </a>
+        <div class="mt-8 flex items-center gap-4">
+          <span class="flex h-12 w-12 items-center justify-center rounded-full border border-jade-base text-jade-profundo" aria-hidden="true">▶</span>
+          <div>
+            <p class="font-medium">Canal Once · 2024</p>
+            <p class="text-sm text-tinta-humo">Programa D Todo</p>
+          </div>
+        </div>
       </div>
-      <div id="video" class="relative aspect-video overflow-hidden rounded-lg border border-tinta-negra/10 bg-tinta-negra">
+
+      <!-- Video grande: aspect 16:9 a ancho completo de su columna (≈4x el anterior) -->
+      <div id="video" class="video-frame relative aspect-video overflow-hidden rounded-xl border border-tinta-negra/10 bg-tinta-negra shadow-[0_24px_80px_rgba(17,17,14,0.35)]">
+        <!-- Borde dorado hairline -->
+        <div class="absolute inset-0 z-10 rounded-xl border border-oro-brillo/30 pointer-events-none" aria-hidden="true"></div>
         <img
           src="https://i.ytimg.com/vi/KsFEtwfALnQ/hqdefault.jpg"
           alt="Video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)"
-          class="h-full w-full object-cover opacity-80"
+          class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
           width="480"
           height="360"
         />
-        <!-- Click-to-play: el iframe se monta al hacer clic (protege LCP/INP) -->
+        <div class="absolute inset-0 bg-gradient-to-t from-tinta-negra/60 via-transparent to-transparent" aria-hidden="true"></div>
         <a
           href="https://www.youtube-nocookie.com/embed/KsFEtwfALnQ"
           data-video="KsFEtwfALnQ"
-          class="group absolute inset-0 flex items-center justify-center"
+          class="group absolute inset-0 z-20 flex items-center justify-center"
           aria-label="Reproducir video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)"
         >
-          <span class="flex h-16 w-16 items-center justify-center rounded-full bg-oro-brillo text-tinta-negra shadow-lg transition-transform group-hover:scale-110">
-            ▶
+          <span class="relative flex h-20 w-20 items-center justify-center rounded-full bg-oro-brillo text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.5)] transition-all duration-300 group-hover:scale-110 md:h-24 md:w-24">
+            <span class="absolute inset-0 rounded-full border-2 border-oro-arena/60 animate-ping" style="animation-duration:2.5s"></span>
+            <span class="ml-1 text-2xl md:text-3xl">▶</span>
           </span>
         </a>
+        <p class="absolute bottom-4 left-5 z-20 font-mono text-xs tracking-widest text-lienzo-hueso/90 uppercase">Reproducir · D Todo · Canal Once</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══════ PILARES (piezas de galería numeradas) ═══════ -->
+  <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+      <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">La academia</p>
+      <h2 class="mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        Tres caminos hacia <span class="text-oro-brillo">la maestría</span>
+      </h2>
+
+      <div class="mt-14 grid gap-10 md:grid-cols-3">
+        <article class="group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
+          <p class="font-mono text-sm text-jade-profundo">01 · Dibujo</p>
+          <h3 class="mt-4 font-display text-2xl font-semibold">El fundamento</h3>
+          <p class="mt-3 leading-relaxed text-tinta-grafito">Del trazo al volumen. Grafito, carboncillo y tinta — la base de toda expresión.</p>
+        </article>
+        <article class="group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
+          <p class="font-mono text-sm text-jade-profundo">02 · Pintura</p>
+          <h3 class="mt-4 font-display text-2xl font-semibold">El color</h3>
+          <p class="mt-3 leading-relaxed text-tinta-grafito">Óleo, acuarela y acrílico. La luz y la emoción sobre la tela.</p>
+        </article>
+        <article class="group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
+          <p class="font-mono text-sm text-jade-profundo">03 · Técnica Interna</p>
+          <h3 class="mt-4 font-display text-2xl font-semibold">El sistema Oriental</h3>
+          <p class="mt-3 leading-relaxed text-tinta-grafito">Un método único en México que revela los talentos del alumnado desde adentro.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA FINAL → WhatsApp (matriculación conversacional) ═══════ -->
+  <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
+    <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
+      <p class="font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Comienza tu camino</p>
+      <h2 class="mt-6 font-display text-4xl font-semibold tracking-tight md:text-6xl">
+        El arte <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">te espera</span>
+      </h2>
+      <p class="mx-auto mt-6 max-w-xl leading-relaxed text-lienzo-hueso/70">
+        Escribe a nuestro WhatsApp y te contamos todo: cursos, horarios y el método que hace única a la academia.
+      </p>
+      <a
+        href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20quiero%20conocer%20los%20cursos"
+        target="_blank"
+        rel="noopener"
+        class="mt-10 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all hover:scale-105 hover:bg-oro-viejo"
+      >
+        <span class="text-lg" aria-hidden="true">✆</span>
+        Inscribirme por WhatsApp
+      </a>
     </div>
   </section>
 </Layout>
 
+<style>
+  /* ── Textura de grano de papel (SVG noise inline) ── */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* ── Patrón de tinta lavada (sumi-e abstracto) ── */
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212,175,55,0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17,17,14,0.04), transparent 60%);
+  }
+
+  /* ── Marquee infinito ── */
+  .marquee-track {
+    animation: marquee 28s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none; }
+  }
+</style>
+
 <script>
-  // Click-to-play para el video de Canal 11 (E.37) — el iframe solo se monta al hacer clic
+  // ── Revelación del hero por etapas (GSAP — el "ma" de las 4 etapas) ──
+  import { gsap } from "gsap";
+
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReduced && typeof gsap !== "undefined") {
+    gsap.from(".hero-title", {
+      opacity: 0,
+      y: 40,
+      duration: 1.1,
+      ease: "expo.out",
+    });
+    gsap.from(".hero-gold", {
+      opacity: 0,
+      y: 20,
+      duration: 1,
+      delay: 0.3,
+      ease: "expo.out",
+    });
+    gsap.from(".hero-sub", {
+      opacity: 0,
+      y: 20,
+      duration: 0.9,
+      delay: 0.55,
+      ease: "expo.out",
+    });
+    gsap.from(".sello", {
+      opacity: 0,
+      x: -16,
+      duration: 0.8,
+      ease: "expo.out",
+    });
+    gsap.from(".hero-marquee", {
+      opacity: 0,
+      duration: 0.6,
+      delay: 0.8,
+    });
+
+    // Video block entra con escala sutil
+    gsap.from(".video-frame", {
+      opacity: 0,
+      scale: 0.97,
+      y: 24,
+      duration: 1.2,
+      scrollTrigger: {
+        trigger: ".video-block",
+        start: "top 80%",
+      },
+    });
+  }
+
+  // ── Click-to-play del video Canal 11 (E.37) ──
   document.querySelectorAll("a[data-video]").forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const id = link.dataset.video;
-      const wrap = link.closest("div.relative");
+      const wrap = link.closest(".video-frame");
       if (!wrap || wrap.querySelector("iframe")) return;
       const iframe = document.createElement("iframe");
       iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
       iframe.title = "Video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)";
       iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
       iframe.allowFullscreen = true;
-      iframe.className = "absolute inset-0 h-full w-full";
+      iframe.className = "absolute inset-0 z-30 h-full w-full";
       link.remove();
       wrap.appendChild(iframe);
     });
