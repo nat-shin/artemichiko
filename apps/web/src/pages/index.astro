@@ -1,51 +1,61 @@
 ---
-// ArteMichiko — Home ESPECTACULAR (texturas + GSAP + video 4x)
-// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38
+// ArteMichiko — Home nivel Awwwards (preloader + text reveal + zoom-parallax + máscaras)
+// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38 · Sin Canal Once
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Centro Cultural Académico de Dibujo y Pintura" description="ArteMichiko — academia de arte con sistema Oriental único en México. Dibujo, pintura, grabado y más.">
 
-  <!-- ═══════ HERO con textura de grano + revelación GSAP ═══════ -->
-  <section class="hero relative overflow-hidden">
-    <!-- Textura de grano de papel (SVG noise, 0KB JS) -->
+  <!-- ═══════ PRELOADER (contador 0→100 + cortina que se levanta) ═══════ -->
+  <div id="preloader" class="fixed inset-0 z-[9998] flex items-center justify-center bg-tinta-negra" aria-hidden="true">
+    <div class="text-center">
+      <p class="font-display text-2xl text-lienzo-blanco">Arte<span class="text-oro-brillo">Michiko</span></p>
+      <p id="preloader-count" class="mt-4 font-mono text-5xl text-oro-brillo tabular-nums">0</p>
+      <div class="mx-auto mt-4 h-px w-40 overflow-hidden bg-lienzo-blanco/10">
+        <div id="preloader-bar" class="h-full w-0 bg-oro-brillo"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ HERO — text reveal por caracteres + textura ═══════ -->
+  <section class="relative overflow-hidden pt-40 pb-24 md:pt-48 md:pb-32">
+    <!-- Textura de grano + tinta lavada -->
     <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
-    <!-- Patrón de barro/tinta sutil -->
     <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
 
-    <div class="relative mx-auto max-w-7xl px-6 pt-28 pb-24 md:pt-40 md:pb-32">
-      <!-- Sello jade (firma de la academia) -->
+    <div class="relative mx-auto max-w-7xl px-6">
       <div class="sello mb-10 flex items-center gap-3">
         <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
         <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Centro Cultural · CDMX</p>
       </div>
 
-      <!-- Statement de marca (revelado por etapas) -->
-      <h1 class="hero-title max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
-        El arte como
-        <span class="hero-gold block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">
-          estado del alma
+      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-9xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">El arte como</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">estado del alma</span>
         </span>
       </h1>
 
-      <div class="hero-sub mt-8 flex max-w-2xl flex-col gap-6">
-        <p class="text-lg leading-relaxed text-tinta-grafito md:text-xl">
+      <div class="mt-10 flex max-w-2xl flex-col gap-6">
+        <p class="fade-up text-lg leading-relaxed text-tinta-grafito md:text-xl">
           Sistema Oriental único en México para revelar los talentos del alumnado: dibujo, pintura, grabado y técnicas tradicionales.
         </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="/inscripcion" class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo">
+        <div class="fade-up flex flex-wrap gap-4">
+          <a href="/inscripcion" data-cursor class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo">
             Explorar cursos
           </a>
-          <a href="/galeria" class="rounded-full border border-tinta-negra px-8 py-3 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo">
+          <a href="/galeria" data-cursor class="rounded-full border border-tinta-negra px-8 py-3 font-medium transition-colors hover:border-jade-base hover:text-jade-profundo">
             Ver galería
           </a>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Marquee de técnicas (banda de ritmo) -->
-    <div class="hero-marquee relative border-y border-tinta-negra/10 bg-tinta-negra py-4 overflow-hidden">
-      <div class="marquee-track flex gap-12 whitespace-nowrap font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase">
+  <!-- ═══════ MARQUEE de técnicas (banda de ritmo, pausa en hover) ═══════ -->
+  <section class="border-y border-tinta-negra/10 bg-tinta-negra py-4 overflow-hidden" aria-label="Técnicas de la academia">
+    <div class="marquee flex whitespace-nowrap" data-marquee>
+      <div class="marquee-track flex shrink-0 gap-12 pr-12 font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase">
         <span>Dibujo</span><span class="text-oro-brillo">◆</span>
         <span>Pintura</span><span class="text-oro-brillo">◆</span>
         <span>Grabado</span><span class="text-oro-brillo">◆</span>
@@ -53,6 +63,8 @@ import Layout from "../layouts/Layout.astro";
         <span>Óleo</span><span class="text-oro-brillo">◆</span>
         <span>Caligrafía</span><span class="text-oro-brillo">◆</span>
         <span>Técnica Interna</span><span class="text-oro-brillo">◆</span>
+      </div>
+      <div class="marquee-track flex shrink-0 gap-12 pr-12 font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase" aria-hidden="true">
         <span>Dibujo</span><span class="text-oro-brillo">◆</span>
         <span>Pintura</span><span class="text-oro-brillo">◆</span>
         <span>Grabado</span><span class="text-oro-brillo">◆</span>
@@ -64,99 +76,127 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </section>
 
-  <!-- ═══════ VIDEO CANAL 11 — 4x más grande + animación de entrada ═══════ -->
-  <section class="mx-auto max-w-7xl px-6 py-20 md:py-28">
-    <div class="video-block grid items-center gap-12 md:grid-cols-[1fr_1.6fr]">
-      <div class="video-text">
-        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">En los medios</p>
-        <h2 class="mt-4 font-display text-4xl font-semibold tracking-tight md:text-5xl">
-          Canal Once <span class="text-oro-brillo">nos visitó</span>
+  <!-- ═══════ GALERÍA DESTACADA — sticky zoom-parallax + mask reveal ═══════ -->
+  <section id="galeria-destacada" class="zoom-gallery relative overflow-hidden">
+    <div class="zoom-inner mx-auto max-w-7xl px-6 py-24">
+      <div class="zoom-head mb-16">
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Obras destacadas</p>
+        <h2 class="mt-4 max-w-2xl font-display text-5xl font-semibold tracking-tight md:text-6xl">
+          El taller en <span class="text-oro-brillo">movimiento</span>
         </h2>
-        <p class="mt-6 leading-relaxed text-tinta-grafito">
-          El programa <em>"D Todo"</em> de Canal Once presentó el centro cultural, sus técnicas, su filosofía y el sistema Oriental que lo hace único. Una mirada íntima a nuestro taller.
-        </p>
-        <div class="mt-8 flex items-center gap-4">
-          <span class="flex h-12 w-12 items-center justify-center rounded-full border border-jade-base text-jade-profundo" aria-hidden="true">▶</span>
-          <div>
-            <p class="font-medium">Canal Once · 2024</p>
-            <p class="text-sm text-tinta-humo">Programa D Todo</p>
-          </div>
+      </div>
+
+      <div class="zoom-stage relative grid gap-6 md:grid-cols-3">
+        <!-- Columna izquierda (sube) -->
+        <div class="zoom-col-left space-y-6">
+          <figure class="mask-frame group relative aspect-[3/4] overflow-hidden rounded-sm" data-mask>
+            <img src="https://placehold.co/800x1066/F5F0E6/11110E?text=Obra+01" alt="Obra destacada 01 — lugar para imagen real" loading="lazy" width="800" height="1066" class="mask-img h-full w-full object-cover" data-parallax />
+            <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/70 to-transparent p-4 font-mono text-xs text-lienzo-hueso">
+              Grafito sobre papel · 01
+            </figcaption>
+          </figure>
+          <figure class="mask-frame group relative aspect-[3/4] overflow-hidden rounded-sm" data-mask>
+            <img src="https://placehold.co/800x1066/EDE3D0/11110E?text=Obra+02" alt="Obra destacada 02 — lugar para imagen real" loading="lazy" width="800" height="1066" class="mask-img h-full w-full object-cover" data-parallax />
+            <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/70 to-transparent p-4 font-mono text-xs text-lienzo-hueso">
+              Acuarela · 02
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Columna central (contra-escala) -->
+        <div class="zoom-col-center flex items-center">
+          <figure class="mask-frame group relative aspect-[3/4] overflow-hidden rounded-sm" data-mask>
+            <img src="https://placehold.co/800x1066/11110E/D4AF37?text=Obra+Central" alt="Obra central — lugar para imagen real" loading="lazy" width="800" height="1066" class="mask-img h-full w-full object-cover" data-parallax data-scale />
+            <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/70 to-transparent p-4 font-mono text-xs text-lienzo-hueso">
+              Óleo · Pieza central
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Columna derecha (baja) -->
+        <div class="zoom-col-right space-y-6">
+          <figure class="mask-frame group relative aspect-[3/4] overflow-hidden rounded-sm" data-mask>
+            <img src="https://placehold.co/800x1066/EFE6D4/11110E?text=Obra+03" alt="Obra destacada 03 — lugar para imagen real" loading="lazy" width="800" height="1066" class="mask-img h-full w-full object-cover" data-parallax />
+            <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/70 to-transparent p-4 font-mono text-xs text-lienzo-hueso">
+              Tinta china · 03
+            </figcaption>
+          </figure>
+          <figure class="mask-frame group relative aspect-[3/4] overflow-hidden rounded-sm" data-mask>
+            <img src="https://placehold.co/800x1066/E2E8DF/11110E?text=Obra+04" alt="Obra destacada 04 — lugar para imagen real" loading="lazy" width="800" height="1066" class="mask-img h-full w-full object-cover" data-parallax />
+            <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/70 to-transparent p-4 font-mono text-xs text-lienzo-hueso">
+              Grabado · 04
+            </figcaption>
+          </figure>
         </div>
       </div>
-
-      <!-- Video grande: aspect 16:9 a ancho completo de su columna (≈4x el anterior) -->
-      <div id="video" class="video-frame relative aspect-video overflow-hidden rounded-xl border border-tinta-negra/10 bg-tinta-negra shadow-[0_24px_80px_rgba(17,17,14,0.35)]">
-        <!-- Borde dorado hairline -->
-        <div class="absolute inset-0 z-10 rounded-xl border border-oro-brillo/30 pointer-events-none" aria-hidden="true"></div>
-        <img
-          src="https://i.ytimg.com/vi/KsFEtwfALnQ/hqdefault.jpg"
-          alt="Video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)"
-          class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-          width="480"
-          height="360"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-tinta-negra/60 via-transparent to-transparent" aria-hidden="true"></div>
-        <a
-          href="https://www.youtube-nocookie.com/embed/KsFEtwfALnQ"
-          data-video="KsFEtwfALnQ"
-          class="group absolute inset-0 z-20 flex items-center justify-center"
-          aria-label="Reproducir video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)"
-        >
-          <span class="relative flex h-20 w-20 items-center justify-center rounded-full bg-oro-brillo text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.5)] transition-all duration-300 group-hover:scale-110 md:h-24 md:w-24">
-            <span class="absolute inset-0 rounded-full border-2 border-oro-arena/60 animate-ping" style="animation-duration:2.5s"></span>
-            <span class="ml-1 text-2xl md:text-3xl">▶</span>
-          </span>
-        </a>
-        <p class="absolute bottom-4 left-5 z-20 font-mono text-xs tracking-widest text-lienzo-hueso/90 uppercase">Reproducir · D Todo · Canal Once</p>
-      </div>
     </div>
   </section>
 
-  <!-- ═══════ PILARES (piezas de galería numeradas) ═══════ -->
+  <!-- ═══════ PILARES (border reveal + hover jade) ═══════ -->
   <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
-    <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
-      <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">La academia</p>
-      <h2 class="mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+    <div class="mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">La academia</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-5xl font-semibold tracking-tight md:text-6xl">
         Tres caminos hacia <span class="text-oro-brillo">la maestría</span>
       </h2>
 
-      <div class="mt-14 grid gap-10 md:grid-cols-3">
-        <article class="group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
+      <div class="mt-16 grid gap-10 md:grid-cols-3">
+        <article class="fade-up group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
           <p class="font-mono text-sm text-jade-profundo">01 · Dibujo</p>
-          <h3 class="mt-4 font-display text-2xl font-semibold">El fundamento</h3>
+          <h3 class="mt-4 font-display text-3xl font-semibold">El fundamento</h3>
           <p class="mt-3 leading-relaxed text-tinta-grafito">Del trazo al volumen. Grafito, carboncillo y tinta — la base de toda expresión.</p>
         </article>
-        <article class="group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
+        <article class="fade-up group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
           <p class="font-mono text-sm text-jade-profundo">02 · Pintura</p>
-          <h3 class="mt-4 font-display text-2xl font-semibold">El color</h3>
+          <h3 class="mt-4 font-display text-3xl font-semibold">El color</h3>
           <p class="mt-3 leading-relaxed text-tinta-grafito">Óleo, acuarela y acrílico. La luz y la emoción sobre la tela.</p>
         </article>
-        <article class="group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
+        <article class="fade-up group border-t-2 border-tinta-negra pt-8 transition-colors hover:border-jade-base">
           <p class="font-mono text-sm text-jade-profundo">03 · Técnica Interna</p>
-          <h3 class="mt-4 font-display text-2xl font-semibold">El sistema Oriental</h3>
+          <h3 class="mt-4 font-display text-3xl font-semibold">El sistema Oriental</h3>
           <p class="mt-3 leading-relaxed text-tinta-grafito">Un método único en México que revela los talentos del alumnado desde adentro.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ═══════ CTA FINAL → WhatsApp (matriculación conversacional) ═══════ -->
+  <!-- ═══════ COMUNIDAD (redes + prueba social, sin Canal Once) ═══════ -->
   <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
     <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Comunidad</p>
+      <h2 class="fade-up mt-4 max-w-3xl font-display text-5xl font-semibold tracking-tight md:text-6xl">
+        El círculo <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">del arte</span>
+      </h2>
+      <p class="fade-up mx-auto mt-6 max-w-xl leading-relaxed text-lienzo-hueso/70">
+        Talleres abiertos, exposiciones y el colectivo de artistas que sostienen ArteMichiko. Síguenos y mira el trabajo de nuestros alumnos.
+      </p>
+      <div class="fade-up mt-10 flex flex-wrap gap-4">
+        <a href="https://www.instagram.com/arte_michiko" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">Instagram</a>
+        <a href="https://www.facebook.com/centroculturalmichiko" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">Facebook</a>
+        <a href="https://www.youtube.com/@centroculturalacademicoded7862" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">YouTube</a>
+        <a href="https://www.tiktok.com" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">TikTok</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA FINAL → WhatsApp ═══════ -->
+  <section class="relative overflow-hidden">
+    <div class="ink-wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
-      <p class="font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Comienza tu camino</p>
-      <h2 class="mt-6 font-display text-4xl font-semibold tracking-tight md:text-6xl">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Comienza tu camino</p>
+      <h2 class="fade-up mt-6 font-display text-5xl font-semibold tracking-tight md:text-7xl">
         El arte <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">te espera</span>
       </h2>
-      <p class="mx-auto mt-6 max-w-xl leading-relaxed text-lienzo-hueso/70">
+      <p class="fade-up mx-auto mt-6 max-w-xl leading-relaxed text-tinta-grafito">
         Escribe a nuestro WhatsApp y te contamos todo: cursos, horarios y el método que hace única a la academia.
       </p>
       <a
         href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20quiero%20conocer%20los%20cursos"
         target="_blank"
         rel="noopener"
-        class="mt-10 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all hover:scale-105 hover:bg-oro-viejo"
+        data-cursor
+        class="fade-up mt-10 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all hover:scale-105 hover:bg-oro-viejo"
       >
         <span class="text-lg" aria-hidden="true">✆</span>
         Inscribirme por WhatsApp
@@ -166,13 +206,13 @@ import Layout from "../layouts/Layout.astro";
 </Layout>
 
 <style>
-  /* ── Textura de grano de papel (SVG noise inline) ── */
+  /* Textura de grano de papel */
   .grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
   }
 
-  /* ── Patrón de tinta lavada (sumi-e abstracto) ── */
+  /* Tinta lavada sumi-e */
   .ink-wash {
     background:
       radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
@@ -180,85 +220,117 @@ import Layout from "../layouts/Layout.astro";
       radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17,17,14,0.04), transparent 60%);
   }
 
-  /* ── Marquee infinito ── */
-  .marquee-track {
-    animation: marquee 28s linear infinite;
+  /* Reveal por línea (máscara overflow-hidden + translateY) */
+  .reveal-inner { will-change: transform; }
+
+  /* Mask reveal de imágenes: la obra "viaja dentro de su marco" */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track { animation: none; }
-  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
 </style>
 
 <script>
-  // ── Revelación del hero por etapas (GSAP — el "ma" de las 4 etapas) ──
   import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+  gsap.registerPlugin(ScrollTrigger);
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!prefersReduced && typeof gsap !== "undefined") {
-    gsap.from(".hero-title", {
-      opacity: 0,
-      y: 40,
-      duration: 1.1,
-      ease: "expo.out",
-    });
-    gsap.from(".hero-gold", {
-      opacity: 0,
-      y: 20,
-      duration: 1,
-      delay: 0.3,
-      ease: "expo.out",
-    });
-    gsap.from(".hero-sub", {
-      opacity: 0,
-      y: 20,
-      duration: 0.9,
-      delay: 0.55,
-      ease: "expo.out",
-    });
-    gsap.from(".sello", {
-      opacity: 0,
-      x: -16,
-      duration: 0.8,
-      ease: "expo.out",
-    });
-    gsap.from(".hero-marquee", {
-      opacity: 0,
-      duration: 0.6,
-      delay: 0.8,
-    });
 
-    // Video block entra con escala sutil
-    gsap.from(".video-frame", {
-      opacity: 0,
-      scale: 0.97,
-      y: 24,
-      duration: 1.2,
-      scrollTrigger: {
-        trigger: ".video-block",
-        start: "top 80%",
+  if (!prefersReduced) {
+    // ── 1. PRELOADER: contador 0→100 + cortina ──
+    const counter = { value: 0 };
+    const preloader = document.getElementById("preloader");
+    const countEl = document.getElementById("preloader-count");
+    const barEl = document.getElementById("preloader-bar");
+
+    const preTl = gsap.timeline({
+      onComplete: () => {
+        preloader?.remove();
+        // Entrega el hero inmediatamente después
+        gsap.set(".reveal-inner", { y: "110%" });
+        gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
       },
     });
-  }
-
-  // ── Click-to-play del video Canal 11 (E.37) ──
-  document.querySelectorAll("a[data-video]").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const id = link.dataset.video;
-      const wrap = link.closest(".video-frame");
-      if (!wrap || wrap.querySelector("iframe")) return;
-      const iframe = document.createElement("iframe");
-      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
-      iframe.title = "Video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)";
-      iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      iframe.className = "absolute inset-0 z-30 h-full w-full";
-      link.remove();
-      wrap.appendChild(iframe);
+    preTl.to(counter, {
+      value: 100,
+      duration: 1.6,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        if (countEl) countEl.textContent = String(Math.round(counter.value));
+        if (barEl) barEl.style.width = `${counter.value}%`;
+      },
     });
-  });
+    preTl.to(preloader, { yPercent: -100, duration: 0.9, ease: "power4.inOut" }, "+=0.15");
+    // Fallback: si algo falla, quitar el preloader a los 4s
+    setTimeout(() => preloader?.remove(), 4000);
+
+    // ── 2. Fade-ups (secciones) ──
+    gsap.utils.toArray(".fade-up").forEach((el) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 32,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+
+    // ── 3. MASK REVEAL de imágenes (la obra viaja en su marco) ──
+    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+      const img = frame.querySelector(".mask-img");
+      if (!img) return;
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: frame, start: "top 85%" },
+        }
+      );
+      // Parallax interno: la imagen se desplaza dentro de su marco
+      gsap.to(img, {
+        yPercent: -10,
+        ease: "none",
+        scrollTrigger: { trigger: frame, scrub: 0.6 },
+      });
+    });
+
+    // ── 4. STICKY ZOOM-PARALLAX en la galería destacada ──
+    const stage = document.querySelector(".zoom-stage");
+    if (stage) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".zoom-gallery",
+          start: "top top",
+          end: "+=180%",
+          scrub: 1,
+          pin: ".zoom-gallery",
+          anticipatePin: 1,
+        },
+      });
+      tl.to(stage, { scale: 1.25, ease: "none" }, 0);
+      tl.to(".zoom-col-left", { yPercent: -14, ease: "none" }, 0);
+      tl.to(".zoom-col-right", { yPercent: 8, ease: "none" }, 0);
+      tl.to("[data-scale]", { scale: 0.9, ease: "none" }, 0);
+    }
+
+    // ── 5. MARQUEE infinito (pausa en hover) ──
+    gsap.utils.toArray("[data-marquee]").forEach((marquee) => {
+      const tracks = marquee.querySelectorAll(".marquee-track");
+      gsap.to(tracks, {
+        xPercent: -100,
+        repeat: -1,
+        duration: 28,
+        ease: "none",
+      });
+      marquee.addEventListener("mouseenter", () => gsap.to(tracks, { timeScale: 0.2, duration: 0.4 }));
+      marquee.addEventListener("mouseleave", () => gsap.to(tracks, { timeScale: 1, duration: 0.4 }));
+    });
+  }
 </script>

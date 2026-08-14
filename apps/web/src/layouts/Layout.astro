@@ -1,6 +1,6 @@
 ---
-// ArteMichiko — Layout base (header + footer con redes)
-// Identidad: blanco/negro/dorado/jade (E.35/E.38)
+// ArteMichiko — Layout base (header direction-aware + Lenis + cursor follower)
+// Identidad: blanco/negro/dorado/jade (E.35/E.38) · Nivel Awwwards
 import "../styles/global.css";
 interface Props {
 	title?: string;
@@ -23,20 +23,25 @@ const {
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body class="bg-lienzo-blanco text-tinta-negra font-sans antialiased">
-    <header class="border-b border-tinta-negra/10">
+    <!-- Cursor follower (solo pointer:fine, garnish) -->
+    <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+
+    <header id="site-header" class="site-header">
       <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5" aria-label="Principal">
-        <a href="/" class="font-display text-2xl font-semibold tracking-tight">
+        <a href="/" class="group flex items-center gap-2 font-display text-2xl font-semibold tracking-tight">
+          <span class="flex h-8 w-8 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-sm text-jade-tinta" aria-hidden="true">印</span>
           Arte<span class="text-oro-brillo">Michiko</span>
         </a>
         <ul class="hidden gap-8 text-sm tracking-wide md:flex">
-          <li><a href="/galeria" class="hover:text-oro-viejo transition-colors">Galería</a></li>
-          <li><a href="/cursos" class="hover:text-oro-viejo transition-colors">Cursos</a></li>
-          <li><a href="/comunidad" class="hover:text-oro-viejo transition-colors">Comunidad</a></li>
-          <li><a href="/nosotros" class="hover:text-oro-viejo transition-colors">Nosotros</a></li>
+          <li><a href="/galeria" class="nav-link" data-cursor>Galería</a></li>
+          <li><a href="/cursos" class="nav-link" data-cursor>Cursos</a></li>
+          <li><a href="/comunidad" class="nav-link" data-cursor>Comunidad</a></li>
+          <li><a href="/nosotros" class="nav-link" data-cursor>Nosotros</a></li>
         </ul>
         <a
           href="/inscripcion"
-          class="rounded-full bg-oro-brillo px-5 py-2 text-sm font-medium text-tinta-negra transition-colors hover:bg-oro-viejo"
+          class="btn-magnetic rounded-full bg-oro-brillo px-5 py-2 text-sm font-medium text-tinta-negra transition-colors hover:bg-oro-viejo"
+          data-cursor
         >
           Inscribirme
         </a>
@@ -71,5 +76,117 @@ const {
         </p>
       </div>
     </footer>
+
+    <style>
+      /* Cursor follower — punto dorado con lerp */
+      .cursor-dot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        margin: -5px 0 0 -5px;
+        border-radius: 9999px;
+        background: #d4af37;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.15s ease-out;
+        mix-blend-mode: multiply;
+      }
+      .cursor-dot.visible { opacity: 1; }
+      .cursor-dot.grown { transform: scale(3); background: rgba(212,175,55,0.25); border: 1px solid #d4af37; }
+
+      /* Header direction-aware: se esconde al bajar, aparece al subir */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: rgba(253, 251, 247, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(17, 17, 14, 0.08);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform;
+      }
+      .site-header.hidden { transform: translateY(-100%); }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.2s ease;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 100%;
+        height: 1px;
+        background: #00a86b;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .nav-link:hover { color: #00965f; }
+      .nav-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .cursor-dot { display: none; }
+        .site-header { transition: none; }
+      }
+    </style>
+
+    <script>
+      // ── Lenis smooth scroll (base de toda la sensación premium) ──
+      import Lenis from "lenis";
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!prefersReduced) {
+        const lenis = new Lenis({ lerp: 0.1 });
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // ── Header direction-aware ──
+        const header = document.getElementById("site-header");
+        let lastY = 0;
+        lenis.on("scroll", ({ scroll }) => {
+          const y = scroll;
+          if (y > lastY && y > 120) header?.classList.add("hidden");
+          else header?.classList.remove("hidden");
+          lastY = y;
+        });
+
+        // ── Cursor follower (solo pointer:fine) ──
+        if (window.matchMedia("(pointer: fine)").matches) {
+          const dot = document.getElementById("cursor-dot");
+          let mx = 0, my = 0, cx = 0, cy = 0;
+          window.addEventListener("pointermove", (e) => {
+            mx = e.clientX; my = e.clientY;
+            dot?.classList.add("visible");
+          });
+          document.addEventListener("mouseleave", () => dot?.classList.remove("visible"));
+          document.querySelectorAll("[data-cursor]").forEach((el) => {
+            el.addEventListener("mouseenter", () => dot?.classList.add("grown"));
+            el.addEventListener("mouseleave", () => dot?.classList.remove("grown"));
+          });
+          (function raf() {
+            cx += (mx - cx) * 0.12;
+            cy += (my - cy) * 0.12;
+            if (dot) dot.style.transform = `translate(${cx}px, ${cy}px)`;
+            requestAnimationFrame(raf);
+          })();
+        }
+      }
+    </script>
   </body>
 </html>

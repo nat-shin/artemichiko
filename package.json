@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.33.2",
   "type": "module",
-  "description": "ArteMichiko — academia de arte. Sitio Astro 7 + islas React sobre Cloudflare (doc 8 + auditoría 2026).",
+  "description": "ArteMichiko \u2014 academia de arte. Sitio Astro 7 + islas React sobre Cloudflare (doc 8 + auditor\u00eda 2026).",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "pnpm --filter @artemichiko/web dev",
@@ -15,7 +15,8 @@
     "test:e2e": "pnpm --filter @artemichiko/web test:e2e",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "audit": "pnpm audit --prod"
+    "audit": "pnpm audit --prod",
+    "qa": "bash scripts/qa-lighthouse.sh"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.8"
