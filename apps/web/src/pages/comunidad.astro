@@ -256,6 +256,45 @@ const eventos = [
       </div>
     </div>
   </section>
+
+  <!-- ═══════ NEWSLETTER — canal propio (Buttondown, sin JS, sin DB) ═══════ -->
+  <section class="border-t border-tinta-negra/10">
+    <div class="mx-auto max-w-3xl px-6 py-20 text-center">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Boletín</p>
+      <h2 class="fade-up mt-4 font-display text-4xl font-semibold tracking-tight">
+        Novedades del <span class="text-oro-brillo">taller</span>
+      </h2>
+      <p class="fade-up mx-auto mt-4 max-w-md leading-relaxed text-tinta-grafito">
+        Exposiciones, cursos nuevos y el proceso de los alumnos — una vez al mes, directo a tu correo.
+      </p>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/artemichiko"
+        method="post"
+        target="popupwindow"
+        class="embeddable-buttondown-form fade-up mx-auto mt-8 flex max-w-md flex-col gap-4 sm:flex-row"
+      >
+        <label for="bd-email" class="sr-only">Correo electrónico</label>
+        <input
+          type="email"
+          name="email"
+          id="bd-email"
+          required
+          placeholder="tu@correo.com"
+          class="w-full flex-1 rounded-sm border border-tinta-humo/40 bg-lienzo-blanco px-4 py-3 transition-colors focus:border-jade-profundo focus:outline-none"
+        />
+        <button
+          type="submit"
+          data-cursor
+          class="rounded-full bg-oro-brillo px-6 py-3 font-medium text-tinta-negra transition-all hover:scale-105 hover:bg-oro-viejo"
+        >
+          Suscribirme
+        </button>
+      </form>
+      <p class="fade-up mt-4 text-xs text-tinta-humo">
+        Tu correo solo se usa para el boletín. Puedes darte de baja en cualquier momento (aviso de privacidad en /legal).
+      </p>
+    </div>
+  </section>
 </Layout>
 
 <style>

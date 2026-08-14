@@ -100,7 +100,7 @@ Astro.csp?.insertDirective("frame-src https://www.google.com");
   description="Visita el Centro Cultural ArteMichiko en CDMX. Dirección, horarios, teléfono y WhatsApp para inscribirte a clases de dibujo y pintura."
 >
 
-  <script type="application/ld+json" set:html={localBusinessJson} />
+  <script type="application/ld+json" is:inline set:html={localBusinessJson} />
 
   <!-- ═══════ HERO — text reveal ═══════ -->
   <section class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-24">

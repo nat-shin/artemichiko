@@ -67,7 +67,7 @@ const faqJson = JSON.stringify(faqSchema);
   description="Respuestas directas sobre cursos, materiales, inscripción, certificados y alumnos internacionales en ArteMichiko — academia de arte en CDMX."
 >
 
-  <script type="application/ld+json" set:html={faqJson} />
+  <script type="application/ld+json" is:inline set:html={faqJson} />
 
   <!-- Estado inicial de animación: se aplica ANTES del primer paint (sin JS = contenido visible) -->
   <script is:inline>

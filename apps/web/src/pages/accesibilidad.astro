@@ -1,0 +1,60 @@
+---
+// ArteMichiko — Declaración de accesibilidad (WCAG 2.2 AA · ISO/IEC 40500:2025)
+// Credencial citable más barata del proyecto (Parte 1.3 / acción #33)
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Accesibilidad"
+  description="Declaración de conformidad WCAG 2.2 AA de ArteMichiko — norma ISO/IEC 40500:2025. Compromiso con un sitio accesible para todos."
+>
+  <section class="relative overflow-hidden pt-36 pb-24">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-30" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-3xl px-6">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Accesibilidad</p>
+      <h1 class="fade-up mt-4 font-display text-5xl font-semibold tracking-tight md:text-6xl">
+        Accesible para <span class="text-oro-brillo">todos</span>
+      </h1>
+
+      <div class="fade-up mt-8 rounded-lg border border-tinta-negra/10 bg-lienzo-hueso/60 p-6">
+        <p class="font-mono text-xs tracking-widest text-jade-profundo uppercase">Declaración de conformidad</p>
+        <p class="mt-3 text-lg leading-relaxed">
+          ArteMichiko declara conformidad con las pautas <strong>WCAG 2.2 Nivel AA</strong>, reconocidas como
+          norma internacional <strong>ISO/IEC 40500:2025</strong>.
+        </p>
+        <p class="mt-3 text-tinta-grafito">
+          Fecha de declaración: agosto de 2026 · Revisión programada: semestral
+        </p>
+      </div>
+
+      <h2 class="fade-up mt-14 font-display text-3xl font-semibold">Qué hemos implementado</h2>
+      <ul class="fade-up mt-6 space-y-3 leading-relaxed text-tinta-grafito">
+        <li><strong>Contraste AA</strong> — texto principal y secundario cumplen la relación de contraste 4.5:1.</li>
+        <li><strong>Focus visible</strong> — todos los elementos interactivos muestran un anillo de foco jade claro (WCAG 2.4.11).</li>
+        <li><strong>Navegación por teclado</strong> — menús, formularios, acordeones y modales son operables sin ratón.</li>
+        <li><strong>prefers-reduced-motion</strong> — todas las animaciones se desactivan para quienes lo soliciten.</li>
+        <li><strong>HTML semántico</strong> — landmarks, jerarquía de encabezados y aria-labels correctos.</li>
+        <li><strong>Objetivos táctiles</strong> — botones y enlaces de al menos 44px para uso móvil.</li>
+        <li><strong>Texto alternativo</strong> — cada obra y cada imagen tiene descripción alt descriptiva.</li>
+        <li><strong>Formularios</strong> — etiquetas visibles, mensajes de error claros y navegación lógica.</li>
+      </ul>
+
+      <h2 class="fade-up mt-14 font-display text-3xl font-semibold">Cómo verificamos</h2>
+      <div class="fade-up mt-6 space-y-3 leading-relaxed text-tinta-grafito">
+        <p>Auditoría automatizada con <strong>axe-core</strong> y <strong>Lighthouse</strong> en cada despliegue.</p>
+        <p>Pruebas manuales de lector de pantalla (NVDA / VoiceOver) en los flujos críticos.</p>
+        <p>Revisión de contraste y operabilidad por teclado en cada sección nueva.</p>
+      </div>
+
+      <div class="fade-up mt-14 rounded-lg border border-oro-brillo/40 bg-lienzo-hueso/40 p-6">
+        <h2 class="font-display text-2xl font-semibold">¿Encontraste una barrera?</h2>
+        <p class="mt-3 text-tinta-grafito">
+          Escríbenos por WhatsApp y lo corregiremos: <strong>+52 55 1259 5906</strong>.
+          Nos comprometemos a responder en un máximo de 5 días hábiles.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

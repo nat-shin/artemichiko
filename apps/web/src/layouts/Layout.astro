@@ -2,6 +2,7 @@
 // ArteMichiko — Layout base (header direction-aware + Lenis + cursor follower)
 // Identidad: blanco/negro/dorado/jade (E.35/E.38) · Nivel Awwwards
 import "../styles/global.css";
+import Search from "../components/Search.astro";
 
 interface Props {
 	title?: string;
@@ -70,6 +71,14 @@ const {
     <!-- Scroll progress (barra dorada de lectura) -->
     <div id="scroll-progress" class="fixed top-0 left-0 z-[9997] h-[2px] w-0 bg-oro-brillo" aria-hidden="true"></div>
 
+    <!-- Back-to-top (aparece tras 600px de scroll) -->
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="Volver arriba">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <line x1="12" y1="20" x2="12" y2="4" />
+        <polyline points="6,10 12,4 18,10" />
+      </svg>
+    </button>
+
     <!-- Grano de película global: textura estática sobre todas las páginas (bajo modal/preloader/cursor) -->
     <div id="grain-overlay" class="grain" aria-hidden="true"></div>
 
@@ -88,13 +97,16 @@ const {
           <li><a href="/comunidad" class="nav-link" data-cursor>Comunidad</a></li>
           <li><a href="/nosotros" class="nav-link" data-cursor>Nosotros</a></li>
         </ul>
-        <a
-          href="/inscripcion"
-          class="btn-magnetic rounded-full bg-oro-brillo px-5 py-2 text-sm font-medium text-tinta-negra transition-colors hover:bg-oro-viejo"
-          data-cursor
-        >
-          Inscribirme
-        </a>
+        <div class="flex items-center gap-3">
+          <Search />
+          <a
+            href="/inscripcion"
+            class="btn-magnetic rounded-full bg-oro-brillo px-5 py-2 text-sm font-medium text-tinta-negra transition-colors hover:bg-oro-viejo"
+            data-cursor
+          >
+            Inscribirme
+          </a>
+        </div>
       </nav>
     </header>
 
@@ -210,6 +222,17 @@ const {
         const progressBar = document.getElementById("scroll-progress");
         lenis.on("scroll", ({ progress }) => {
           if (progressBar) progressBar.style.width = `${Math.min(progress, 1) * 100}%`;
+        });
+
+        // ── Back-to-top (aparece tras 600px) ──
+        const backTop = document.getElementById("back-to-top");
+        lenis.on("scroll", ({ scroll }) => {
+          if (!backTop) return;
+          if (scroll > 600) backTop.classList.add("visible");
+          else backTop.classList.remove("visible");
+        });
+        backTop?.addEventListener("click", () => {
+          lenis.scrollTo(0, { duration: 1.2 });
         });
 
         // ── Header direction-aware ──

@@ -1,0 +1,125 @@
+---
+// ArteMichiko — Mapa del sitio (HTML, para humanos + enlace desde footer)
+import Layout from "../layouts/Layout.astro";
+
+const secciones = [
+	{
+		titulo: "Inicio",
+		ruta: "/",
+		descripcion: "El Umbral — la experiencia de entrada",
+	},
+	{
+		titulo: "Galería",
+		ruta: "/galeria",
+		descripcion: "Obras del taller y de alumnos",
+		hijos: [
+			"sombra-del-ciruelo",
+			"rio-de-tinta",
+			"barro-y-luz",
+			"niebla-sobre-el-ajusco",
+			"jardin-de-michiko",
+			"cicatriz-dorada",
+			"el-silencio-del-sello",
+			"volcan-dormido",
+			"carpa-en-la-noche",
+			"azahar",
+		],
+	},
+	{
+		titulo: "Cursos",
+		ruta: "/cursos",
+		descripcion: "El plan del taller: grafito → color → óleo",
+		hijos: [
+			"grafito",
+			"color-y-tecnicas-alternas",
+			"pintura-al-oleo",
+			"dibujo-al-rostro-y-anatomia",
+			"letra-gotica",
+			"tecnica-interna",
+		],
+	},
+	{
+		titulo: "Docentes",
+		ruta: "/docentes",
+		descripcion: "El Mtro. Cabrera y la Mtra. Mena",
+	},
+	{
+		titulo: "Nosotros",
+		ruta: "/nosotros",
+		descripcion: "Historia y filosofía",
+	},
+	{
+		titulo: "Comunidad",
+		ruta: "/comunidad",
+		descripcion: "Redes, alumnos y eventos",
+	},
+	{
+		titulo: "Blog",
+		ruta: "/blog",
+		descripcion: "Guías por medio y vida del taller",
+	},
+	{
+		titulo: "Testimonios",
+		ruta: "/testimonios",
+		descripcion: "La palabra de quienes ya pintan",
+	},
+	{
+		titulo: "Inscripción",
+		ruta: "/inscripcion",
+		descripcion: "Comienza tu camino por WhatsApp",
+	},
+	{
+		titulo: "Contacto",
+		ruta: "/contacto",
+		descripcion: "Dirección, teléfono y mapa",
+	},
+	{ titulo: "FAQ", ruta: "/faq", descripcion: "Preguntas frecuentes" },
+	{
+		titulo: "Accesibilidad",
+		ruta: "/accesibilidad",
+		descripcion: "Declaración WCAG 2.2 AA",
+	},
+	{
+		titulo: "Legal",
+		ruta: "/legal",
+		descripcion: "Aviso de privacidad y términos",
+	},
+];
+---
+
+<Layout
+  title="Mapa del sitio"
+  description="Índice de todas las páginas de ArteMichiko."
+>
+  <section class="relative overflow-hidden pt-36 pb-24">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-4xl px-6">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Mapa del sitio</p>
+      <h1 class="fade-up mt-4 font-display text-5xl font-semibold tracking-tight md:text-6xl">
+        Todas las <span class="text-oro-brillo">páginas</span>
+      </h1>
+
+      <div class="fade-up mt-12 grid gap-10 md:grid-cols-2">
+        {secciones.map((s) => (
+          <div class="border-t-2 border-tinta-negra pt-5 transition-colors hover:border-jade-base">
+            <a href={s.ruta} class="font-display text-2xl font-semibold hover:text-jade-profundo">
+              {s.titulo}
+            </a>
+            <p class="mt-1 text-sm text-tinta-humo">{s.descripcion}</p>
+            {s.hijos && (
+              <ul class="mt-3 flex flex-wrap gap-x-3 gap-y-1">
+                {s.hijos.map((h) => (
+                  <li>
+                    <a href={`${s.ruta}/${h}`} class="font-mono text-xs text-tinta-grafito hover:text-jade-profundo">
+                      {h.replace(/-/g, " ")}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

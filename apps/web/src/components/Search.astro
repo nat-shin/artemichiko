@@ -1,0 +1,278 @@
+---
+// ArteMichiko — Búsqueda interna con Pagefind (obras/cursos/blog, sin backend)
+// La UI sigue la identidad Barro y Tinta: lienzo, tinta, jade, oro
+---
+
+<div class="search-widget">
+  <button
+    type="button"
+    class="search-trigger"
+    data-open-search
+    aria-label="Buscar en el sitio"
+    aria-haspopup="dialog"
+  >
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <line x1="16.5" y1="16.5" x2="21" y2="21" />
+    </svg>
+  </button>
+
+  <div class="search-overlay" data-search-overlay role="dialog" aria-modal="true" aria-label="Búsqueda">
+    <div class="search-backdrop" data-close-search></div>
+    <div class="search-panel">
+      <div class="search-panel-head">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" />
+          <line x1="16.5" y1="16.5" x2="21" y2="21" />
+        </svg>
+        <input
+          type="search"
+          class="search-input"
+          data-search-input
+          placeholder="Buscar obras, cursos, técnicas…"
+          aria-label="Buscar obras, cursos, técnicas"
+          autocomplete="off"
+        />
+        <button type="button" class="search-close" data-close-search aria-label="Cerrar búsqueda">✕</button>
+      </div>
+      <div class="search-results" data-search-results aria-live="polite"></div>
+      <p class="search-hint">Prueba con: grafito, óleo, acuarela, cursos, galería</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    border: 1px solid rgba(17, 17, 14, 0.15);
+    background: transparent;
+    color: var(--color-tinta-negra);
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .search-trigger:hover {
+    border-color: var(--color-jade-profundo);
+    color: var(--color-jade-profundo);
+  }
+  .search-trigger:focus-visible {
+    outline: 2px solid var(--color-jade-profundo);
+    outline-offset: 2px;
+  }
+
+  .search-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 12vh 5vw 5vh;
+  }
+  .search-overlay.open { display: flex; }
+
+  .search-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 17, 14, 0.9);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .search-overlay.open .search-backdrop { opacity: 1; }
+
+  .search-panel {
+    position: relative;
+    z-index: 1;
+    width: min(720px, 100%);
+    max-height: 75vh;
+    overflow-y: auto;
+    background: var(--color-lienzo-blanco);
+    border-radius: 12px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  }
+  .search-overlay.open .search-panel {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .search-panel-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(17, 17, 14, 0.1);
+    color: var(--color-tinta-grafito);
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit;
+    font-size: 1.05rem;
+    color: var(--color-tinta-negra);
+  }
+  .search-input::placeholder { color: var(--color-tinta-humo); }
+
+  .search-close {
+    border: none;
+    background: transparent;
+    color: var(--color-tinta-grafito);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .search-close:hover { color: var(--color-tinta-negra); }
+
+  .search-results { padding: 8px 0; }
+  .search-results:empty { display: none; }
+
+  .search-result-item {
+    display: block;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: var(--color-tinta-negra);
+    border-left: 2px solid transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .search-result-item:hover {
+    background: rgba(0, 166, 107, 0.06);
+    border-left-color: var(--color-jade-base);
+  }
+  .search-result-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .search-result-meta {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-tinta-humo);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 6px;
+  }
+  .search-result-excerpt {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--color-tinta-grafito);
+    line-height: 1.5;
+  }
+  .search-no-results {
+    padding: 20px;
+    color: var(--color-tinta-grafito);
+    font-style: italic;
+  }
+  .search-hint {
+    padding: 10px 20px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-tinta-humo);
+    border-top: 1px solid rgba(17, 17, 14, 0.08);
+  }
+</style>
+
+<script>
+  // Pagefind: se carga lazy al abrir el buscador (no penaliza CWV)
+  // Carga con script tag dinámico — Vite no debe resolver /pagefind/ (se genera post-build)
+  let pagefind: any = null;
+  let loaded = false;
+
+  function loadPagefind(): Promise<void> {
+    return new Promise((resolve) => {
+      if (loaded) return resolve();
+      loaded = true;
+      const script = document.createElement("script");
+      script.src = "/pagefind/pagefind.js";
+      script.async = true;
+      script.onload = () => {
+        // @ts-ignore — Pagefind se expone en window
+        pagefind = window.Pagefind;
+        resolve();
+      };
+      script.onerror = () => {
+        console.warn("Pagefind no disponible");
+        resolve();
+      };
+      document.head.appendChild(script);
+    });
+  }
+
+  async function doSearch(term: string) {
+    const resultsEl = document.querySelector("[data-search-results]") as HTMLElement | null;
+    if (!resultsEl) return;
+    if (!pagefind) {
+      await loadPagefind();
+      if (!pagefind) {
+        resultsEl.innerHTML = `<p class="search-no-results">Búsqueda no disponible ahora.</p>`;
+        return;
+      }
+    }
+    if (term.trim().length < 2) {
+      resultsEl.innerHTML = "";
+      return;
+    }
+    // @ts-ignore — Pagefind index API
+    const search = await pagefind.search(term);
+    if (!search.results || search.results.length === 0) {
+      resultsEl.innerHTML = `<p class="search-no-results">Sin resultados para «${term}». Prueba con: grafito, óleo, cursos, galería.</p>`;
+      return;
+    }
+    const items = await Promise.all(search.results.slice(0, 10).map((r: any) => r.data()));
+    resultsEl.innerHTML = items
+      .map(
+        (d: any) => `
+        <a class="search-result-item" href="${d.url}">
+          ${d.meta?.title ? `<h3 class="search-result-title">${d.meta.title}</h3>` : ""}
+          <p class="search-result-meta">${d.meta?.breadcrumb || "ArteMichiko"}</p>
+          ${d.excerpt ? `<p class="search-result-excerpt">${d.excerpt}</p>` : ""}
+        </a>`
+      )
+      .join("");
+  }
+
+  document.querySelectorAll("[data-open-search]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const overlay = document.querySelector("[data-search-overlay]") as HTMLElement | null;
+      if (!overlay) return;
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      void loadPagefind();
+      const input = overlay.querySelector("[data-search-input]") as HTMLInputElement | null;
+      setTimeout(() => input?.focus(), 50);
+    });
+  });
+
+  document.querySelectorAll("[data-close-search]").forEach((closer) => {
+    closer.addEventListener("click", () => {
+      const overlay = document.querySelector("[data-search-overlay]") as HTMLElement | null;
+      if (!overlay) return;
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    });
+  });
+
+  document.querySelector("[data-search-input]")?.addEventListener("input", (e) => {
+    const input = e.target as HTMLInputElement;
+    void doSearch(input.value);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const overlay = document.querySelector("[data-search-overlay]") as HTMLElement | null;
+      overlay?.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+  });
+</script>

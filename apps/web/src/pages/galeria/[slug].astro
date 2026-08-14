@@ -51,6 +51,27 @@ const schemaObra = JSON.stringify({
 });
 
 const obraUrl = Astro.url.href;
+
+// Schema.org BreadcrumbList — jerarquía para UX e IA (mapa para la máquina)
+const schemaBreadcrumb = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Inicio",
+			item: "https://artemichiko.com/",
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "Galería",
+			item: "https://artemichiko.com/galeria/",
+		},
+		{ "@type": "ListItem", position: 3, name: obra.titulo },
+	],
+});
 ---
 
 <Layout title={obra.titulo} description={`${obra.titulo} — ${obra.tecnica}, ${obra.ano}. ${obra.descripcion}`}>
@@ -70,7 +91,9 @@ const obraUrl = Astro.url.href;
   <meta name="twitter:image" content={obra.imagen} />
 
   <!-- VisualArtwork JSON-LD — Image SEO / Google Images-Lens / IA multimodal -->
-  <script type="application/ld+json" set:html={schemaObra} />
+  <script type="application/ld+json" is:inline set:html={schemaObra} />
+  <!-- BreadcrumbList JSON-LD — jerarquía para motores e IA -->
+  <script type="application/ld+json" is:inline set:html={schemaBreadcrumb} />
 
   <article class="relative overflow-hidden pt-32 pb-24 md:pt-40">
     <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
@@ -104,6 +127,14 @@ const obraUrl = Astro.url.href;
         </figure>
 
         <div class="flex flex-col justify-center">
+          <!-- Breadcrumb (UX + BreadcrumbList JSON-LD para IA) -->
+          <nav aria-label="Ruta" class="fade-up mb-4 font-mono text-xs tracking-wider text-tinta-humo">
+            <a href="/" class="hover:text-jade-profundo">Inicio</a>
+            <span aria-hidden="true"> · </span>
+            <a href="/galeria" class="hover:text-jade-profundo">Galería</a>
+            <span aria-hidden="true"> · </span>
+            <span aria-current="page">{obra.titulo}</span>
+          </nav>
           <p class={`texto-${obra.colorTheme} fade-up font-mono text-xs tracking-[0.3em] uppercase`}>{obra.tecnica}</p>
           <h1 class="fade-up mt-4 font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-7xl">
             {obra.titulo}

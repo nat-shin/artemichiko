@@ -100,8 +100,8 @@ const reviewsSchema = {
   title="Testimonios"
   description="Lo que dicen los alumnos de ArteMichiko: citas reales sobre el método Oriental, la corrección individual y la obra expuesta."
 >
-  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(reviewsSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(orgSchema)} />
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(reviewsSchema)} />
 
   <!-- ═══════ HERO — text reveal ═══════ -->
   <section class="relative overflow-hidden pt-40 pb-20 md:pt-48">

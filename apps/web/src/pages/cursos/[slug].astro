@@ -21,174 +21,160 @@ export interface Curso {
 export function getStaticPaths() {
 	const cursos: Curso[] = [
 		{
-			slug: "dibujo-fundamentos",
-			titulo: "Dibujo Fundamentos",
+			slug: "grafito",
+			titulo: "Grafito — La madre de las técnicas",
 			nivel: "Principiante",
-			duracion: "12 semanas · 2 sesiones/semana",
-			horarios: "Lunes y miércoles 10:00–12:00 · Sábados 9:00–13:00",
+			duracion: "Plan flexible — el alumno elige días y horarios",
+			horarios: "Lunes a domingo · consultar disponibilidad",
 			modalidad: "Presencial · grupos reducidos",
-			docente: "Lic. Carmen Suárez López",
+			docente: "Mtra. Elvira Mena",
 			docenteBio:
-				"Egresada de la Academia de San Carlos, especialista en anatomía artística. Quince años enseñando a ver antes de dibujar.",
+				"Subdirectora y Coordinadora de ArteMichiko. Introduce a los alumnos por los colores de madera y el grafito — «el refinamiento de los japoneses y de los chinos», como dice el fundador.",
 			descripcion:
-				"El dibujo no es una habilidad de la mano: es una forma de mirar. Este curso construye la base de toda la academia — línea, proporción, claroscuro y composición — con un método progresivo que acompaña a quien nunca ha dibujado hasta lograr trazos con intención propia.",
-			imagen:
-				"https://placehold.co/1200x800/E8E2D5/11110E?text=Dibujo+Fundamentos",
+				"«El grafito es la madre de todas las técnicas» — el Mtro. Cabrera lo repite en cada entrevista. Este curso construye la base de toda la academia: de 5 a 9 lápices, el trazo, la proporción y el claroscuro como infraestructura de la pintura. Es la puerta de entrada al Sistema Oriental.",
+			imagen: "https://placehold.co/1200x800/E8E2D5/11110E?text=Grafito",
 			queAprenderas: [
-				"Control de línea, gesto y presión sobre el papel",
+				"Los 5-9 lápices: durezas, presiones y trazo",
 				"Proporción, encuadre y perspectiva básica",
-				"Claroscuro y volumen con grafito y carboncillo",
-				"Composición y ritmo visual",
-				"Introducción a la tinta y al trazo de influencia Oriental",
+				"Claroscuro y volumen con grafito",
+				"Naturaleza muerta y dibujo al natural",
+				"La disciplina y la paciencia del método",
 			],
 			materiales: [
 				"Grafitos HB, 2B, 4B, 6B y 8B",
-				"Carboncillo natural y comprimido",
-				"Papel de algodón 180 g/m²",
-				"Tinta china y plumillas",
+				"Papel de algodón de grano fino",
 				"Goma moldeable y difuminos",
+				"Cuchilla y tabla de dibujo",
+			],
+		},
+		{
+			slug: "color-y-tecnicas-alternas",
+			titulo: "Color y técnicas alternas",
+			nivel: "Principiante",
+			duracion: "Plan flexible — el alumno elige días y horarios",
+			horarios: "Lunes a domingo · consultar disponibilidad",
+			modalidad: "Presencial · grupos reducidos",
+			docente: "Mtra. Elvira Mena",
+			docenteBio:
+				"Subdirectora y Coordinadora. Guía el paso del grafito al color con un ojo puesto en el oficio y otro en el alumno.",
+			descripcion:
+				"El puente entre el lápiz y la pintura: colores de madera, pastel, acuarela, acrílico, plumín, crayola, scratch, plumilla y wash. La academia lo describe como «técnicas alternas» — el repertorio que prepara para el óleo.",
+			imagen: "https://placehold.co/1200x800/EFE6D4/11110E?text=Color",
+			queAprenderas: [
+				"Colores de madera: superposición y luminosidad",
+				"Pastel, acuarela, acrílico y tinta china",
+				"Plumín, plumilla y wash",
+				"Técnicas alternas: crayola y scratch",
+				"Composición del color",
+			],
+			materiales: [
+				"Colores de madera (set de 12+)",
+				"Pasteles al óleo y secos",
+				"Acuarelas, acrílicos y tinta china",
+				"Plumillas, plumines y papel de gramajes variados",
 			],
 		},
 		{
 			slug: "pintura-al-oleo",
 			titulo: "Pintura al Óleo",
-			nivel: "Intermedio",
-			duracion: "16 semanas · 1 sesión/semana",
-			horarios: "Martes 16:00–20:00 · Jueves 10:00–14:00",
+			nivel: "Avanzado",
+			duracion: "Plan flexible — el alumno elige días y horarios",
+			horarios: "Lunes a domingo · consultar disponibilidad",
 			modalidad: "Presencial · caballete individual",
-			docente: "Mtra. Elena Ríos Kanzaki",
+			docente: "Mtro. José G. Cabrera",
 			docenteBio:
-				"Pintora formada en La Esmeralda con residencias en Tokio. Cree que el óleo es el medio donde la paciencia se vuelve luz.",
+				"Director y Fundador Académico Artístico. Posgrado muralista en la Academia Central de Bellas Artes de Beijing; expuso en Beijing y Harbin. El óleo es su especialidad.",
 			descripcion:
-				"El óleo es el medio de los que piensan despacio. Sobre los fundamentos del dibujo, este curso despliega el lenguaje del color: veladuras, empastes, mezclas ópticas y el trabajo por capas que da a la pintura su profundidad silenciosa. Cada alumno termina el curso con una obra completa resuelta con criterio propio.",
+				"La culminación del plan de estudios: del grafito al óleo. El Mtro. Cabrera guía las veladuras, el empaste y la luz — la técnica que dominó durante más de 50 años de trayectoria, desde La Esmeralda hasta su posgrado muralista en Beijing.",
 			imagen:
-				"https://placehold.co/1200x800/EFE6D4/11110E?text=Pintura+al+Oleo",
+				"https://placehold.co/1200x800/EDE3D0/11110E?text=Pintura+al+Oleo",
 			queAprenderas: [
 				"Preparación de soportes y paleta personal",
-				"Teoría del color aplicada: valor, temperatura y saturación",
+				"Teoría del color aplicada al óleo",
 				"Veladuras, empastes y texturas",
-				"Construcción por capas: del boceto a la obra terminada",
+				"Construcción por capas: del boceto a la obra",
 				"Lectura crítica de la propia pintura",
 			],
 			materiales: [
-				"Óleos básicos: blanco titanio, amarillo cadmio, rojo cadmio, azul ultramar, sombra tostada",
+				"Óleos básicos: blanco titanio, cadmios, ultramar, sombra tostada",
 				"Lienzo preparado 40×50 cm o mayor",
 				"Pinceles de cerda y pelo suave",
 				"Aceite de linaza y medium",
-				"Espátulas y trapo de algodón",
 			],
 		},
 		{
-			slug: "acuarela",
-			titulo: "Acuarela",
-			nivel: "Principiante",
-			duracion: "10 semanas · 1 sesión/semana",
-			horarios: "Miércoles 10:00–13:00 · Sábados 12:00–15:00",
-			modalidad: "Presencial · mesa de agua",
-			docente: "Mtro. Hiroshi Tanaka Mendoza",
-			docenteBio:
-				"Acuarelista de tradición japonesa, veinte años pintando lo que el agua decide y lo que la mano retiene.",
-			descripcion:
-				"La acuarela es la técnica del equilibrio: entre el control del pincel y el azar del agua. Este curso enseña el oficio húmedo sobre húmedo, el valor del blanco del papel y la economía del gesto que define la estética zen — pocas pinceladas, máxima expresión.",
-			imagen: "https://placehold.co/1200x800/EDE3D0/11110E?text=Acuarela",
-			queAprenderas: [
-				"Técnicas húmedo sobre húmedo y húmedo sobre seco",
-				"Reservas, degradados y veladuras transparentes",
-				"El blanco del papel como valor activo",
-				"Economía del gesto: menos trazos, más expresión",
-				"Paisaje, botánica y figura ligera",
-			],
-			materiales: [
-				"Acuarelas en pastilla (set de 12 o más)",
-				"Papel de algodón 300 g/m² grano fino",
-				"Pinceles redondos de marta sintética núm. 4, 8 y 12",
-				"Paleta de cerámica o plástico con pozos",
-				"Dos recipientes de agua y esponja natural",
-			],
-		},
-		{
-			slug: "grabado-experimental",
-			titulo: "Grabado Experimental",
-			nivel: "Avanzado",
-			duracion: "14 semanas · 1 sesión/semana",
-			horarios: "Jueves 17:00–21:00",
-			modalidad: "Presencial · tórculo del taller",
-			docente: "Mtro. Julián Ordaz Vela",
-			docenteBio:
-				"Grabador con maestría en gráfica por la UNAM y miembro de un taller colectivo. Entiende la estampa como laboratorio, no como copia.",
-			descripcion:
-				"La estampa es la imagen que acepta multiplicarse sin repetirse. Este curso explora linóleo, punta seca y monotipia como un laboratorio de riesgo controlado: estado de la plancha, entintado, registro y edición. Para quienes ya dibujan y quieren que su línea encuentre otra piel.",
-			imagen:
-				"https://placehold.co/1200x800/E2E8DF/11110E?text=Grabado+Experimental",
-			queAprenderas: [
-				"Linóleo: corte, gubias y estampado manual",
-				"Punta seca y entintado en hueco",
-				"Monotipia y técnicas de un solo ejemplar",
-				"Registro, edición y numeración de obra gráfica",
-				"Papeles, tintas y secado profesional",
-			],
-			materiales: [
-				"Juego de gubias para linóleo",
-				"Planchas de linóleo y acetato para punta seca",
-				"Tintas de grabado al agua o base solvente",
-				"Papel guarro y japonés",
-				"Rodillo de entintado y cuchara de estampar",
-			],
-		},
-		{
-			slug: "caligrafia-oriental",
-			titulo: "Caligrafía Oriental",
+			slug: "dibujo-al-rostro-y-anatomia",
+			titulo: "Rostro y anatomía",
 			nivel: "Intermedio",
-			duracion: "8 semanas · 1 sesión/semana",
-			horarios: "Viernes 10:00–13:00",
-			modalidad: "Presencial · salón de silencio",
-			docente: "Profr. José Guadalupe Cabrera",
+			duracion: "Plan flexible — el alumno elige días y horarios",
+			horarios: "Lunes a domingo · consultar disponibilidad",
+			modalidad: "Presencial · grupos reducidos",
+			docente: "Mtro. José G. Cabrera",
 			docenteBio:
-				"Fundador de ArteMichiko, formado en China bajo influencia taoísta. Para él, la caligrafía es meditación con tinta.",
+				"Director y Fundador. La estructura académica del rostro y el cuerpo es una de sus áreas de dominio más reconocidas.",
 			descripcion:
-				"Cada trazo de la caligrafía Oriental es una respiración que queda escrita. Este curso enseña el manejo del pincel de bambú, el orden de los trazos y la estética del vacío — el ma entre forma y forma — sobre papel de arroz. No se escribe con la mano: se escribe con el centro del cuerpo.",
-			imagen:
-				"https://placehold.co/1200x800/11110E/D4AF37?text=Caligrafia+Oriental",
+				"Naturaleza muerta, dibujo al rostro y anatomía — la estructura académica que sostiene el retrato. Del encaje de las proporciones a la expresión del carácter, con la disciplina del método oriental.",
+			imagen: "https://placehold.co/1200x800/F5F0E6/11110E?text=Rostro",
 			queAprenderas: [
-				"Sujeción y presión del pincel de bambú",
-				"Los ocho trazos fundamentales del carácter",
-				"Orden estructural y ritmo de la escritura",
-				"La estética del vacío: composición sobre papel de arroz",
-				"Ejercicios de respiración aplicados al trazo",
+				"Proporciones del rostro: encaje y simetría",
+				"Anatomía expresiva: músculo, hueso y gesto",
+				"Naturaleza muerta avanzada",
+				"El retrato como búsqueda de carácter",
+				"Escala de valores y acabado",
 			],
 			materiales: [
-				"Pincel de caligrafía mediano (pelo de cabra y lobo)",
-				"Tinta en barra y piedra de moler",
-				"Papel de arroz semitranslúcido",
-				"Fieltro de escritorio y pisapapeles",
+				"Grafitos y carboncillos",
+				"Papel de dibujo de grano fino",
+				"Difuminos y goma moldeable",
 			],
+		},
+		{
+			slug: "letra-gotica",
+			titulo: "Dibujo de letra gótica",
+			nivel: "Intermedio",
+			duracion: "Plan flexible — el alumno elige días y horarios",
+			horarios: "Lunes a domingo · consultar disponibilidad",
+			modalidad: "Presencial · grupos reducidos",
+			docente: "Mtra. Elvira Mena",
+			docenteBio:
+				"Subdirectora y Coordinadora. Enseña el trazo de la letra como disciplina del dibujo.",
+			descripcion:
+				"El trazo de la letra como dibujo: plumín, tinta y la disciplina del gesto caligráfico. La letra gótica es una de las técnicas que la academia enseña dentro de su plan de grafito y tinta.",
+			imagen: "https://placehold.co/1200x800/11110E/D4AF37?text=Letra+Gotica",
+			queAprenderas: [
+				"Manejo del plumín y la pluma de corte",
+				"Los trazos básicos de la letra gótica",
+				"Proporción y espaciado de la letra",
+				"La letra como dibujo y composición",
+			],
+			materiales: ["Plumín y plumillas", "Tinta china", "Papel de caligrafía"],
 		},
 		{
 			slug: "tecnica-interna",
 			titulo: "Técnica Interna",
-			nivel: "Avanzado",
-			duracion: "20 semanas · 2 sesiones/semana",
-			horarios: "Lunes 17:00–20:00 · Jueves 10:00–13:00",
-			modalidad: "Presencial · admisión por entrevista",
-			docente: "Profr. José Guadalupe Cabrera",
+			nivel: "El camino completo",
+			duracion: "De 5 a 70 años — todos los niveles",
+			horarios: "Lunes a domingo · consultar disponibilidad",
+			modalidad: "Presencial · el sistema Oriental completo",
+			docente: "Mtro. José G. Cabrera · Mtra. Elvira Mena",
 			docenteBio:
-				"Creador del sistema de Técnica Interna, síntesis de su formación en China y de 35 años de docencia en México.",
+				"El sistema fue creado por el Mtro. Cabrera a partir de su formación en China. La Mtra. Mena lo coordina. La academia lo describe como «el sistema de enseñanza, la mentalidad, la filosofía» — no un estilo, sino un método.",
 			descripcion:
-				"El programa insignia de la academia y el único sistema de su tipo en México. La Técnica Interna no parte de la copia sino de la revelación: cultiva en el alumno la capacidad de ver su propio talento y de expresarlo con oficio. Es el curso donde convergen dibujo, pintura y el trabajo interior — la síntesis de la influencia taoísta que dio origen a ArteMichiko.",
+				"El programa insignia y «único en México». La Técnica Interna no parte de la copia sino de la revelación: cultiva en el alumno la capacidad de ver su propio talento y expresarlo con oficio. Como dice el fundador: «lo más importante es ser un gran artesano, un gran técnico académico, y después artista y luego creativo».",
 			imagen:
-				"https://placehold.co/1200x800/F5F0E6/11110E?text=Tecnica+Interna",
+				"https://placehold.co/1200x800/11110E/D4AF37?text=Tecnica+Interna",
 			queAprenderas: [
-				"El método de revelación de talento propio de la academia",
-				"Integración de dibujo, color y composición como una sola práctica",
-				"Trabajo interior: atención, respiración y presencia en el trazo",
-				"Desarrollo de una serie personal completa",
+				"El Sistema y Metodología Oriental, único en México",
+				"Integración de grafito, color y óleo como una sola práctica",
+				"Trabajo interior: paciencia, atención y presencia en el trazo",
+				"Desarrollo de una serie personal",
 				"Crítica de taller y lectura de la obra propia",
 			],
 			materiales: [
 				"Cuaderno de obra tamaño oficio",
 				"Materiales completos de dibujo y pintura (según avance)",
-				"Tinta china y pincel de caligrafía",
-				"Compromiso de asistencia puntual",
+				"Tinta china y plumillas",
+				"Compromiso de asistencia",
 			],
 		},
 	];
@@ -205,9 +191,65 @@ const numeroCurso = String(index + 1).padStart(2, "0");
 const whatsappUrl = `https://wa.me/5215512595906?text=${encodeURIComponent(
 	`Hola ArteMichiko, quiero inscribirme al curso ${curso.titulo}`,
 )}`;
+
+// Schema.org Course + CourseInstance — el schema de mayor apalancamiento GEO
+// para una academia (los motores de IA citan cursos con oferta y proveedor)
+const schemaCurso = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "Course",
+	name: curso.titulo,
+	description: curso.descripcion.slice(0, 300),
+	provider: {
+		"@type": "EducationalOrganization",
+		name: "ArteMichiko — Centro Cultural Académico de Dibujo y Pintura Artística",
+		url: "https://artemichiko.com",
+	},
+	educationalLevel: curso.nivel,
+	hasCourseInstance: {
+		"@type": "CourseInstance",
+		courseMode: "on-site",
+		location: {
+			"@type": "Place",
+			name: "ArteMichiko",
+			address: {
+				"@type": "PostalAddress",
+				streetAddress: "Av. Revolución 718-101",
+				addressLocality: "San José Insurgentes, Benito Juárez",
+				postalCode: "03910",
+				addressCountry: "MX",
+			},
+		},
+	},
+});
+
+// BreadcrumbList — jerarquía para motores e IA
+const schemaBreadcrumb = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	itemListElement: [
+		{
+			"@type": "ListItem",
+			position: 1,
+			name: "Inicio",
+			item: "https://artemichiko.com/",
+		},
+		{
+			"@type": "ListItem",
+			position: 2,
+			name: "Cursos",
+			item: "https://artemichiko.com/cursos/",
+		},
+		{ "@type": "ListItem", position: 3, name: curso.titulo },
+	],
+});
 ---
 
 <Layout title={curso.titulo} description={`${curso.titulo} — ${curso.descripcion.slice(0, 140)}`}>
+
+  <!-- Course JSON-LD — GEO/AEO (los motores citan cursos con oferta) -->
+  <script type="application/ld+json" is:inline set:html={schemaCurso} />
+  <!-- BreadcrumbList JSON-LD — jerarquía para motores e IA -->
+  <script type="application/ld+json" is:inline set:html={schemaBreadcrumb} />
 
   <script is:inline>
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
