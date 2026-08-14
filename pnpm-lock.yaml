@@ -26,6 +26,15 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.7.3
         version: 3.7.3
+      '@fontsource/noto-serif-jp':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/shippori-mincho':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource/zen-old-mincho':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.1)(jiti@2.7.0)(yaml@2.9.0))
@@ -671,6 +680,15 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource/noto-serif-jp@5.3.0':
+    resolution: {integrity: sha512-7dRFleN7F+uuJdcMW/fJmnl6KLZSn9dHCjAVTaWjTcT4hg5V4ECbi2qgIamI6rS/+yTt16KDLU+9aJi74r6ZxQ==}
+
+  '@fontsource/shippori-mincho@5.3.0':
+    resolution: {integrity: sha512-S41kRxQuubAaYss+LeXu0IOc02RQwsPaJbR1cWZx4VV15hXaYZViH3WAve9HpDVFqKYd/BVk86Bg7lp9ytV3KQ==}
+
+  '@fontsource/zen-old-mincho@5.3.0':
+    resolution: {integrity: sha512-pNvegTkx6rOQRaBMcUoxxeNoIRJajdY0TeX4ngf/26KrtsVoqY11ho6WlwPWDYHi7PY65vf88TV2xjIO+YxQ8Q==}
 
   '@formatjs/ecma402-abstract@2.3.6':
     resolution: {integrity: sha512-HJnTFeRM2kVFVr5gr5kH1XP6K0JcJtE7Lzvtr3FS/so5f1kpsqqqxy5JF+FRaO6H2qmcMfAUIox7AJteieRtVw==}
@@ -3639,6 +3657,12 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.1':
     optional: true
+
+  '@fontsource/noto-serif-jp@5.3.0': {}
+
+  '@fontsource/shippori-mincho@5.3.0': {}
+
+  '@fontsource/zen-old-mincho@5.3.0': {}
 
   '@formatjs/ecma402-abstract@2.3.6':
     dependencies:
