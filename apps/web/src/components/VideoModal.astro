@@ -23,17 +23,18 @@ const { id, videoId, title, label = "Ver video" } = Astro.props;
 
 <div
   id={id}
-  class="video-modal fixed inset-0 z-[9990] hidden items-center justify-center"
+  class="video-modal fixed inset-0 z-[9990] isolate hidden items-center justify-center"
   role="dialog"
   aria-modal="true"
   aria-label={title}
 >
-  <!-- Fondo oscuro -->
-  <div class="video-modal-backdrop absolute inset-0 bg-tinta-negra/90 backdrop-blur-md" data-close-modal={id}></div>
+  <!-- Fondo oscuro (z-0) -->
+  <div class="video-modal-backdrop absolute inset-0 z-0 bg-tinta-negra/90 backdrop-blur-md" data-close-modal={id}></div>
 
-  <!-- Contenedor del video (75-80% de la pantalla) -->
+  <!-- Contenedor del video (z-10, 75-80% de la pantalla) -->
   <div class="video-modal-box relative z-10 w-[85vw] max-w-6xl lg:w-[78vw]" data-video-id={videoId}>
     <div class="relative aspect-video overflow-hidden rounded-lg border border-oro-brillo/30 bg-black shadow-[0_40px_120px_rgba(0,0,0,0.8)]">
+      <!-- Placeholder: se REMUEVE del DOM al montar el iframe (evita el encimado) -->
       <div id={`${id}-placeholder`} class="absolute inset-0">
         <img
           src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
@@ -49,12 +50,12 @@ const { id, videoId, title, label = "Ver video" } = Astro.props;
     <p class="mt-4 text-center font-mono text-xs tracking-widest text-lienzo-hueso/70 uppercase">{title}</p>
   </div>
 
-  <!-- Botón cerrar -->
+  <!-- Botón cerrar (z-20, por encima de todo) -->
   <button
     type="button"
     data-close-modal={id}
     aria-label="Cerrar video"
-    class="absolute top-6 right-6 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-lienzo-blano/20 text-lienzo-blanco transition-all hover:rotate-90 hover:border-oro-brillo hover:text-oro-brillo"
+    class="absolute top-6 right-6 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-lienzo-blanco/20 text-lienzo-blanco transition-all hover:rotate-90 hover:border-oro-brillo hover:text-oro-brillo focus:outline-none focus-visible:ring-2 focus-visible:ring-oro-brillo"
   >
     ✕
   </button>
@@ -81,52 +82,98 @@ const { id, videoId, title, label = "Ver video" } = Astro.props;
   .video-modal.open .video-modal-backdrop {
     opacity: 1;
   }
+  @media (prefers-reduced-motion: reduce) {
+    .video-modal-box,
+    .video-modal-backdrop {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
-  // Abrir/cerrar el modal con animación; el iframe se monta al abrir (lazy)
-  document.querySelectorAll("[data-open-modal]").forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      const id = trigger.dataset.openModal;
-      const modal = document.getElementById(id);
-      if (!modal) return;
-      modal.classList.add("open");
-      document.body.style.overflow = "hidden";
+  // ── Utilidades de apertura/cierre ──
+  const triggerByModal = new WeakMap<HTMLElement, HTMLElement>();
 
-      // Montar iframe la primera vez
-      const placeholder = modal.querySelector(`#${id}-placeholder`);
-      const videoId = modal.querySelector(".video-modal-box")?.dataset.videoId;
-      const box = modal.querySelector(".video-modal-box");
-      const vid = (box as HTMLElement | null)?.dataset.videoId;
-      const v = vid ?? (trigger.closest("[data-video-id]") as HTMLElement | null)?.dataset.videoId;
-      if (placeholder && v && !modal.querySelector("iframe")) {
-        const frame = placeholder.closest(".aspect-video");
-        const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube-nocookie.com/embed/${v}?autoplay=1`;
-        iframe.title = modal.getAttribute("aria-label") ?? "";
-        iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
-        iframe.allowFullscreen = true;
-        iframe.className = "absolute inset-0 h-full w-full";
-        frame?.appendChild(iframe);
-      }
-    });
-  });
+  function openVideoModal(modal: HTMLElement) {
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
 
-  document.querySelectorAll("[data-close-modal]").forEach((closer) => {
-    closer.addEventListener("click", () => {
-      const modal = document.getElementById(closer.dataset.closeModal as string);
-      if (!modal) return;
-      modal.classList.remove("open");
-      document.body.style.overflow = "";
-    });
-  });
+    const box = modal.querySelector<HTMLElement>(".video-modal-box");
+    const videoId = box?.dataset.videoId;
+    const shell = box?.querySelector<HTMLElement>(".aspect-video");
+    if (!box || !videoId || !shell) return;
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      document.querySelectorAll(".video-modal.open").forEach((m) => {
-        m.classList.remove("open");
-        document.body.style.overflow = "";
-      });
+    // 1) Montar iframe solo la primera vez (autoplay al abrir)
+    if (!modal.querySelector("iframe")) {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+      iframe.title = modal.getAttribute("aria-label") ?? "";
+      iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      iframe.className = "absolute inset-0 h-full w-full";
+      shell.appendChild(iframe);
     }
+
+    // 2) REMOVER el placeholder del DOM: la miniatura maxresdefault no debe
+    //    quedar detrás del iframe (causaba el video "encimado")
+    modal.querySelector<HTMLElement>(`#${modal.id}-placeholder`)?.remove();
+
+    // 3) Foco al botón cerrar (a11y)
+    modal.querySelector<HTMLElement>("[data-close-modal]")?.focus({ preventScroll: true });
+  }
+
+  function closeVideoModal(modal: HTMLElement) {
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+
+    // Pausar sin desmontar: sin audio de fondo, y al reabrir NO se duplica
+    // (el iframe ya existe y el placeholder ya fue removido)
+    const iframe = modal.querySelector<HTMLIFrameElement>("iframe");
+    if (iframe?.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func: "pauseVideo", args: [] }),
+          "*"
+        );
+      } catch {
+        /* sin API de YouTube disponible, ignorar */
+      }
+    }
+
+    const trigger = triggerByModal.get(modal);
+    trigger?.focus({ preventScroll: true });
+  }
+
+  // ── Triggers de apertura (botón con [data-open-modal]) ──
+  document.querySelectorAll<HTMLElement>("[data-open-modal]").forEach((trigger) => {
+    if (trigger.dataset.modalBound) return;
+    trigger.dataset.modalBound = "1";
+    trigger.addEventListener("click", () => {
+      const modal = document.getElementById(trigger.dataset.openModal ?? "");
+      if (!modal) return;
+      triggerByModal.set(modal, trigger);
+      openVideoModal(modal);
+    });
   });
+
+  // ── Cierre: botón X y clic en el fondo ──
+  document.querySelectorAll<HTMLElement>("[data-close-modal]").forEach((closer) => {
+    if (closer.dataset.modalBound) return;
+    closer.dataset.modalBound = "1";
+    closer.addEventListener("click", () => {
+      const modal = document.getElementById(closer.dataset.closeModal ?? "");
+      if (modal) closeVideoModal(modal);
+    });
+  });
+
+  // ── Cierre con Esc (listener global, una sola vez) ──
+  const escFlag = "__artemichikoVideoModalEsc";
+  if (!(window as unknown as Record<string, unknown>)[escFlag]) {
+    (window as unknown as Record<string, unknown>)[escFlag] = true;
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      const open = document.querySelector<HTMLElement>(".video-modal.open");
+      if (open) closeVideoModal(open);
+    });
+  }
 </script>

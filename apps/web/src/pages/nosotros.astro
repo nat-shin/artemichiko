@@ -241,6 +241,40 @@ const filosofia = [
       </div>
     </div>
   </section>
+
+  <!-- ═══════ STATS — contadores animados (GSAP, snap: 1) ═══════ -->
+  <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="mx-auto grid max-w-7xl grid-cols-2 gap-x-8 gap-y-14 px-6 py-20 md:grid-cols-4 md:py-28">
+      <div class="fade-up text-center">
+        <p class="font-display text-5xl font-semibold tracking-tight tabular-nums md:text-6xl">
+          <span data-count="34">0</span>
+        </p>
+        <p class="mt-3 font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">Años de la academia</p>
+        <p class="mt-1 text-sm text-tinta-humo">Fundada en 1992</p>
+      </div>
+      <div class="fade-up text-center">
+        <p class="font-display text-5xl font-semibold tracking-tight tabular-nums md:text-6xl">
+          <span data-count="50">0</span><span class="text-oro-brillo" aria-hidden="true">+</span>
+        </p>
+        <p class="mt-3 font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">Años de trayectoria del fundador</p>
+        <p class="mt-1 text-sm text-tinta-humo">Profr. José G. Cabrera</p>
+      </div>
+      <div class="fade-up text-center">
+        <p class="font-display text-5xl font-semibold tracking-tight tabular-nums md:text-6xl">
+          <span data-count="2">0</span>
+        </p>
+        <p class="mt-3 font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">Exposiciones en China</p>
+        <p class="mt-1 text-sm text-tinta-humo">Beijing y Harbin</p>
+      </div>
+      <div class="fade-up text-center">
+        <p class="font-display text-5xl font-semibold tracking-tight tabular-nums md:text-6xl">
+          <span data-count="5">0</span><span class="text-oro-brillo" aria-hidden="true">–</span><span data-count="70">0</span>
+        </p>
+        <p class="mt-3 font-mono text-xs tracking-[0.25em] text-jade-profundo uppercase">Edades de los alumnos</p>
+        <p class="mt-1 text-sm text-tinta-humo">De 5 a 70 años</p>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
@@ -298,10 +332,19 @@ const filosofia = [
 </style>
 
 <script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
 
   if (prefersReduced) {
     document.querySelectorAll(".fade-up").forEach((el) => el.classList.add("is-in"));
+    counters.forEach((el) => {
+      el.textContent = el.dataset.count ?? "";
+    });
   } else {
     // Reveal del hero al cargar (ya cubierto por animation-delay CSS)
     // Fade-ups + mask reveal por intersección
@@ -318,5 +361,21 @@ const filosofia = [
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
     targets.forEach((el) => io.observe(el));
+
+    // Contadores animados (snap a entero, disparo al entrar en viewport)
+    counters.forEach((el) => {
+      const target = Number(el.dataset.count ?? 0);
+      const state = { n: 0 };
+      gsap.to(state, {
+        n: target,
+        duration: 1.6,
+        ease: "power2.out",
+        snap: { n: 1 },
+        scrollTrigger: { trigger: el, start: "top 92%" },
+        onUpdate() {
+          el.textContent = String(Math.round(state.n));
+        },
+      });
+    });
   }
 </script>
