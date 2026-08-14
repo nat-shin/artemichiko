@@ -20,9 +20,9 @@ import VideoModal from "../components/VideoModal.astro";
 
   <!-- ═══════ HERO — text reveal por caracteres + textura ═══════ -->
   <section class="relative overflow-hidden pt-40 pb-24 md:pt-48 md:pb-32">
-    <!-- Textura de grano + tinta lavada -->
-    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
-    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+    <!-- Textura de grano + tinta lavada (clases globales; opacidad WCAG ≤0.08 en claro) -->
+    <div class="grain absolute inset-0 pointer-events-none opacity-[0.06]" aria-hidden="true"></div>
+    <div class="ink-wash-suave absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
 
     <div class="relative mx-auto max-w-7xl px-6">
       <div class="sello mb-10 flex items-center gap-3">
@@ -54,7 +54,7 @@ import VideoModal from "../components/VideoModal.astro";
   </section>
 
   <!-- ═══════ MARQUEE de técnicas (banda de ritmo, pausa en hover) ═══════ -->
-  <section class="border-y border-tinta-negra/10 bg-tinta-negra py-4 overflow-hidden" aria-label="Técnicas de la academia">
+  <section class="seigaiha border-y border-tinta-negra/10 bg-tinta-negra py-4 overflow-hidden" aria-label="Técnicas de la academia">
     <div class="marquee flex whitespace-nowrap" data-marquee>
       <div class="marquee-track flex shrink-0 gap-12 pr-12 font-mono text-sm tracking-[0.25em] text-lienzo-hueso/80 uppercase">
         <span>Dibujo</span><span class="text-oro-brillo">◆</span>
@@ -134,7 +134,7 @@ import VideoModal from "../components/VideoModal.astro";
   </section>
 
   <!-- ═══════ PILARES (border reveal + hover jade) ═══════ -->
-  <section class="border-t border-tinta-negra/10 bg-lienzo-hueso/50">
+  <section class="washi border-t border-tinta-negra/10">
     <div class="mx-auto max-w-7xl px-6 py-24 md:py-32">
       <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">La academia</p>
       <h2 class="fade-up mt-4 max-w-2xl font-display text-5xl font-semibold tracking-tight md:text-6xl">
@@ -163,7 +163,9 @@ import VideoModal from "../components/VideoModal.astro";
 
   <!-- ═══════ COMUNIDAD (redes + prueba social) ═══════ -->
   <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
-    <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
+    <!-- Tinta lavada + grano (oscuras: grano 0.10–0.15) -->
+    <div class="ink-wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="grain absolute inset-0 pointer-events-none opacity-[0.12]" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
       <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">En los medios</p>
       <h2 class="fade-up mt-4 max-w-3xl font-display text-5xl font-semibold tracking-tight md:text-6xl">
@@ -189,7 +191,7 @@ import VideoModal from "../components/VideoModal.astro";
 
   <!-- ═══════ CTA FINAL → WhatsApp ═══════ -->
   <section class="relative overflow-hidden">
-    <div class="ink-wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash-suave absolute inset-0 pointer-events-none" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
       <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Comienza tu camino</p>
       <h2 class="fade-up mt-6 font-display text-5xl font-semibold tracking-tight md:text-7xl">
@@ -213,14 +215,9 @@ import VideoModal from "../components/VideoModal.astro";
 </Layout>
 
 <style>
-  /* Textura de grano de papel */
-  .grain {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    mix-blend-mode: multiply;
-  }
-
-  /* Tinta lavada sumi-e */
-  .ink-wash {
+  /* Tinta lavada suave para secciones claras (hero / CTA final).
+     La tinta lavada oscura (.ink-wash) vive en global.css. */
+  .ink-wash-suave {
     background:
       radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
       radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212,175,55,0.06), transparent 70%),

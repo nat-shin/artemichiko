@@ -54,3 +54,77 @@
   /* ── Elevación ── */
   --shadow-lujo: 0 1px 0 0 var(--color-tinta-negra);
 }
+
+/* ============================================================
+   Texturas de fondo premium — grano, washi, tinta, arcilla, olas
+   Estáticas por diseño: feTurbulence no se anima y
+   prefers-reduced-motion no las afecta (no hay motion).
+   WCAG: opacidades ≤0.08 en fondos claros · 0.10–0.15 en oscuros.
+   ============================================================ */
+
+/* ── Lienzo global: papel cálido + vignette (nunca blanco plano) ── */
+body {
+  background-color: #faf7f0;
+  background-image:
+    radial-gradient(120% 90% at 50% 0%, rgba(255, 253, 248, 0.92), transparent 55%),
+    radial-gradient(160% 130% at 50% 110%, rgba(222, 211, 191, 0.5), transparent 62%);
+  background-attachment: fixed;
+}
+
+/* ── Grano de película (textura base; la posición la aportan las utilities) ── */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  mix-blend-mode: multiply;
+}
+
+/* ── Overlay global de grano (div de Layout.astro) — fijo, bajo el modal ── */
+#grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60; /* < modal video (9990) · preloader (9998) · cursor (9999) */
+  opacity: 0.05;
+}
+
+/* ── Papel washi (tarjetas / paneles) ── */
+.washi {
+  background-color: #faf7f0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.035' numOctaves='4' seed='7'/%3E%3CfeDiffuseLighting lighting-color='%23ffffff' surfaceScale='1.6' diffuseConstant='1'%3E%3CfeDistantLight azimuth='60' elevation='55'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='300' height='300' fill='%23faf7f0'/%3E%3Crect width='300' height='300' fill='%23ffffff' filter='url(%23w)' opacity='0.28'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+}
+
+/* ── Tinta lavada (secciones oscuras / modal de video) ── */
+.ink-wash {
+  background-color: #12100e;
+  background-image:
+    radial-gradient(120% 90% at 15% 20%, rgba(64, 58, 50, 0.55), transparent 60%),
+    radial-gradient(100% 80% at 85% 75%, rgba(42, 38, 33, 0.6), transparent 55%),
+    radial-gradient(60% 50% at 70% 12%, rgba(96, 88, 76, 0.22), transparent 70%),
+    linear-gradient(180deg, #17140f, #0d0c0a);
+}
+
+/* ── Arcilla (matriculación / acentos cálidos) ── */
+.clay {
+  background-color: #c96f4a;
+  background-image:
+    radial-gradient(150% 120% at 20% 10%, rgba(255, 255, 255, 0.12), transparent 55%),
+    radial-gradient(120% 100% at 85% 90%, rgba(80, 36, 22, 0.3), transparent 60%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: normal, normal, multiply;
+}
+
+/* ── Seigaiha (olas japonesas — divisores, trazo oro viejo sutil) ── */
+.seigaiha {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60' viewBox='0 0 120 60'%3E%3Cg fill='none' stroke='%23ca9e3b' stroke-opacity='0.08' stroke-width='1'%3E%3Cpath d='M-30 60A30 30 0 0 1 30 60Z'/%3E%3Cpath d='M-22.5 60A22.5 22.5 0 0 1 22.5 60Z'/%3E%3Cpath d='M-15 60A15 15 0 0 1 15 60Z'/%3E%3Cpath d='M30 60A30 30 0 0 1 90 60Z'/%3E%3Cpath d='M37.5 60A22.5 22.5 0 0 1 82.5 60Z'/%3E%3Cpath d='M45 60A15 15 0 0 1 75 60Z'/%3E%3Cpath d='M0 30A30 30 0 0 1 60 30Z'/%3E%3Cpath d='M7.5 30A22.5 22.5 0 0 1 52.5 30Z'/%3E%3Cpath d='M15 30A15 15 0 0 1 45 30Z'/%3E%3Cpath d='M60 30A30 30 0 0 1 120 30Z'/%3E%3Cpath d='M67.5 30A22.5 22.5 0 0 1 112.5 30Z'/%3E%3Cpath d='M75 30A15 15 0 0 1 105 30Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 120px 60px;
+}
+
+/* ── Backdrop del modal de video: tinta lavada sobre oscuro ── */
+.video-modal-backdrop {
+  background-color: rgba(13, 12, 10, 0.94);
+  background-image:
+    radial-gradient(120% 90% at 15% 20%, rgba(64, 58, 50, 0.45), transparent 60%),
+    radial-gradient(100% 80% at 85% 75%, rgba(42, 38, 33, 0.5), transparent 55%),
+    radial-gradient(60% 50% at 70% 12%, rgba(96, 88, 76, 0.16), transparent 70%);
+}
