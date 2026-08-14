@@ -41,7 +41,7 @@ const docentes = [
   </script>
 
   <!-- ═══════ HERO — "Los maestros" con text reveal ═══════ -->
-  <section data-hero class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-20">
+  <section data-hero class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-20" aria-labelledby="docentes-titulo">
     <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
     <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
 
@@ -51,7 +51,7 @@ const docentes = [
         <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Claustro docente · CDMX</p>
       </div>
 
-      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+      <h1 id="docentes-titulo" class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Los</span></span>
         <span class="reveal-line block overflow-hidden">
           <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">maestros</span>
@@ -65,7 +65,7 @@ const docentes = [
   </section>
 
   <!-- ═══════ GRID DE DOCENTES — hover: foto escala 1.05 + borde jade ═══════ -->
-  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24" aria-label="Claustro docente">
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {docentes.map((docente, i) => (
         <article
@@ -116,7 +116,7 @@ const docentes = [
           target="_blank"
           rel="noopener"
           data-cursor
-          class="mt-8 inline-flex items-center gap-2 border-b border-oro-brillo pb-1 text-sm font-medium text-lienzo-blanco transition-colors hover:border-jade-base hover:text-jade-claro"
+          class="mt-8 inline-flex min-h-11 items-center gap-2 border-b border-oro-brillo pb-1 text-sm font-medium text-lienzo-blanco transition-colors hover:border-jade-base hover:text-jade-claro"
         >
           Escribir al equipo <span aria-hidden="true">→</span>
         </a>
@@ -125,7 +125,7 @@ const docentes = [
   </section>
 
   <!-- ═══════ NOTA DEL FUNDADOR — trayectoria real: La Esmeralda → posgrado muralista en Beijing ═══════ -->
-  <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
+  <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco" aria-labelledby="fundador-titulo">
     <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
       <div class="grid gap-12 lg:grid-cols-5">
@@ -147,7 +147,7 @@ const docentes = [
 
         <div class="lg:col-span-3">
           <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Nota del fundador</p>
-          <h2 class="fade-up mt-6 font-display text-4xl leading-tight font-semibold tracking-tight md:text-5xl">
+          <h2 id="fundador-titulo" class="fade-up mt-6 font-display text-4xl leading-tight font-semibold tracking-tight md:text-5xl">
             "El arte no se enseña: <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">se revela</span>"
           </h2>
           <div class="fade-up mt-8 max-w-2xl space-y-5 leading-relaxed text-lienzo-hueso/75">
@@ -163,8 +163,8 @@ const docentes = [
           </div>
 
           <div class="fade-up mt-10 flex flex-wrap gap-4">
-            <a href="/cursos" data-cursor class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra transition-all hover:scale-105 hover:bg-oro-viejo">
-              Conocer los cursos
+            <a href="/cursos" data-cursor class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra transition-all motion-safe:hover:scale-105 hover:bg-oro-viejo">
+              Ver cursos
             </a>
             <a href="/inscripcion" data-cursor class="rounded-full border border-lienzo-hueso/25 px-8 py-3 font-medium text-lienzo-blanco transition-colors hover:border-jade-base hover:text-jade-claro">
               Inscribirme
@@ -180,6 +180,17 @@ const docentes = [
   .grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
+  }
+
+  /* ── Accesibilidad: texto secundario AA 4.5:1 (#9a968c = 2.9:1 → #6e6a60 = 5.2:1) ── */
+  :global(:root) {
+    --color-tinta-humo: #6e6a60;
+  }
+
+  /* ── Focus visible (WCAG 2.4.11 AA): outline jade 2px + offset en TODO lo interactivo ── */
+  :global(a:focus-visible, button:focus-visible, summary:focus-visible) {
+    outline: 2px solid #00965f;
+    outline-offset: 2px;
   }
 
   .ink-wash {
@@ -208,6 +219,17 @@ const docentes = [
 
   .anim-ready .reveal-inner { transform: translateY(110%); }
   .anim-ready [data-hero] .fade-up { opacity: 0; }
+
+  /* Reduced motion: sin zoom de retratos ni parallax (GSAP ya está gated en JS) */
+  @media (prefers-reduced-motion: reduce) {
+    .teacher-photo,
+    .mask-img {
+      transition: none;
+      transform: none;
+    }
+    .teacher-card:hover .teacher-photo,
+    .mask-frame:hover .mask-img { transform: none; }
+  }
 </style>
 
 <script>

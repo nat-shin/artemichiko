@@ -80,7 +80,7 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
   </script>
 
   <!-- ═══════ HERO — text reveal por líneas + filtro ═══════ -->
-  <section data-hero class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-20">
+  <section data-hero class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-20" aria-labelledby="cursos-titulo">
     <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
     <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
 
@@ -90,7 +90,7 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
         <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Programa académico · CDMX</p>
       </div>
 
-      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+      <h1 id="cursos-titulo" class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">El camino de</span></span>
         <span class="reveal-line block overflow-hidden">
           <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">la disciplina</span>
@@ -107,8 +107,9 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
           <button
             type="button"
             data-filtro={nivel}
+            aria-pressed={i === 0}
             class:list={[
-              "chip cursor-pointer rounded-full border border-tinta-negra/20 px-5 py-2 font-mono text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:border-jade-base hover:text-jade-profundo",
+              "chip inline-flex min-h-11 cursor-pointer items-center rounded-full border border-tinta-negra/20 px-5 font-mono text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:border-jade-base hover:text-jade-profundo",
               { "chip-active": i === 0 },
             ]}
             data-cursor
@@ -121,7 +122,7 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
   </section>
 
   <!-- ═══════ GRID DE CURSOS ═══════ -->
-  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24" aria-label="Catálogo de cursos">
     <div id="curso-grid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {cursos.map((curso, i) => (
         <article
@@ -150,14 +151,14 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
             <a
               href="/inscripcion"
               data-cursor
-              class="inline-flex items-center gap-2 border-b border-oro-brillo pb-1 text-sm font-medium text-tinta-negra transition-colors hover:border-jade-base hover:text-jade-profundo"
+              class="inline-flex min-h-11 items-center gap-2 border-b border-oro-brillo pb-1 text-sm font-medium text-tinta-negra transition-colors hover:border-jade-base hover:text-jade-profundo"
             >
               Inscribirme <span aria-hidden="true">→</span>
             </a>
             <a
               href={`/cursos/${curso.slug}`}
               data-cursor
-              class="text-sm text-tinta-humo transition-colors hover:text-jade-profundo"
+              class="inline-flex min-h-11 items-center text-sm text-tinta-humo transition-colors hover:text-jade-profundo"
             >
               Ver ficha
             </a>
@@ -168,10 +169,10 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
   </section>
 
   <!-- ═══════ BANDA DE TALLER — mask reveal + parallax interno ═══════ -->
-  <section class="border-y border-tinta-negra/10 bg-lienzo-hueso/50">
+  <section class="border-y border-tinta-negra/10 bg-lienzo-hueso/50" aria-labelledby="banda-titulo">
     <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
       <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">El taller</p>
-      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+      <h2 id="banda-titulo" class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
         Seis oficios, <span class="text-oro-brillo">un solo pulso</span>
       </h2>
 
@@ -186,7 +187,7 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
               height="800"
               class="mask-img h-full w-full object-cover"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-tinta-negra/70 via-transparent to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-tinta-negra/80 via-transparent to-transparent"></div>
             <p class="absolute bottom-0 left-0 w-full p-4 font-mono text-xs text-lienzo-hueso">
               {curso.titulo}
             </p>
@@ -197,11 +198,11 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
   </section>
 
   <!-- ═══════ CTA FINAL → WhatsApp ═══════ -->
-  <section class="relative overflow-hidden">
+  <section class="relative overflow-hidden" aria-labelledby="cta-titulo">
     <div class="ink-wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-4xl px-6 py-20 text-center md:py-28">
       <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">¿No sabes por dónde empezar?</p>
-      <h2 class="fade-up mt-6 font-display text-4xl font-semibold tracking-tight md:text-6xl">
+      <h2 id="cta-titulo" class="fade-up mt-6 font-display text-4xl font-semibold tracking-tight md:text-6xl">
         Escríbenos y <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">te orientamos</span>
       </h2>
       <p class="fade-up mx-auto mt-6 max-w-xl leading-relaxed text-tinta-grafito">
@@ -212,7 +213,7 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
         target="_blank"
         rel="noopener"
         data-cursor
-        class="fade-up mt-10 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all hover:scale-105 hover:bg-oro-viejo"
+        class="fade-up mt-10 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all motion-safe:hover:scale-105 hover:bg-oro-viejo"
       >
         <span class="text-lg" aria-hidden="true">✆</span>
         Inscribirme por WhatsApp
@@ -226,6 +227,17 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
   .grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
+  }
+
+  /* ── Accesibilidad: texto secundario AA 4.5:1 (#9a968c = 2.9:1 → #6e6a60 = 5.2:1) ── */
+  :global(:root) {
+    --color-tinta-humo: #6e6a60;
+  }
+
+  /* ── Focus visible (WCAG 2.4.11 AA): outline jade 2px + offset en TODO lo interactivo ── */
+  :global(a:focus-visible, button:focus-visible, summary:focus-visible) {
+    outline: 2px solid #00965f;
+    outline-offset: 2px;
   }
 
   /* Tinta lavada sumi-e */
@@ -262,6 +274,15 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
   /* Estado inicial oculto SOLO con JS y motion permitido (sin JS = todo visible) */
   .anim-ready .reveal-inner { transform: translateY(110%); }
   .anim-ready [data-hero] .fade-up { opacity: 0; }
+
+  /* Reduced motion: sin zoom de imágenes ni parallax (GSAP ya está gated en JS) */
+  @media (prefers-reduced-motion: reduce) {
+    .mask-img {
+      transform: none;
+      transition: none;
+    }
+    .mask-frame:hover .mask-img { transform: none; }
+  }
 </style>
 
 <script>
@@ -322,8 +343,12 @@ const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
 
   chips.forEach((chip) => {
     chip.addEventListener("click", () => {
-      chips.forEach((c) => c.classList.remove("chip-active"));
+      chips.forEach((c) => {
+        c.classList.remove("chip-active");
+        c.setAttribute("aria-pressed", "false");
+      });
       chip.classList.add("chip-active");
+      chip.setAttribute("aria-pressed", "true");
 
       const nivel = chip.dataset.filtro;
       const visibles: HTMLElement[] = [];

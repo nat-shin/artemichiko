@@ -6,43 +6,43 @@ import Layout from "../layouts/Layout.astro";
 const preguntas = [
 	{
 		q: "¿Necesito experiencia previa para tomar clases?",
-		a: "No. Los grupos se forman por nivel, no por edad ni por trayectoria. Si nunca has dibujado, empiezas desde el primer trazo con acompañamiento cercano; si ya pintas, el Sistema Oriental te ayuda a soltar los vicios que se acumulan con los años.",
+		a: "No. Los grupos se forman por nivel, no por edad ni por trayectoria. Si nunca has dibujado, empiezas desde el primer trazo; si ya pintas, el Sistema Oriental te ayuda a soltar los vicios.",
 	},
 	{
 		q: "¿Qué materiales están incluidos en el curso?",
-		a: "En los cursos regulares el taller pone caballete, tablero y modelo; los materiales finos (lápices, pinceles, papeles, óleo) corren por cuenta del alumno según la lista del curso. En los talleres intensivos, el kit básico suele estar incluido — lo confirmas al inscribirte por WhatsApp.",
+		a: "En los cursos regulares el taller pone caballete, tablero y modelo; los materiales finos (lápices, pinceles, papeles, óleo) corren por cuenta del alumno. En los intensivos el kit básico suele estar incluido — se confirma al inscribirte.",
 	},
 	{
 		q: "¿Hay cursos para niños y adolescentes?",
-		a: "Sí. Existen grupos infantiles y juveniles con programas propios. Los menores se inscriben siempre a través de su tutor, quien firma el consentimiento y recibe la información del curso — así protegemos a los alumnos más jóvenes desde el primer contacto.",
+		a: "Sí, hay grupos infantiles y juveniles con programas propios. Los menores se inscriben siempre a través de su tutor, quien firma el consentimiento y recibe la información del curso.",
 	},
 	{
 		q: "¿Otorgan certificado o constancia al terminar?",
-		a: "Al concluir un programa completo recibes una constancia de la academia con horas y nivel cursados. Es el documento que acredita tu formación ante instituciones y convocatorias; los programas de mayor duración incluyen además la exposición colectiva de cierre.",
+		a: "Al concluir un programa completo recibes una constancia de la academia con horas y nivel cursados. Los programas de mayor duración incluyen además la exposición colectiva de cierre.",
 	},
 	{
 		q: "¿Puedo tomar una clase de prueba antes de inscribirme?",
-		a: "Sí, y te lo recomendamos. La clase muestra te permite conocer el espacio, el método y al docente antes de comprometerte. Escríbenos por WhatsApp y agendamos tu visita.",
+		a: "Sí, y te lo recomendamos. La clase muestra te permite conocer el espacio, el método y al docente antes de comprometerte; escríbenos por WhatsApp y agendamos tu visita.",
 	},
 	{
 		q: "¿Cómo me inscribo?",
-		a: "Todo empieza por WhatsApp: nos cuentas qué te interesa (dibujo, pintura, grabado, acuarela), tu horario disponible y si vienes con experiencia. Te proponemos el grupo correcto, confirmas cupo y quedas inscrito. Sin formularios eternos.",
+		a: "Todo empieza por WhatsApp: nos cuentas qué te interesa, tu horario y tu experiencia. Te proponemos el grupo correcto, confirmas cupo y quedas inscrito — sin formularios eternos.",
 	},
 	{
 		q: "¿Cuánto duran los cursos?",
-		a: "Depende del programa: los talleres trimestrales duran de 3 a 4 meses con sesiones semanales, y los intensivos van de una a varias semanas con sesiones más frecuentes. La duración exacta de cada curso aparece en su ficha al consultar por WhatsApp.",
+		a: "Los talleres trimestrales duran de 3 a 4 meses con sesiones semanales; los intensivos, de una a varias semanas. La duración exacta aparece en la ficha de cada curso.",
 	},
 	{
 		q: "¿Aceptan alumnos internacionales?",
-		a: "Sí. Recibimos alumnos del extranjero, sobre todo en talleres intensivos y temporadas. Te orientamos sobre estancias cortas, métodos de pago desde el extranjero y fechas que empalman con tu viaje — escríbenos con tu país de origen y las semanas que tienes disponibles.",
+		a: "Sí. Recibimos alumnos del extranjero, sobre todo en intensivos y temporadas. Te orientamos sobre estancias cortas, métodos de pago desde el extranjero y fechas que empalman con tu viaje.",
 	},
 	{
 		q: "¿Qué es el Sistema Oriental o Técnica Interna?",
-		a: "Es el método propio de la academia, desarrollado por el Profr. José Guadalupe Cabrera a partir de su formación en China: combina el rigor académico del dibujo con la respiración, la postura y la observación de la estética zen. No es un estilo de dibujo — es una forma de enseñar a ver.",
+		a: "Es el método propio de la academia, creado por el Profr. Cabrera desde su formación en China: rigor académico del dibujo más respiración, postura y estética zen. No es un estilo de dibujo — es una forma de enseñar a ver.",
 	},
 	{
 		q: "¿Qué pasa si falto a una clase?",
-		a: "La reposición depende del grupo y del cupo. En la mayoría de los talleres puedes recuperar en un horario paralelo de la misma semana; escríbenos y lo acomodamos. La constancia de la academia es de asistencia, así que conviene no soltar el ritmo.",
+		a: "Depende del grupo y del cupo. En la mayoría de los talleres puedes recuperar en un horario paralelo de la misma semana; la constancia es de asistencia, así que conviene no soltar el ritmo.",
 	},
 ];
 
@@ -69,8 +69,15 @@ const faqJson = JSON.stringify(faqSchema);
 
   <script type="application/ld+json" set:html={faqJson} />
 
+  <!-- Estado inicial de animación: se aplica ANTES del primer paint (sin JS = contenido visible) -->
+  <script is:inline>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("anim-ready");
+    }
+  </script>
+
   <!-- ═══════ HERO ═══════ -->
-  <section class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-24">
+  <section class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-24" aria-labelledby="faq-titulo">
     <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
     <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
 
@@ -80,7 +87,7 @@ const faqJson = JSON.stringify(faqSchema);
         <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Preguntas frecuentes</p>
       </div>
 
-      <h1 class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
+      <h1 id="faq-titulo" class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Lo que más</span></span>
         <span class="reveal-line block overflow-hidden">
           <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">nos preguntan</span>
@@ -95,7 +102,7 @@ const faqJson = JSON.stringify(faqSchema);
   </section>
 
   <!-- ═══════ ACORDEÓN ═══════ -->
-  <section class="border-t border-tinta-negra/10">
+  <section class="border-t border-tinta-negra/10" aria-label="Preguntas y respuestas">
     <div class="mx-auto max-w-4xl px-6 py-20 md:py-28">
       <div class="space-y-4">
         {
@@ -129,7 +136,7 @@ const faqJson = JSON.stringify(faqSchema);
           target="_blank"
           rel="noopener"
           data-cursor
-          class="mt-8 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all hover:scale-105 hover:bg-oro-viejo"
+          class="mt-8 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra shadow-[0_4px_24px_rgba(212,175,55,0.3)] transition-all motion-safe:hover:scale-105 hover:bg-oro-viejo"
         >
           <span aria-hidden="true">✆</span>
           Preguntar por WhatsApp
@@ -144,6 +151,18 @@ const faqJson = JSON.stringify(faqSchema);
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
   }
+
+  /* ── Accesibilidad: texto secundario AA 4.5:1 (#9a968c = 2.9:1 → #6e6a60 = 5.2:1) ── */
+  :global(:root) {
+    --color-tinta-humo: #6e6a60;
+  }
+
+  /* ── Focus visible (WCAG 2.4.11 AA): outline jade 2px + offset en TODO lo interactivo ── */
+  :global(a:focus-visible, button:focus-visible, summary:focus-visible) {
+    outline: 2px solid #00965f;
+    outline-offset: 2px;
+  }
+
   .ink-wash {
     background:
       radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
@@ -161,9 +180,12 @@ const faqJson = JSON.stringify(faqSchema);
     to { transform: translateY(0); }
   }
 
-  .fade-up {
+  /* Estado inicial oculto SOLO con JS y motion permitido (sin JS = todo visible) */
+  .anim-ready .fade-up {
     opacity: 0;
     transform: translateY(28px);
+  }
+  .fade-up {
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .fade-up.is-in {
@@ -186,10 +208,6 @@ const faqJson = JSON.stringify(faqSchema);
     list-style: none;
   }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary:focus-visible {
-    outline: 2px solid var(--color-jade-base);
-    outline-offset: 4px;
-  }
 
   /* Ícono + (gira a — al abrir, solo transform) */
   .faq-icon {
@@ -222,6 +240,7 @@ const faqJson = JSON.stringify(faqSchema);
 
   @media (prefers-reduced-motion: reduce) {
     .reveal-inner { animation: none; transform: none; }
+    .anim-ready .fade-up,
     .fade-up { opacity: 1; transform: none; transition: none; }
     .faq-item, .faq-icon::before, .faq-icon::after, .faq-answer > div { transition: none; }
   }
