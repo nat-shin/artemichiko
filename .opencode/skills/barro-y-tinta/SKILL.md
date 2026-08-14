@@ -1,59 +1,70 @@
 ---
 name: barro-y-tinta
-description: Sistema de diseño ArteMichiko — identidad "Barro y Tinta". Barro (tierra, arcilla, texturas artesanales, calor) + Tinta (trazo, tinta china, negro/gris, precisión). Aplicar en TODA pieza de UI, página, componente o contenido visual del sitio. Prohíbe variaciones fuera de marca.
+description: Sistema de diseño ArteMichiko — identidad "Barro y Tinta" elevada a lujo: BLANCO + NEGRO + DORADO (oro metálico brillante). Elegancia de academia de arte: serif display de alto contraste, espacio negativo amplio (Ma), trazo de tinta como acento, oro como única joya. Aplicar en TODA pieza de UI o contenido. Prohíbe variaciones fuera de marca.
 license: Propietario — ArteMichiko
 ---
 
-# Barro y Tinta — Sistema de Diseño ArteMichiko
+# Barro y Tinta — Sistema de Diseño ArteMichiko (Edición Oro)
 
-> Academia de arte · CDMX · Identidad: **Barro** (materia, artesanía, tierra) + **Tinta** (trazo, precisión, expresión).
+> Academia de arte · CDMX · **Dirección: ELEGANCIA.** Blanco (lienzo puro) + Negro (tinta profunda) + **Oro metálico brillante** (la joya única).
 
 ## Principios (no negociables)
 
-1. **Barro es cuerpo, Tinta es alma.** Fondo/espacio = tierra, arcilla, textura cálida. Acento/estructura = trazo negro nítido sobre ese fondo.
-2. **Materialidad visible.** Texturas de arcilla, papel artesanal, fibra — nunca gradientes genéricos de software.
-3. **Espacio negativo como poder** (間 Ma). Whitespace intencional: si quitar un elemento hace que el diseño gane, se quita.
-4. **Imperfección deliberada** (wabi-sabi). Asimetría sutil, bordes no perfectos, pincelada visible — como firma, no como error.
-5. **Un acento, una voz.** El rojo cinabrio (sello 印章) es el ÚNICO acento cálido de la marca — para firma, sello, CTA primario.
+1. **Lienzo, Tinta y Oro.** Fondo = blanco marfil puro. Estructura = negro profundo. El oro es la ÚNICA joya — un acento, una perla, nunca relleno.
+2. **Restraint es lujo** (Awwwards 2026). Menos es más: coherencia > cantidad. "La tipografía comunica el precio antes que el copy."
+3. **Espacio negativo como poder** (間 Ma). Whitespace generoso e intencional: si quitar algo mejora el diseño, se quita.
+4. **Oro con disciplina**: cobertura 5–15% de la superficie. Oro metálico (foil/gradiente sutil), NUNCA amarillo plano `#FFD700` (neón = barato).
+5. **Imperfección deliberada** (wabi-sabi): asimetría sutil, textura de grano fino, trazo de pincel visible — como firma de artista, no como error.
+6. **Un sello, una voz**: el detalle rojo cinabrio (印章) queda SOLO para firma de artista/obra — no compite con el oro.
 
-## Paleta (tokens)
+## Paleta (tokens oficiales)
 
 | Token | Valor | Uso |
 |---|---|---|
-| `barro-arcilla` | `#C4703F` | Terracota principal — acentos, hover |
-| `barro-tierra` | `#8A5A33` | Textura, fondos secundarios |
-| `barro-arena` | `#E8D9C3` | Fondo principal cálido |
-| `barro-paja` | `#F5ECDD` | Fondo claro, tarjetas |
-| `tinta-negra` | `#1A1A18` | Texto principal, estructura, trazo |
-| `tinta-gris` | `#5C5A54` | Texto secundario, metadata |
-| `tinta-hielo` | `#B8B4A8` | Líneas divisorias, estados inactivos |
-| `sello-cinabrio` | `#C3272B` | Sello 印章, firma, CTA primario — único acento cálido |
+| `lienzo-blanco` | `#FDFBF7` | Fondo principal (marfil puro) |
+| `lienzo-hueso` | `#F5F0E6` | Fondos secundarios, tarjetas |
+| `tinta-negra` | `#111111` | Texto principal, estructura (nunca `#000` puro) |
+| `tinta-grafito` | `#4A4A46` | Texto secundario, metadata |
+| `tinta-humo` | `#9A968C` | Líneas divisorias, estados inactivos |
+| `oro-brillo` | `#D4AF37` | **Joyas**: CTA primario, títulos destacados, bordes finos de lujo |
+| `oro-champagne` | `#C69B3C` | Hover, acentos secundarios, foil sutil |
+| `oro-arenoso` | `#EBDAB0` | Neutro cálido, fondos de sección especial |
+| `sello-cinabrio` | `#C3272B` | SOLO firma de artista/obra (印章) |
 
-## Tipografía
+## Tipografía (jerarquía couture)
 
-- **Display/Títulos**: trazo editorial fuerte (serif display o letra con carácter de pincel).
-- **Texto/UI**: humanista legible; en español (MX) con acentos correctos.
+- **Display/Títulos**: serif display de ALTO contraste (estilo editorial de revista / alta costura) — la tipografía ES el lujo.
+- **Texto/UI**: sans humanista legible; español (MX) con acentos correctos.
 - **Metadata técnica de obra**: monoespaciada (voz CATÁLOGO — doc 6).
-- CJK (si aparece): reglas de longitud de título de la tradición china — títulos cortos, densidad controlada.
+- **Regla**: titulares grandes y confiados (oversized typography), jerarquía exagerada, una sola voz tipográfica por sección.
+
+## Tratamiento del oro
+
+- **Foil metálico**: gradiente dorado sutil en títulos destacados o líneas (`linear-gradient` de `#D4AF37` → `#C69B3C` → `#EBDAB0`), no flat color.
+- **Líneas de lujo**: hairline (1px) doradas como divisores de sección o marcos de obra.
+- **Nunca**: relleno dorado de fondos, texto dorado sobre blanco sin contraste suficiente (WCAG: usar oro oscuro `#A67C00` para texto sobre blanco, o asegurar ratio AA).
 
 ## Texturas y tratamiento
 
-- Fondos: arcilla granulada, papel artesanal (washi), fibra — generadas con CSS/SVG sutil, nunca fotos stock.
-- Imágenes de obra: enmarcadas con línea de tinta fina, como piezas en galería.
-- Nunca: glassmorphism, gradientes neón, sombras difusas de software.
+- Grano fino (noise `opacity 0.03-0.05`) sobre fondos blancos — textura de papel de arte, sutil.
+- Imágenes de obra: enmarcadas con hairline de tinta, como piezas de galería de museo.
+- Trazo de pincel (SVG) como acento decorativo en títulos — el "tinta" de la identidad.
+- Nunca: glassmorphism, gradientes de software, sombras difusas grandes, neón.
 
 ## Vocabulario de trazo
 
-- **Pincelada = acento**: el trazo negro aparece como elemento decorativo (subrayado de título, divisor de sección, marco).
-- **Línea negra = estructura**: bordes, tablas, grillas usan `tinta-negra` con trazo de 1-2px.
-- **Sello rojo = firma**: el logo o firma del artista se sella en cinabrio, como estampa.
+- **Pincelada = acento**: subrayado de título, divisor de sección (tinta negra o dorada).
+- **Línea negra = estructura**: bordes, grillas, tablas.
+- **Línea dorada = celebración**: CTAs, premiación, obras destacadas, footer de lujo.
+- **Sello rojo = firma**: logo de artista/obra, única aparición de cinabrio.
 
 ## Anti-patrones (prohibido)
 
-- Gradientes de software genéricos · Glassmorphism · Sombras grandes difusas · Paletas de SaaS (azul/índigo) · Emojis como decoración · Plantillas "look de AI" · Texto en imágenes sin fallback.
+- `#FFD700` plano · Gradientes de software genéricos · Glassmorphism · Sombras grandes difusas · Paletas SaaS (azul/índigo) · Emojis decorativos · Look de plantilla AI · Oro como fondo relleno · Texto en imágenes sin fallback · Inter/Roboto/Arial.
 
 ## Aplicación
 
-- Toda página nueva: consultar esta skill + `theme-factory` para variantes (Tierra Cocida, Tinta Seca, Washi, Sello).
+- Toda página nueva: consultar esta skill + `artemichiko-elegance` (lujo) + `estetica-asia` (Ma/wabi-sabi) + `theme-factory` para variantes.
 - Toda pieza de marca: `brand-guidelines` + esta.
-- Respetar `prefers-reduced-motion` en animaciones de tinta/trazo.
+- QA de lujo antes de entregar: `impeccable` (`/polish`).
+- Respetar `prefers-reduced-motion`.
