@@ -61,6 +61,13 @@ Consolida **literalmente** el contenido de los tres documentos base del proyecto
 - **D.32** Skills disponibles (21 en .opencode/skills/ + globales)
 - **D.33** Config del proyecto (pnpm, biome, security hardening)
 
+### PARTE E — DECISIONES DEL DUEÑO + MEJORAS DE ALTA CALIDAD (13-ago-2026) ⭐
+- **E.35** Decisiones del dueño: NO tienda, NO DB, NO notion, SÍ galería, elegancia B/N/dorado
+- **E.36** 32 mejoras investigadas (firecrawl+tavily): arquitectura híbrida, edge cache,
+  imágenes AVIF, Speculation Rules, View Transitions, fuentes CLS-cero, tipografía premium,
+  dorado foil, SplitText, Lenis sync, Motion Lazy, OpenSeadragon IIIF, Embla, OG dinámicas,
+  JSON-LD derivado, llms.txt, presupuesto animación, R3F WebGPU, anti-AI-slop (30 reglas)
+
 ---
 
 <!-- ================================================================ -->
@@ -2005,4 +2012,268 @@ sdd-\*, cavecrew, caveman-\*, firecrawl-\*, docx/pdf/pptx/xlsx, context7-mcp, ag
 
 ---
 
-*Fin del MAESTRO Consolidado. Los docs 6/7/8 originales permanecen en el repo como fuente histórica; este archivo es la fuente de verdad operativa.*
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- PARTE E.35 — DECISIONES DEL DUEÑO + MEJORAS INVESTIGADAS       -->
+<!-- Investigación 13-ago-2026 · firecrawl + tavily (en paralelo)   -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+---
+
+# PARTE E — DECISIONES DEL DUEÑO Y MEJORAS DE ALTA CALIDAD
+
+## E.35 Decisiones del dueño (mandan sobre TODO el documento)
+
+> Estas decisiones del propietario del proyecto ANULAN cualquier sección de los docs 6/7/8 que las contradiga. El contenido original permanece arriba como referencia histórica, pero la implementación real sigue estas reglas.
+
+| # | Decisión | Qué se elimina/evita | Qué se mantiene |
+|---|---|---|---|
+| 1 | **NO tienda dentro de la web** | ❌ Sección 19.9 "Tienda de Arte" — NO se construye. Sin carrito, sin checkout, sin pasarela de pago, sin Product/Offer schema | La galería exhibe obras (informativas) pero NO vende |
+| 2 | **NO base de datos** | ❌ Payload CMS, Neon/Postgres, D1 como DB de contenido, todo lo de "CRM edge-native" con persistencia → contenido en **Content Collections de Astro** (archivos) | La galería funciona con datos de archivos tipados |
+| 3 | **NO notion / gestor externo** | ❌ Ninguna integración con Notion ni similar | Contenido en archivos del repo |
+| 4 | **SÍ galería de obras** | — | La galería ES el corazón del sitio (Parte 2.1): obras, filtrado, scroll→espacio, 2-3 piezas WebGL |
+| 5 | **Elegancia blanco/negro/dorado** | ❌ Cualquier acento que no sea el oro metálico `#D4AF37` | Tokens D.29: lienzo `#FDFBF7`, tinta `#111111`, oro `#D4AF37`, sello `#C3272B` (solo firma) |
+| 6 | **Objetivo: dar a conocer el centro cultural** | — | Estrategia de contenido + SEO/GEO para que la academia sea conocida con TODO lo que ofrece |
+
+**Interpretación operativa de "sin tienda":** la galería puede mostrar "Esta obra es de la colección de ArteMichiko" o "Disponible por consulta vía WhatsApp" — información, nunca transacción. La matriculación de cursos tampoco cobra en línea (contacto → WhatsApp/email).
+
+---
+
+## E.36 MEJORAS INVESTIGADAS (firecrawl + tavily, 13-ago-2026)
+
+> Cada mejora está marcada con `/////` al inicio y al final para identificarla como sugerencia del equipo de auditoría. Son ADICIONES a la arquitectura base — se evalúan e implementan por segmentos.
+
+/////
+### E.36.1 Arquitectura de renderizado — mejorar a híbrido por página
+**Qué**: `output: 'server'` + `prerender = true` por página (17 de 20 páginas estáticas, 3 dinámicas: Umbral/Galería/Matriculación) + `serverIslands: true`.
+**Por qué**: el HTML estático sale del edge cache al instante; solo las 3 piezas interactivas usan Server Islands. ~90% menos JS que un app-shell.
+**Cómo**: `astro.config` → `output: 'server'`, `export const prerender = true` en páginas de contenido, `<Widget server:defer />` en matriculación.
+**Fuente**: docs.astro.build (server islands), dev.to/polliog (Astro 2026 vs Next).
+/////
+
+/////
+### E.36.2 Workers Static Assets + `run_worker_first` selectivo
+**Qué**: `assets.directory: "./dist"` + `run_worker_first: ["/api/"]` en wrangler.
+**Por qué**: el HTML se sirve del edge SIN ejecutar el Worker; solo rutas API lo corren. TTFB -60-80%, cold start <1ms.
+**Cómo**: el adapter `@astrojs/cloudflare` v14 genera esto; verificar en `dist/client/wrangler.json` que `assets` apunte bien.
+**Fuente**: developers.cloudflare.com/workers/static-assets.
+/////
+
+/////
+### E.36.3 Workers Cache delante del Worker (tiered cache)
+**Qué**: `"cache": {"enabled": true}` + `Cache-Control: public, max-age=300, stale-while-revalidate=3600` + `Cache-Tag` por sección.
+**Por qué**: cache hit = el Worker no corre = no pagas CPU. SWR gratis.
+**Fuente**: blog.cloudflare.com/workers-cache.
+/////
+
+/////
+### E.36.4 Imágenes on-the-fly con AVIF — `/cdn-cgi/image/`
+**Qué**: resize+formato en el edge (no prebuild de miles de variantes). Cloudflare negocia AVIF por Accept header; una URL para cualquier dispositivo.
+**Cómo**: helper Astro que genera `cdn-cgi/image/width=…,format=auto,quality=75` sobre Cloudflare Images. Calidad ladder AVIF 60-68 / WebP 75-80.
+**Fuente**: blog.blazingcdn.com (APO/resizing), developers.cloudflare.com/images.
+/////
+
+/////
+### E.36.5 Speculation Rules API — prerender de la siguiente vista
+**Qué**: prerender moderado de la ficha de obra al hover de tarjeta.
+**Por qué**: LCP p75 **320ms vs 1800ms (-82%)**, ~28% de navegaciones prerendered.
+**Cómo**: `<script type="speculationrules">` con `prerender` + `eagerness: "moderate"` sobre `/galeria/*`, servido como asset estático.
+**Fuente**: corewebvitals.io/pagespeed/speculation-rules.
+/////
+
+/////
+### E.36.6 View Transitions cross-document + bfcache
+**Qué**: `<ClientRouter />` de Astro (~3KB) para transiciones ficha↔galería; `transition:persist` en header.
+**Por qué**: swaps manejados por compositor = CLS cero + sensación de superficie continua (patrón By-Kin, ganador Awwwards).
+**Cómo**: ClientRouter + `transition:animate` en main.
+**Fuente**: docs.astro.build (view transitions), bmgmediaco.com/trophy-hunters.
+/////
+
+/////
+### E.36.7 Fuentes: `size-adjust` + self-host + preload (CLS cero)
+**Qué**: `@font-face` con `size-adjust`/`ascent-override`/`descent-override` + `font-display: optional` + preload de woff2 críticas.
+**Por qué**: las fuentes son la causa nº1 de CLS por swap y de bloqueo de LCP. Subsetting + variable fonts (un solo woff2 con eje wght).
+**Cómo**: self-host woff2 subset; `--heading-weight: clamp(...)` animable via `@property`; `font-variation-settings` en hover sin JS.
+**Fuente**: nitropack.io/blog/core-web-vitals-strategy, vistaPrint (font trends 2026).
+/////
+
+/////
+### E.36.8 Tipografía premium — pareja de lujo
+**Qué**: **serif display de ALTO contraste (Didot/Bodoni/Canela/Playfair Display) SOLO en display** + sans limpia de marca (Geist/Satoshi/Cabinet Grotesk) para cuerpo/UI.
+**Por qué**: "A refined serif headline paired with a clean sans body feels timeless and exclusive" (hooman.com). El serif alto contraste "nos entrenó a leerlo como editorial, lujoso y autoritativo".
+**Regla**: contraste alto SOLO a gran escala (≥20px); body con strokes robustos; NUNCA serif en navegación/formularios (Parte 3.1 ya lo manda). Verificar optical sizes (Canela Text vs Display).
+**Fuente**: hooman.com, codedesign.ai, vistaPrint.
+/////
+
+/////
+### E.36.9 Dorado metálico — método foil (NO #FFD700)
+**Qué**: oro real `#C69B3C–#D4AF37` renderizado como **gradiente metálico de 3 stops a 45°**: shadow `#7D5A30` → midtone `#C8A84B` → highlight `#FFF4C7`. Cobertura **5-15%**.
+**Por qué**: el metal físico es reflectancia direccional; un `#FFD700` plano "reads as orange-yellow with no metallic quality". "Keep gold to 10-15% so it reads premium, not loud".
+**Prohibido**: `#FFD700`, fondos dorados (el metal colapsa a escala), dos metales juntos, gradiente en logo.
+**Fuente**: colorarchive.org (guía de metales), zoviz.com (luxury brand colors), media.io.
+/////
+
+/////
+### E.36.10 SplitText (GSAP) — texto animado premium
+**Qué**: **gratis para uso comercial desde GSAP 3.13**. Divide en chars/words/lines; incluye `mask` (reveal con overflow hidden), `autoSplit`, `onSplit()`, accesibilidad screen-reader incorporada.
+**Patrones**: line-mask reveal para headlines, character reveal para labels cortos, scroll-scrub editorial, text scramble.
+**Reglas**: `chars` para titulares cortos, `lines` para quotes grandes, NUNCA en body copy; `aria-label` obligatorio; correr en `useGSAP` client-only (isla).
+**Fuente**: gsap.com (SplitText 3.13+), Codrops.
+/////
+
+/////
+### E.36.11 Scroll experience — Lenis + GSAP ScrollTrigger sync
+**Qué**: el combo estándar de la web premiada ("On Awwwards, all websites are on Lenis"). Lenis ~3KB, cero deps, corre sobre scroll nativo.
+**Patrones arte/portafolio**: pinned card stacking, horizontal scroll sections (ScrollTrigger `pin` + translateX), clip-path reveals en galería, imagen que escala con scroll.
+**Cómo**: sync canónico (lenis.on('scroll', ScrollTrigger.update) + gsap.ticker.add → lenis.raf).
+**Accesibilidad**: horizontal scroll solo desktop-first; `prefers-reduced-motion` sin excepción.
+**Fuente**: github darkroomengineering/lenis, Webflow Blog.
+/////
+
+/////
+### E.36.12 Motion (ex Framer Motion) — SOLO en islas React con LazyMotion
+**Qué**: añadir Motion para microinteracciones de islands (AnimatePresence en galería/matriculación, springs en formularios). ~30KB, casi empate con GSAP core.
+**Por qué**: GSAP para scroll/timelines, Motion para UI enter-exit — es la respuesta estándar de agencias creativas 2026.
+**Ojo peso**: usar `LazyMotion + domAnimation` para cargar solo features usados (no tree-shakeable por debajo de ~34KB).
+**Decisión**: añadir SOLO si se necesitan AnimatePresence/layout animations; si solo son fades/hovers, CSS basta (0 bytes).
+**Fuente**: motion.dev, LogRocket.
+/////
+
+/////
+### E.36.13 Galería — zoom IIIF con OpenSeadragon
+**Qué**: OpenSeadragon es el viewer IIIF estándar (Art Institute of Chicago, Frick, Leiden). Wrapper React disponible.
+**Por qué**: tu estrategia ya eligió IIIF (Parte 2.1); OpenSeadragon es el viewer natural con zoom infinito.
+**Opcional premium**: curtain viewer para comparar variantes (x-ray/infrarrojo) — muy apropiado para una academia.
+**Fuente**: iiif.io, awesome-iiif.
+/////
+
+/////
+### E.36.14 Galería — hover premium con `gsap.quickTo()`
+**Qué**: hover thumbnail que sigue al cursor con `gsap.quickTo()` + clip-path reveal en lista/menú.
+**Por qué**: es el patrón de rendimiento recomendado (quickTo evita jank) y el efecto ganador en galerías premiadas.
+**Fuente**: Awwwards Filters & Effects.
+/////
+
+/////
+### E.36.15 Carousel — Embla (headless) para la galería
+**Qué**: **Embla Carousel ~5-7KB, zero-deps, headless** (tú dibujas el UI = encaja con el sistema propio).
+**Por qué**: la galería debe verse "hecha por la misma mano" que Barro y Tinta; headless permite el estilo propio. Splide (~27KB) si el WCAG automatizado pesara más.
+**Fuente**: PkgPulse, shadcn/ui.
+/////
+
+/////
+### E.36.16 Formularios — validación elegante
+**Qué**: validación en blur (no al teclear), mensajes inline con `aria-describedby`, error container en DOM desde el inicio (sin layout jump), micro-animación con Motion (spring para foco/error).
+**Fuente**: Static Forms, Fluid22.
+/////
+
+/////
+### E.36.17 Skeletons de carga para la galería
+**Qué**: skeletons con shimmer/pulse para grids de obras; **match exacto del aspect-ratio real de cada obra** = CLS cero.
+**Fuente**: LogRocket.
+/////
+
+/////
+### E.36.18 OG images dinámicas — Satori + @resvg/resvg-js
+**Qué**: endpoint Astro (`src/pages/og/[...route].ts`) que genera OG images 1200×630 en build-time, reutilizando los tokens Barro y Tinta.
+**Por qué**: cada obra/curso puede tener su propia imagen social — señal de calidad y de SEO.
+**Fuente**: Cloudinary, arne.me, gksander.
+/////
+
+/////
+### E.36.19 Content negotiation — markdown en la URL canónica
+**Qué**: servir `Accept: text/markdown` con la versión markdown en la MISMA URL (sin `.md` duplicadas).
+**Por qué**: los agentes citan markdown limpio; Google/Bing castigan URLs `.md` duplicadas como crawl duplicado.
+**Fuente**: robotostudio.com (AEO/GEO).
+/////
+
+/////
+### E.36.20 FAQPage + entidades JSON-LD derivadas de datos
+**Qué**: schema `FAQPage` (el de mayor apalancamiento de citación AI, 2.8×), `Course`, `Person`, `VisualArtwork`, `EducationalOrganization` — generado en render desde Content Collections (nunca manual = nunca desincronizado).
+**Fuente**: marketing.chat (paper Aggarwal), witscode.com.
+/////
+
+/////
+### E.36.21 `llms.txt` + `llms-full.txt` generados en build + robots.txt auditar
+**Qué**: archivos raíz generados desde colecciones + verificar robots.txt permite GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended (71% de publishers bloquean por error algún retrieval bot).
+**Fuente**: github amplifying-ai, Google AI optimization guide.
+/////
+
+/////
+### E.36.22 Presupuesto de animación por página (protege INP)
+**Qué**: GSAP/Motion/SplitText/Embla SOLO en Umbral/Galería/Matriculación; Blog/Docentes/FAQ/Legal con CSS scroll-driven nativo (`view()`) — cero JS.
+**Por qué**: INP es la métrica más fallada de 2026 (43%); animaciones en páginas de contenido penalizan.
+**Fuente**: corewebvitals.io, nitropack.
+/////
+
+/////
+### E.36.23 R3F v9 con WebGPU (mejora progresiva) + fallback WebGL2
+**Qué**: `gl` factory async con `WebGPURenderer`, feature-detection; shaders TSL (compilan a WGSL y GLSL).
+**Cómo**: isla `client:only="react"` con `<Canvas gl={createWebGpuRenderer}>`; Three r171+.
+**Fuente**: r3f.docs.pmnd.rs, utsubo.com (webgpu migration).
+/////
+
+/////
+### E.36.24 R3F — rendimiento (dpr adaptativo, instancing, on-demand)
+**Qué**: `frameloop="demand"` (render solo con cambios), `<Detailed>` LOD de drei, instancing para piezas repetidas, `PerformanceMonitor` + `AdaptivePixelRatio` (dpr adaptativo), Draco+KTX2 (40% menos carga móvil).
+**Por qué**: el jurado Awwwards prueba en Android medio; 18fps = descalificado. "Un solo objeto hero bien iluminado + reveal" es el patrón top (Oryzo/Lusion).
+**Fuente**: r3f.docs.pmnd.rs/scaling-performance, krapton.com.
+/////
+
+/////
+### E.36.25 Custom cursor — como enhancement layer (con cuidado)
+**Qué**: si se usa, un dot pequeño que acompaña + estados hover contextuales; NUNCA reemplaza el cursor del sistema; respeta `prefers-reduced-motion`.
+**Por qué**: es controversial en accesibilidad (rompe patrones, falla en touch).
+**Fuente**: análisis de accesibilidad 2026.
+/////
+
+/////
+### E.36.26 Métricas de campo + monitoreo (RUM)
+**Qué**: Cloudflare Web Analytics (sin cookies, LFPDPPP-friendly) + web-vitals a Analytics Engine + LoAF para depurar long tasks en islas.
+**Por qué**: 43% de sites fallan INP; sin field data no hay decisión.
+**Fuente**: corewebvitals.io, digitalapplied.com.
+/////
+
+/////
+### E.36.27 Marquee de texto (patrón ganador)
+**Qué**: marquee de palabras clave o nombres de técnicas en scroll infinito sutil (CSS-only o GSAP), como elemento editorial de transición entre secciones.
+**Por qué**: patrón recurrente en sitios premiados 2026; da vida al espacio sin ser decoración vacía si lleva contenido real (técnicas, medios, filosofías).
+**Fuente**: hontran.dev (best award-winning 2026).
+/////
+
+/////
+### E.36.28 Micro-interacciones de marca (3 reglas)
+**Qué**: 1) comunicar cambio de estado (press, panel, carga), 2) dirigir la atención, 3) reforzar personalidad de marca. Poda: eliminar toda animación puramente decorativa.
+**Por qué**: "Stripe se siente matemático, Duolingo juguetón" — la micro-interacción es la personalidad.
+**Fuente**: 925studios.co.
+/////
+
+/////
+### E.36.29 Regla "intercambio de industria" (anti-AI-slop)
+**Qué**: test de aceptación — si la galería de ArteMichiko pudiera ser la homepage de un SaaS sin cambiar nada → rediseñar.
+**Por qué**: la IA elige los patrones estadísticamente más comunes (Inter, gradientes, cards 16px); diferenciación = el test.
+**Fuente**: 925studios.co (AI slop guide), Dan Winer (AI Slop Test).
+/////
+
+/////
+### E.36.30 Shape Consistency Lock (anti-AI-slop)
+**Qué**: UNA escala de radio documentada seguida en TODO el sitio (ej: cards 2px, botones pill, inputs 4px). Prohibido radio uniforme 16px en todo (plantilla).
+**Fuente**: tasteskill.dev.
+/////
+
+/////
+### E.36.31 Iconos generativos propios (ya en Parte 3.2) — reforzar
+**Qué**: el sistema de íconos generativo con seed fija por concepto; NUNCA Lucide/FontAwesome visibles (mismo set de cualquier app de delivery).
+**Fuente**: tasteskill.dev, Instagram (viral "AI tells").
+/////
+
+/////
+### E.36.32 Fotografía real producida, nunca stock
+**Qué**: obras/alumnos fotografiados con dirección de arte consistente (luz, fondo, mood). Lanzar con menos obras pero mejor fotografiadas.
+**Por qué**: "una imagen impactante > varias mediocres"; el stock de gente mirando laptops con luz imposible es firma de IA.
+**Fuente**: bejamas.com, 925studios.co.
+/////
+
+---
+
+*Fin del MAESTRO Consolidado v2.1. Los docs 6/7/8 originales permanecen como fuente histórica; este archivo es la fuente de verdad operativa. Las mejoras E.36.x marcadas con ///// son sugerencias del equipo de auditoría para evaluar e implementar por segmentos.*
