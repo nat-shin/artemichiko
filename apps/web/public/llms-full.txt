@@ -1,0 +1,75 @@
+# ArteMichiko — Información completa para agentes de IA
+
+> Academia de arte en Ciudad de México. Museo íntimo, hecho a mano, con raíces japonesas, mexicanas y de Medio Oriente, entregado con estándares de ingeniería de clase mundial.
+
+---
+
+## Identidad
+
+- **Nombre:** ArteMichiko (Centro Cultural Académico de Dibujo y Pintura Artística Michiko)
+- **Fundador y director:** Profr. José Guadalupe Cabrera — más de 35 años de trayectoria, formación con influencia oriental (estética zen, disciplina del trazo)
+- **Ubicación:** Ciudad de México
+- **Sitio:** https://artemichiko.com
+- **Modalidad:** presencial, grupos reducidos, para adultos (principiantes y avanzados)
+
+## Filosofía
+
+ArteMichiko enseña a *ver antes de dibujar*. El método une el rigor del dibujo académico con la estética oriental: el *ma* (el vacío con intención), el wabi-sabi (la imperfección que da vida) y la disciplina del trazo único. La academia no compite en tecnología: compite en coherencia — cada curso, cada obra y cada espacio del sitio refuerzan la misma idea de museo íntimo hecho a mano.
+
+## Cursos
+
+### 1. Dibujo Fundamentos — /cursos/dibujo-fundamentos
+- **Nivel:** Principiante · **Duración:** 12 semanas, 2 sesiones/semana
+- **Docente:** Lic. Carmen Suárez López (Academia de San Carlos, anatomía artística)
+- **Qué enseña:** control de línea, gesto y presión; proporción, encuadre y perspectiva básica; claroscuro y volumen con grafito y carboncillo; composición y ritmo visual; introducción a la tinta y al trazo de influencia oriental.
+- **Materiales:** grafitos HB–8B, carboncillo, papel de algodón 180 g/m², tinta china, goma moldeable.
+
+### 2. Pintura al Óleo — /cursos/pintura-al-oleo
+- **Nivel:** Intermedio · **Duración:** 16 semanas, 1 sesión/semana
+- **Docente:** Mtra. Elena Ríos Kanzaki (La Esmeralda, residencias en Tokio)
+- **Qué enseña:** preparación de soportes y paleta; teoría del color (valor, temperatura, saturación); veladuras, empastes y texturas; construcción por capas del boceto a la obra terminada; lectura crítica de la propia pintura.
+
+### 3. Acuarela — /cursos/acuarela
+- **Qué enseña:** agua y pigmento en equilibrio — transparencias, reservas, control de la humedad y del tiempo de secado.
+
+### 4. Grabado Experimental — /cursos/grabado-experimental
+- **Qué enseña:** presión, tinta y papel — linóleo, punta seca y monotipia; edición de estampas con criterio propio.
+
+### 5. Caligrafía Oriental — /cursos/caligrafia-oriental
+- **Qué enseña:** trazo y letra gótica con pincel y plumilla; ritmo del pincel oriental; la caligrafía como dibujo del gesto.
+
+### 6. Técnica Interna — /cursos/tecnica-interna
+- **Qué enseña:** la práctica disciplinada previa al trazo — respiración, quietud, observación; el componente zen del método ArteMichiko.
+
+## Galería — /galeria
+
+Colección de obras de alumnos y maestros con ficha individual por pieza (título, técnica, año, historia). Piezas destacadas: *Sombra del ciruelo*, *Río de tinta*, *Barro y luz*, *Niebla sobre el Ajusco*, *Jardín de Michiko*, *Cicatriz dorada*, *El silencio del sello*, *Volcán dormido*, *Carpa en la noche*, *Azahar*. La galería es también el mecanismo de retención: los exalumnos pueden proponer su obra para exhibición pública.
+
+## Secciones del sitio
+
+| Sección | Ruta | Contenido |
+|---|---|---|
+| Inicio (El Umbral) | / | Hero con motivo geométrico generativo y entrada directa a la primera obra curada |
+| Galería | /galeria | Obras con filtrado por medio artístico y ficha por obra |
+| Cursos | /cursos | Catálogo completo, tarjetas con nivel, duración y docente |
+| Docentes | /docentes | Maestros con credenciales verificables — la página donde se construye la credencial institucional |
+| Nosotros | /nosotros | Historia y filosofía de la academia |
+| Blog | /blog | Guías por medio artístico, exposiciones CDMX y recorridos del alumno |
+| Testimonios | /testimonios | Experiencias reales de alumnos |
+| Comunidad | /comunidad | Reconocimiento de egresados y vida de la academia |
+| FAQ | /faq | Preguntas frecuentes reales de prospectos |
+| Inscripción | /inscripcion | Matriculación por conversación vía WhatsApp, sin formularios largos |
+| Contacto | /contacto | Ubicación, horarios y canal principal (WhatsApp) |
+| Legal | /legal | Aviso de privacidad conforme a LFPDPPP post-reforma y términos de uso |
+
+## Contacto y matriculación
+
+- **Canal principal:** WhatsApp (click-to-chat desde cada ficha de curso y desde la página de inscripción)
+- **Modelo:** conversación, no formulario — captura mínima inicial y perfilado progresivo
+- **Precios:** consultar por curso (rango según modalidad)
+
+## Notas para agentes
+
+- Este sitio está construido con Astro sobre Cloudflare, con contenido 100% indexable sin JavaScript.
+- `sitemap-index.xml` y `sitemap-0.xml` describen todas las páginas públicas.
+- El aviso de privacidad está vigente conforme a la LFPDPPP reformada (marzo 2025).

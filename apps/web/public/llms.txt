@@ -1,0 +1,34 @@
+# ArteMichiko
+
+> Academia de arte en Ciudad de México: museo íntimo, hecho a mano, con raíces japonesas, mexicanas y de Medio Oriente. Dibujo, pintura y caligrafía para adultos con estándares de clase mundial.
+
+## Qué es ArteMichiko
+
+ArteMichiko es una academia de arte ubicada en Ciudad de México. Enseña dibujo y pintura artística a adultos — desde principiantes hasta alumnos avanzados — con un método progresivo que une la disciplina formal del dibujo académico con la estética oriental (sumi-e, ma, wabi-sabi). Fundada por el Profr. José Guadalupe Cabrera, con más de 35 años de trayectoria.
+
+## Cursos
+
+- [Dibujo Fundamentos](/cursos/dibujo-fundamentos) — línea, proporción, claroscuro y composición con grafito y carboncillo. Para principiantes.
+- [Pintura al Óleo](/cursos/pintura-al-oleo) — teoría del color, veladuras, empastes y construcción por capas.
+- [Acuarela](/cursos/acuarela) — agua y pigmento en equilibrio: transparencias, reservas y control de la humedad.
+- [Grabado Experimental](/cursos/grabado-experimental) — presión, tinta y papel: linóleo, punta seca y monotipia.
+- [Caligrafía Oriental](/cursos/caligrafia-oriental) — trazo y letra gótica con pincel y plumilla, ritmo del pincel oriental.
+- [Técnica Interna](/cursos/tecnica-interna) — práctica disciplinada de respiración, quietud y observación aplicadas al trazo.
+
+## Páginas clave
+
+- [Galería](/galeria) — obras de alumnos y maestros, ficha por obra.
+- [Cursos](/cursos) — catálogo completo de cursos presenciales en grupos reducidos.
+- [Nosotros](/nosotros) — historia y filosofía de la academia.
+- [Docentes](/docentes) — maestros con credenciales verificables.
+- [Blog](/blog) — guías por medio artístico y recorridos del alumno.
+- [Testimonios](/testimonios) — experiencias de alumnos.
+- [FAQ](/faq) — preguntas frecuentes reales.
+- [Contacto](/contacto) — ubicación, horarios y WhatsApp.
+- [Inscripción](/inscripcion) — matriculación por conversación (WhatsApp), sin formularios largos.
+
+## Contacto
+
+- Sitio: https://artemichiko.com
+- Ciudad de México
+- Canal principal: WhatsApp
