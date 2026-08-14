@@ -31,6 +31,18 @@ const cursos = [
 
       <!-- Formulario mínimo: 3 campos → wa.me pre-llenado (FASE 2 del embudo) -->
       <form id="form-inscripcion" class="fade-up mt-12 rounded-lg border border-tinta-negra/10 bg-lienzo-hueso/60 p-8">
+        <!-- Honeypot anti-spam: oculto por CSS, invisible para humanos.
+             Los bots que rellenan todos los inputs caen aquí y el submit se bloquea. -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">No llenar este campo</label>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
         <div class="grid gap-6">
           <div>
             <label for="nombre" class="block font-mono text-xs tracking-widest text-jade-profundo uppercase">Tu nombre</label>
@@ -39,9 +51,14 @@ const cursos = [
               name="nombre"
               type="text"
               required
+              minlength="2"
+              maxlength="80"
               placeholder="Ej: Ana García"
               class="mt-2 w-full rounded-sm border border-tinta-humo/40 bg-lienzo-blanco px-4 py-3 transition-colors focus:border-jade-profundo focus:outline-none"
             />
+            <p id="error-nombre" class="mt-2 hidden font-mono text-xs text-sello-cinabrio" role="alert">
+              Escribe tu nombre (entre 2 y 80 caracteres).
+            </p>
           </div>
           <div>
             <label for="curso" class="block font-mono text-xs tracking-widest text-jade-profundo uppercase">Curso de interés</label>
@@ -100,6 +117,17 @@ const cursos = [
 </Layout>
 
 <style>
+  /* Honeypot anti-spam: fuera de la vista, fuera del flujo del teclado,
+     invisible para lectores de pantalla (aria-hidden en el markup) */
+  .hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
   .grain {
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   }
@@ -111,6 +139,11 @@ const cursos = [
 </style>
 
 <script>
+  // NOTA de integridad (SRI): este bloque es inline y lo protege la CSP de Astro
+  // (`security.csp: true` en astro.config.mjs), que genera y aplica los hashes
+  // SHA-256 de los scripts inline automáticamente en cada build. NO añadir SRI
+  // manual (integrity=) aquí: duplicaría el mecanismo y rompería el hash de Astro
+  // (cualquier cambio al script quedaría bloqueado por la propia CSP).
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   gsap.registerPlugin(ScrollTrigger);
@@ -124,14 +157,48 @@ const cursos = [
   }
 
   // ── FASE 2: formulario mínimo → wa.me pre-llenado (conversación, no trámite) ──
+  // Hardening anti-spam: honeypot + validación de nombre + sanitización + rate-limit.
+  const MAX_MSG_LENGTH = 500;
+  const MIN_SUBMIT_INTERVAL_MS = 2000;
+  let lastSubmitAt = 0;
+
   const form = document.getElementById("form-inscripcion") as HTMLFormElement | null;
+  const honeypot = document.getElementById("website") as HTMLInputElement | null;
+  const nombreInput = document.getElementById("nombre") as HTMLInputElement | null;
+  const errorNombre = document.getElementById("error-nombre") as HTMLElement | null;
+
+  // Limpia caracteres de control (saltos de línea, tabs, null bytes) y trunca a MAX_MSG_LENGTH.
+  function sanitizar(texto: string): string {
+    return texto.replace(/[\u0000-\u001f\u007f]/g, "").slice(0, MAX_MSG_LENGTH);
+  }
+
   form?.addEventListener("submit", (e) => {
     e.preventDefault();
-    const nombre = (document.getElementById("nombre") as HTMLInputElement).value.trim();
-    const curso = (document.getElementById("curso") as HTMLSelectElement).value;
-    const telefono = (document.getElementById("telefono") as HTMLInputElement).value.trim();
+
+    // 1) Honeypot: si un bot llenó el campo oculto, abortar en silencio (no dar feedback).
+    if (honeypot && honeypot.value.trim() !== "") return;
+
+    // 2) Rate-limit suave: mínimo 2s entre submits (bloquea ráfagas de bots).
+    const now = Date.now();
+    if (now - lastSubmitAt < MIN_SUBMIT_INTERVAL_MS) return;
+    lastSubmitAt = now;
+
+    // 3) Validación de nombre: 2–80 caracteres tras trim.
+    const nombreRaw = nombreInput?.value.trim() ?? "";
+    if (nombreRaw.length < 2 || nombreRaw.length > 80) {
+      if (errorNombre) errorNombre.classList.remove("hidden");
+      nombreInput?.focus();
+      return;
+    }
+    if (errorNombre) errorNombre.classList.add("hidden");
+
+    // 4) Sanitización de todo lo que entra al mensaje de WhatsApp.
+    const nombre = sanitizar(nombreRaw);
+    const curso = sanitizar((document.getElementById("curso") as HTMLSelectElement).value);
+    const telefono = sanitizar((document.getElementById("telefono") as HTMLInputElement).value.trim());
     const msg = `Hola ArteMichiko, quiero inscribirme${curso ? ` al curso: ${curso}` : ""}. Mi nombre es ${nombre || "…"}${telefono ? ` · Tel: ${telefono}` : ""}`;
     const url = `https://wa.me/5215512595906?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank", "noopener");
+    // "noopener,noreferrer": previene reverse tabnabbing y no filtra el Referer a wa.me.
+    window.open(url, "_blank", "noopener,noreferrer");
   });
 </script>
