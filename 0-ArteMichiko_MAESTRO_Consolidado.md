@@ -2464,6 +2464,8 @@ Todos consumen datos de **Content Collections** (colección `social` con campos:
 
 **La regla de oro (presupuesto por página)**: Umbral/Galería/Matriculación pueden cargar GSAP+ST+Lenis+Motion+isla R3F (presupuesto total JS animación < 60KB); las 17 páginas de contenido → **0KB JS de animación** (CSS scroll-driven + View Transitions). Es el patrón que miden los jurados: "native first, Motion cuando native no alcanza, GSAP cuando ni Motion".
 
+**Verificación dual de fuentes (13-ago-2026, 2ª pasada tavily+firecrawl)**: todos los hallazgos de E.38 confirmados por ambos motores — (a) "Clubroom Contrast" negro+oro = tendencia lujo 2026 (VistaPrint), jade confirmado como verde de lujo (Figma #00BB77); (b) Motion con LazyMotion validado por LogRocket 2026 (85KB full / carga parcial con LazyMotion), ogl confirmado como el WebGL ligero (13.5KB); (c) jurado Awwwards 2026: 2D impecable > 3D con jank, móvil obligatorio, restraint ("los trends son condimento, no plato principal"). Nota: en la 1ª pasada tavily estaba en límite de plan (MCP cacheaba key vieja) — se usó firecrawl+exa; la 2ª pasada confirmó con tavily+firecrawl.
+
 **Sync canónico (un solo loop)**: `lenis.on('scroll', ScrollTrigger.update)` + `gsap.ticker.add(t => lenis.raf(t*1000))` + `gsap.ticker.lagSmoothing(0)`. Dos loops compitiendo = causa #1 de jank.
 
 **Preloader**: 1.5-2.5s, una vez por sesión, `prefers-reduced-motion` lo omite. El sitio es estático/edge — no hay red que esperar; es "arribo percibido".
