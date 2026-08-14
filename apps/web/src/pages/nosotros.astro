@@ -71,7 +71,7 @@ const filosofia = [
       <h1 class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Un trazo que lleva&nbsp;</span></span>
         <span class="reveal-line block overflow-hidden">
-          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">treinta y cinco años</span>
+          <span class="reveal-inner inline-block gold-shine">treinta y cinco años</span>
         </span>
       </h1>
 
@@ -104,7 +104,7 @@ const filosofia = [
       <div>
         <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">La historia</p>
         <h2 class="fade-up mt-4 font-display text-4xl font-semibold tracking-tight md:text-5xl">
-          De China a la Ciudad <span class="text-oro-brillo">de México</span>
+          De China a la Ciudad <span class="gold-shine">de México</span>
         </h2>
         <div class="fade-up mt-6 space-y-4 leading-relaxed text-tinta-grafito">
           <p>
@@ -132,7 +132,7 @@ const filosofia = [
     <div class="mx-auto max-w-7xl px-6 py-24 md:py-32">
       <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Cronología</p>
       <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
-        Veintiséis años, <span class="text-oro-brillo">cinco momentos</span>
+        Veintiséis años, <span class="gold-shine">cinco momentos</span>
       </h2>
 
       <ol class="mt-16 space-y-0 border-l-2 border-jade-lechoso/40">
@@ -297,6 +297,11 @@ const filosofia = [
     animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .reveal-line:nth-child(2) .reveal-inner { animation-delay: 0.12s; }
+  /* gold-shine convive con el reveal: ambas animaciones en el mismo span */
+  .reveal-inner.gold-shine {
+    animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards, shine 6s linear infinite;
+    animation-delay: 0.12s;
+  }
   @keyframes reveal-up {
     to { transform: translateY(0); }
   }
@@ -325,7 +330,7 @@ const filosofia = [
 
   /* ── prefers-reduced-motion: todo visible, sin animación ── */
   @media (prefers-reduced-motion: reduce) {
-    .reveal-inner { animation: none; transform: none; }
+    .reveal-inner, .reveal-inner.gold-shine { animation: none; transform: none; }
     .fade-up { opacity: 1; transform: none; transition: none; }
     .mask-img { clip-path: none; transform: none; transition: none; }
   }

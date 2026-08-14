@@ -116,7 +116,7 @@ Astro.csp?.insertDirective("frame-src https://www.google.com");
       <h1 class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Hablemos&nbsp;</span></span>
         <span class="reveal-line block overflow-hidden">
-          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">de arte</span>
+          <span class="reveal-inner inline-block gold-shine">de arte</span>
         </span>
       </h1>
 
@@ -217,7 +217,7 @@ Astro.csp?.insertDirective("frame-src https://www.google.com");
     <div class="mx-auto max-w-7xl px-6 py-24 md:py-28">
       <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Redes sociales</p>
       <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
-        El taller también vive <span class="text-oro-brillo">en línea</span>
+        El taller también vive <span class="gold-shine">en línea</span>
       </h2>
 
       <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -269,6 +269,11 @@ Astro.csp?.insertDirective("frame-src https://www.google.com");
     animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .reveal-line:nth-child(2) .reveal-inner { animation-delay: 0.12s; }
+  /* gold-shine convive con el reveal: ambas animaciones en el mismo span */
+  .reveal-inner.gold-shine {
+    animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards, shine 6s linear infinite;
+    animation-delay: 0.12s;
+  }
   @keyframes reveal-up {
     to { transform: translateY(0); }
   }
@@ -284,7 +289,7 @@ Astro.csp?.insertDirective("frame-src https://www.google.com");
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal-inner { animation: none; transform: none; }
+    .reveal-inner, .reveal-inner.gold-shine { animation: none; transform: none; }
     .fade-up { opacity: 1; transform: none; transition: none; }
   }
 </style>

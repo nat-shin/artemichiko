@@ -23,7 +23,7 @@ import Layout from "../layouts/Layout.astro";
       <h1 class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Reglas claras,</span></span>
         <span class="reveal-line block overflow-hidden">
-          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">trazo limpio</span>
+          <span class="reveal-inner inline-block gold-shine">trazo limpio</span>
         </span>
       </h1>
 
@@ -237,6 +237,11 @@ import Layout from "../layouts/Layout.astro";
     animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .reveal-line:nth-child(2) .reveal-inner { animation-delay: 0.12s; }
+  /* gold-shine convive con el reveal: ambas animaciones en el mismo span */
+  .reveal-inner.gold-shine {
+    animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards, shine 6s linear infinite;
+    animation-delay: 0.12s;
+  }
   @keyframes reveal-up {
     to { transform: translateY(0); }
   }
@@ -252,7 +257,7 @@ import Layout from "../layouts/Layout.astro";
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal-inner { animation: none; transform: none; }
+    .reveal-inner, .reveal-inner.gold-shine { animation: none; transform: none; }
     .fade-up { opacity: 1; transform: none; transition: none; }
   }
 </style>

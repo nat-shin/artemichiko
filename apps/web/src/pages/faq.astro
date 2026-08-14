@@ -90,7 +90,7 @@ const faqJson = JSON.stringify(faqSchema);
       <h1 id="faq-titulo" class="max-w-4xl font-display text-5xl leading-[1.05] font-semibold tracking-tight md:text-8xl">
         <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Lo que más&nbsp;</span></span>
         <span class="reveal-line block overflow-hidden">
-          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">nos preguntan</span>
+          <span class="reveal-inner inline-block gold-shine">nos preguntan</span>
         </span>
       </h1>
 
@@ -176,6 +176,11 @@ const faqJson = JSON.stringify(faqSchema);
     animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
   .reveal-line:nth-child(2) .reveal-inner { animation-delay: 0.12s; }
+  /* gold-shine convive con el reveal: ambas animaciones en el mismo span */
+  .reveal-inner.gold-shine {
+    animation: reveal-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards, shine 6s linear infinite;
+    animation-delay: 0.12s;
+  }
   @keyframes reveal-up {
     to { transform: translateY(0); }
   }
@@ -239,7 +244,7 @@ const faqJson = JSON.stringify(faqSchema);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .reveal-inner { animation: none; transform: none; }
+    .reveal-inner, .reveal-inner.gold-shine { animation: none; transform: none; }
     .anim-ready .fade-up,
     .fade-up { opacity: 1; transform: none; transition: none; }
     .faq-item, .faq-icon::before, .faq-icon::after, .faq-answer > div { transition: none; }
