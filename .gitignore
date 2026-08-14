@@ -14,3 +14,15 @@ dist/
 # Archivos del sistema
 .DS_Store
 .opencode/goals/
+
+# Skills auto-instaladas (autoskills) — config local del agente
+.agents/
+.claude/
+.codebuddy/
+.continue/
+.junie/
+.kiro/
+skills-lock.json
+.qa/
+apps/web/playwright-report/
+apps/web/test-results/
