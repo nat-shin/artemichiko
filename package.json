@@ -1,28 +1,28 @@
 {
-  "name": "artemichiko",
-  "version": "0.1.0",
-  "private": true,
-  "packageManager": "pnpm@10.33.2",
-  "type": "module",
-  "description": "ArteMichiko \u2014 academia de arte. Sitio Astro 7 + islas React sobre Cloudflare (doc 8 + auditor\u00eda 2026).",
-  "license": "UNLICENSED",
-  "scripts": {
-    "dev": "pnpm --filter @artemichiko/web dev",
-    "build": "pnpm --filter @artemichiko/web build",
-    "preview": "pnpm --filter @artemichiko/web preview",
-    "typecheck": "pnpm -r --if-present run typecheck",
-    "test": "pnpm -r --if-present run test",
-    "test:e2e": "pnpm --filter @artemichiko/web test:e2e",
-    "lint": "biome check .",
-    "format": "biome format --write .",
-    "audit": "pnpm audit --prod",
-    "qa": "bash scripts/qa-lighthouse.sh"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^2.5.8"
-  },
-  "engines": {
-    "node": "~24",
-    "pnpm": ">=10.33.2 <11"
-  }
+	"name": "artemichiko",
+	"version": "0.1.0",
+	"private": true,
+	"packageManager": "pnpm@10.33.2",
+	"type": "module",
+	"description": "ArteMichiko \u2014 academia de arte. Sitio Astro 7 + islas React sobre Cloudflare (doc 8 + auditor\u00eda 2026).",
+	"license": "UNLICENSED",
+	"scripts": {
+		"dev": "pnpm --filter @artemichiko/web dev",
+		"build": "pnpm --filter @artemichiko/web build",
+		"preview": "pnpm --filter @artemichiko/web preview",
+		"typecheck": "pnpm -r --if-present run typecheck",
+		"test": "pnpm -r --if-present run test",
+		"test:e2e": "pnpm --filter @artemichiko/web test:e2e",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"audit": "pnpm audit --prod",
+		"qa": "bash scripts/qa-lighthouse.sh"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.5.8"
+	},
+	"engines": {
+		"node": "~24",
+		"pnpm": ">=10.33.2 <11"
+	}
 }
