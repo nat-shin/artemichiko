@@ -67,6 +67,8 @@ Consolida **literalmente** el contenido de los tres documentos base del proyecto
   imágenes AVIF, Speculation Rules, View Transitions, fuentes CLS-cero, tipografía premium,
   dorado foil, SplitText, Lenis sync, Motion Lazy, OpenSeadragon IIIF, Embla, OG dinámicas,
   JSON-LD derivado, llms.txt, presupuesto animación, R3F WebGPU, anti-AI-slop (30 reglas)
+- **E.37** Sección PRUEBA SOCIAL: redes + alumnos + video Canal 11 (oembed sin API key,
+  video verificado KsFEtwfALnQ, click-to-play, componentes Astro social/, sin DB)
 
 ---
 
@@ -2276,4 +2278,105 @@ sdd-\*, cavecrew, caveman-\*, firecrawl-\*, docx/pdf/pptx/xlsx, context7-mcp, ag
 
 ---
 
-*Fin del MAESTRO Consolidado v2.1. Los docs 6/7/8 originales permanecen como fuente histórica; este archivo es la fuente de verdad operativa. Las mejoras E.36.x marcadas con ///// son sugerencias del equipo de auditoría para evaluar e implementar por segmentos.*
+ Los docs 6/7/8 originales permanecen como fuente histórica; este archivo es la fuente de verdad operativa. Las mejoras E.36.x marcadas con ///// son sugerencias del equipo de auditoría para evaluar e implementar por segmentos.*
+
+/////
+## E.37 Sección de PRUEBA SOCIAL — redes, alumnos y video institucional
+
+### E.37.1 Objetivo
+Dar a conocer el centro cultural mostrando **prueba real**: el trabajo de los alumnos y la presencia pública de ArteMichiko (redes sociales + video del Canal 11). Convierte la web en un **escaparate vivo** de la academia, no un folleto.
+
+### E.37.2 Arquitectura técnica (verificada 13-ago-2026, sin API key)
+
+| Red | Método | ¿Funciona sin token? | Cómo se integra |
+|---|---|---|---|
+| **YouTube** | oembed (`youtube.com/oembed`) | ✅ SÍ | `https://www.youtube.com/oembed?url=<video>&format=json` → da título, autor, thumbnail. Embed vía `<iframe>` de `youtube-nocookie.com/embed/<id>` (sin cookies de tracking — LFPDPPP-friendly) |
+| **TikTok** | oembed (`tiktok.com/oembed`) | ✅ SÍ | Devuelve HTML embebible (`<blockquote class="tiktok-embed">`) + thumbnail. Incrustar con `loading="lazy"` |
+| **Instagram** | oembed (`graph.facebook.com/instagram_oembed`) | ❌ NO (requiere token de FB) | Alternativa: embed nativo por `<iframe>` manual de posts seleccionados, o enlace directo con card propia |
+| **Facebook** | oembed | ❌ NO | Enlace directo con card propia |
+
+**Decisión clave (sin DB, sin notion):** los feeds de redes se integran **por selección curada** — el equipo elige qué post/video mostrar (un campo en Content Collections), y el sitio genera el embed vía oembed en build-time. No es automático en vivo (requeriría APIs con token + DB), pero cumple el objetivo sin infraestructura. Para "la última publicación", YouTube ofrece el feed del canal vía oembed del canal; IG/TikTok se actualizan manualmente.
+
+### E.37.3 Dónde va cada pieza (arquitectura del sitio)
+
+```
+HOME (Umbral) ────────────► Video institucional Canal 11 (E.37.4)
+  │                           en la zona media, como "conocimiento del centro"
+  │
+  ├── GALERÍA ────────────► Trabajo de alumnos (ya es el corazón)
+  │
+  └── PÁGINA "Vida y Comunidad" (o "Estudiantes") ──► NUEVA página
+        ├── Grid de obras de alumnos (reciente)
+        ├── "Síguenos en redes" — cards con las últimas publicaciones
+        │     YouTube (canal oficial) + TikTok + Instagram + Facebook
+        └── Feed de redes (embeds curados)
+            ↓
+FOOTER global ────────────► Línea "Visita nuestras redes" con iconos
+                             (en TODAS las páginas, discreto)
+```
+
+### E.37.4 Video del Canal 11 — dónde y cómo
+
+- **Ubicación**: HOME, sección media (después del hero y del primer bloque de la galería). Es la "prueba de autoridad" — un tercero (Canal Once) habla del centro.
+- **Video verificado**: **"D Todo - Escuela de dibujo y pintura. Arte Michiko"** (Canal Once, 25/01/2024) → `https://www.youtube.com/watch?v=KsFEtwfALnQ`
+- **Forma de presentarlo**: card de video con:
+  - Thumbnail (`https://i.ytimg.com/vi/KsFEtwfALnQ/hqdefault.jpg` — `maxresdefault` si está disponible) como LCP-friendly (imagen + `fetchpriority` media)
+  - Overlay con play ▶ (SIN iframe hasta el clic → protege INP y LCP; patrón "click-to-play")
+  - Al hacer clic: `<iframe src="https://www.youtube-nocookie.com/embed/KsFEtwfALnQ" loading="lazy" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture">`
+  - Título + atribución "Canal Once · 2024"
+- **Accesibilidad**: botón con `aria-label="Reproducir video: D Todo - Escuela de dibujo y pintura. Arte Michiko (Canal Once)"`; caption de transcripción si se puede.
+
+### E.37.5 Feed de redes — patrones de implementación
+
+```
+PÁGINA "Comunidad" (o sección en Home baja)
+┌──────────────────────────────────────────────────────┐
+│  "Visita nuestros sitios y redes"                     │
+│  +------------------------------------------+        │
+│  | YouTube (últimos videos del canal)       |        │
+│  |   [embed 1] [embed 2] [embed 3]          |        │
+│  +------------------------------------------+        │
+│  +------------------------------------------+        │
+│  | TikTok (últimos posts)                   |        │
+│  |   [embed via oembed html]                |        │
+│  +------------------------------------------+        │
+│  +------------------------------------------+        │
+│  | Instagram / Facebook (cards con enlace)  |        │
+│  |   [thumbnail + link → perfil]            |        │
+│  +------------------------------------------+        │
+└──────────────────────────────────────────────────────┘
+```
+
+- **YouTube**: se puede usar la **playlist/últimos videos del canal oficial** (`@centroculturalacademicoded7862`) — oembed del canal o de videos individuales elegidos.
+- **TikTok**: oembed devuelve el HTML listo; incrustar con `loading="lazy"` + script embebible.
+- **IG/FB** (sin token): card elegante con thumbnail + CTA "Ver en Instagram" → enlace directo. NO rompe la estética B/N/dorado (la card es propia, el contenido vive en la red).
+- **Performance**: todos los embeds con `loading="lazy"`; solo el video Canal 11 del home es "semi-lazy" (thumbnail inmediato, iframe al clic). Las otras páginas (Blog/Docentes/etc.) NO cargan embeds.
+
+### E.37.6 Componentes Astro a crear
+
+```
+src/components/social/
+├── VideoCard.astro          # card click-to-play (thumbnail + play + iframe nocookie)
+├── SocialFeedSection.astro  # sección "Síguenos" (grid de redes)
+├── SocialEmbed.astro        # wrapper oembed (YouTube/TikTok/IG/FB por tipo)
+└── AlumniWorksGrid.astro    # grid de obras de alumnos (reciente)
+```
+Todos consumen datos de **Content Collections** (colección `social` con campos: red, url, tipo, curado). Sin API keys, sin DB, sin notion.
+
+### E.37.7 Beneficios
+1. **Prueba social real** — el trabajo de alumnos y la cobertura de Canal 11 dan credibilidad que ningún copy logra.
+2. **Contenido reciclado** — las publicaciones de redes ya existen; la web las reutiliza (objetivo de contenidos del doc 6).
+3. **Video institucional** — el Canal 11 ya hizo el "video de ventas" del centro; no hay que producirlo.
+4. **LFPDPPP-compatible** — youtube-nocookie sin cookies de tracking; el consentimiento de imagen (Parte 6.3) ya cubre exhibir obra de alumnos.
+5. **Sin infraestructura** — oembed sin token + selección curada = cero DB, cero servicios.
+
+### E.37.8 Riesgos
+- **Instagram/Facebook** requieren token para oembed → se integran como cards con enlace (no embeds). Aceptable.
+- **Costos de oembed** — llamadas en build-time (no en runtime) → cero impacto en el visitante.
+- **Actualización manual** — los embeds curados se actualizan cuando el equipo cambia la colección `social`. Frecuencia sugerida: semanal.
+- **Video de Canal 11** — verificar que el embed de `KsFEtwfALnQ` esté permitido (algunos videos deshabilitan embeds; si es el caso, usar thumbnail + enlace al video en YouTube).
+
+### E.37.9 Decisión
+✅ **ADOPTAR** — la sección de prueba social se implementa como página/ sección "Comunidad" + footer con iconos de redes + video Canal 11 en el Home (click-to-play). El video verificado es `KsFEtwfALnQ` (Canal Once). Los feeds de IG/FB se integran como cards de enlace (sin token). Todo con oembed sin API key + Content Collections.
+
+/////
