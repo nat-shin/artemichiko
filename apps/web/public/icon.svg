@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!--
+    ArteMichiko — sello de marca (印章).
+    Kanji 印 (sello/estampa) en trazo caligráfico: garra 爪 + figura arrodillada 卩.
+    Trazos en tinta #11110E sobre lienzo #FDFBF7; único acento jade #00A86B (gancho).
+  -->
+  <rect x="22" y="22" width="84" height="84" rx="12" fill="#FDFBF7" stroke="#11110E" stroke-width="4.5" />
+  <rect x="31" y="31" width="66" height="66" rx="8" fill="none" stroke="#11110E" stroke-opacity="0.22" stroke-width="1.5" />
+
+  <g fill="none" stroke="#11110E" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 爪 — garra: trazo principal + tres gotas descendentes -->
+    <path d="M64 40 L46 66" />
+    <path d="M56 52 L45 58" stroke-width="4" />
+    <path d="M60 58 L50 66" stroke-width="4" />
+    <path d="M64 64 L56 72" stroke-width="4" />
+    <!-- 卩 — figura arrodillada: vertical -->
+    <path d="M84 46 V88" />
+  </g>
+  <!-- 卩 — gancho inferior, acento jade -->
+  <path d="M84 88 H70" fill="none" stroke="#00A86B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

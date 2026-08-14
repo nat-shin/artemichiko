@@ -2,6 +2,7 @@
 // ArteMichiko — Layout base (header direction-aware + Lenis + cursor follower)
 // Identidad: blanco/negro/dorado/jade (E.35/E.38) · Nivel Awwwards
 import "../styles/global.css";
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -20,6 +21,18 @@ const {
     <title>{title} · ArteMichiko</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#11110E" />
+    <!--
+      PWA manifest + iconos de marca (sello 印) sin service worker.
+      Motivo: sitio 100% estático servido por Cloudflare CDN — un SW agregaría
+      una capa de caché propia que puede servir HTML obsoleto tras un deploy
+      (riesgo clásico de "no se actualiza nunca"), sin beneficio offline real
+      para una academia de arte. `display: standalone` del manifest basta para
+      instalabilidad en navegadores modernos.
+    -->
     <link rel="stylesheet" href="/src/styles/global.css" />
     <!-- Entidad raíz — EducationalOrganization + sameAs (GEO/Entity SEO, mapa estratégico 2026) -->
     <script type="application/ld+json" is:inline>
@@ -210,11 +223,11 @@ const {
         });
 
         // ── Magnetic buttons (gsap.quickTo, técnica investigada 2026) ──
-        gsap.utils.toArray(".btn-magnetic, [data-magnetic]").forEach((el) => {
+        gsap.utils.toArray<HTMLElement>(".btn-magnetic, [data-magnetic]").forEach((el) => {
           const strength = 24;
           const xTo = gsap.quickTo(el, "x", { duration: 0.4, ease: "power3.out" });
           const yTo = gsap.quickTo(el, "y", { duration: 0.4, ease: "power3.out" });
-          el.addEventListener("pointermove", (e) => {
+          el.addEventListener("pointermove", (e: PointerEvent) => {
             const r = el.getBoundingClientRect();
             xTo((e.clientX - (r.left + r.width / 2)) / r.width * strength);
             yTo((e.clientY - (r.top + r.height / 2)) / r.height * strength);

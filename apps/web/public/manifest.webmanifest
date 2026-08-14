@@ -1,0 +1,14 @@
+{
+  "name": "ArteMichiko — Academia de Arte",
+  "short_name": "ArteMichiko",
+  "description": "Centro Cultural Académico de Dibujo y Pintura Artística — Sistema Oriental único en México",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#11110E",
+  "lang": "es-MX",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}
