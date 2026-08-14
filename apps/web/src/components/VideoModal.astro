@@ -1,0 +1,132 @@
+---
+// ArteMichiko — VideoModal: lightbox de video (75-80% pantalla, fondo oscuro)
+// Uso: <VideoModal id="video-canal11" videoId="KsFEtwfALnQ" title="..." />
+// Se invoca con un botón [data-open-modal="<id>"] y se cierra con X / clic en fondo / Esc
+interface Props {
+	id: string;
+	videoId: string;
+	title: string;
+	label?: string;
+}
+const { id, videoId, title, label = "Ver video" } = Astro.props;
+---
+
+<button
+  type="button"
+  data-open-modal={id}
+  data-cursor
+  class="group inline-flex items-center gap-3 rounded-full border border-tinta-negra px-7 py-3 font-medium transition-all hover:border-oro-brillo hover:text-oro-viejo"
+>
+  <span class="flex h-9 w-9 items-center justify-center rounded-full bg-tinta-negra text-lienzo-blanco transition-colors group-hover:bg-oro-brillo group-hover:text-tinta-negra" aria-hidden="true">▶</span>
+  {label}
+</button>
+
+<div
+  id={id}
+  class="video-modal fixed inset-0 z-[9990] hidden items-center justify-center"
+  role="dialog"
+  aria-modal="true"
+  aria-label={title}
+>
+  <!-- Fondo oscuro -->
+  <div class="video-modal-backdrop absolute inset-0 bg-tinta-negra/90 backdrop-blur-md" data-close-modal={id}></div>
+
+  <!-- Contenedor del video (75-80% de la pantalla) -->
+  <div class="video-modal-box relative z-10 w-[85vw] max-w-6xl lg:w-[78vw]" data-video-id={videoId}>
+    <div class="relative aspect-video overflow-hidden rounded-lg border border-oro-brillo/30 bg-black shadow-[0_40px_120px_rgba(0,0,0,0.8)]">
+      <div id={`${id}-placeholder`} class="absolute inset-0">
+        <img
+          src={`https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`}
+          alt={title}
+          class="h-full w-full object-cover"
+          loading="lazy"
+          width="1280"
+          height="720"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" aria-hidden="true"></div>
+      </div>
+    </div>
+    <p class="mt-4 text-center font-mono text-xs tracking-widest text-lienzo-hueso/70 uppercase">{title}</p>
+  </div>
+
+  <!-- Botón cerrar -->
+  <button
+    type="button"
+    data-close-modal={id}
+    aria-label="Cerrar video"
+    class="absolute top-6 right-6 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-lienzo-blano/20 text-lienzo-blanco transition-all hover:rotate-90 hover:border-oro-brillo hover:text-oro-brillo"
+  >
+    ✕
+  </button>
+</div>
+
+<style>
+  .video-modal.open {
+    display: flex;
+  }
+  /* Animación de entrada: scale + fade */
+  .video-modal-box {
+    opacity: 0;
+    transform: scale(0.94);
+    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .video-modal.open .video-modal-box {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .video-modal-backdrop {
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+  .video-modal.open .video-modal-backdrop {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // Abrir/cerrar el modal con animación; el iframe se monta al abrir (lazy)
+  document.querySelectorAll("[data-open-modal]").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const id = trigger.dataset.openModal;
+      const modal = document.getElementById(id);
+      if (!modal) return;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+
+      // Montar iframe la primera vez
+      const placeholder = modal.querySelector(`#${id}-placeholder`);
+      const videoId = modal.querySelector(".video-modal-box")?.dataset.videoId;
+      const box = modal.querySelector(".video-modal-box");
+      const vid = (box as HTMLElement | null)?.dataset.videoId;
+      const v = vid ?? (trigger.closest("[data-video-id]") as HTMLElement | null)?.dataset.videoId;
+      if (placeholder && v && !modal.querySelector("iframe")) {
+        const frame = placeholder.closest(".aspect-video");
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube-nocookie.com/embed/${v}?autoplay=1`;
+        iframe.title = modal.getAttribute("aria-label") ?? "";
+        iframe.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+        iframe.className = "absolute inset-0 h-full w-full";
+        frame?.appendChild(iframe);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-close-modal]").forEach((closer) => {
+    closer.addEventListener("click", () => {
+      const modal = document.getElementById(closer.dataset.closeModal as string);
+      if (!modal) return;
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      document.querySelectorAll(".video-modal.open").forEach((m) => {
+        m.classList.remove("open");
+        document.body.style.overflow = "";
+      });
+    }
+  });
+</script>

@@ -1,0 +1,134 @@
+---
+// ArteMichiko — Matriculación conversacional vía WhatsApp (sin DB, sin pagos)
+// Doc 6 §2.3 adaptado: FASE 1-2 del embudo → formulario mínimo → wa.me pre-llenado
+import Layout from "../layouts/Layout.astro";
+const cursos = [
+	{ id: "dibujo-fundamentos", nombre: "Dibujo Fundamentos" },
+	{ id: "pintura-oleo", nombre: "Pintura al Óleo" },
+	{ id: "acuarela", nombre: "Acuarela" },
+	{ id: "grabado-experimental", nombre: "Grabado Experimental" },
+	{ id: "caligrafia-oriental", nombre: "Caligrafía Oriental" },
+	{ id: "tecnica-interna", nombre: "Técnica Interna" },
+];
+---
+
+<Layout title="Inscripción" description="Inscríbete a los cursos de ArteMichiko — conversación directa por WhatsApp, sin formularios largos.">
+  <section class="relative overflow-hidden pt-36 pb-24">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-3xl px-6">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Matriculación</p>
+      <h1 class="reveal-line mt-4 overflow-hidden font-display text-5xl font-semibold tracking-tight md:text-7xl">
+        <span class="reveal-inner inline-block">Tu camino <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">comienza aquí</span></span>
+      </h1>
+      <p class="fade-up mt-6 text-lg leading-relaxed text-tinta-grafito">
+        Sin formularios largos, sin esperas. Elige tu curso y te llevamos directo a una conversación por WhatsApp con el equipo de la academia.
+      </p>
+
+      <!-- Formulario mínimo: 3 campos → wa.me pre-llenado (FASE 2 del embudo) -->
+      <form id="form-inscripcion" class="fade-up mt-12 rounded-lg border border-tinta-negra/10 bg-lienzo-hueso/60 p-8">
+        <div class="grid gap-6">
+          <div>
+            <label for="nombre" class="block font-mono text-xs tracking-widest text-jade-profundo uppercase">Tu nombre</label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              required
+              placeholder="Ej: Ana García"
+              class="mt-2 w-full rounded-sm border border-tinta-humo/40 bg-lienzo-blanco px-4 py-3 transition-colors focus:border-jade-profundo focus:outline-none"
+            />
+          </div>
+          <div>
+            <label for="curso" class="block font-mono text-xs tracking-widest text-jade-profundo uppercase">Curso de interés</label>
+            <select
+              id="curso"
+              name="curso"
+              required
+              class="mt-2 w-full rounded-sm border border-tinta-humo/40 bg-lienzo-blanco px-4 py-3 transition-colors focus:border-jade-profundo focus:outline-none"
+            >
+              <option value="">Elige un curso…</option>
+              {cursos.map((c) => <option value={c.nombre}>{c.nombre}</option>)}
+              <option value="Sin decidir todavía">Sin decidir todavía</option>
+            </select>
+          </div>
+          <div>
+            <label for="telefono" class="block font-mono text-xs tracking-widest text-jade-profundo uppercase">Tu WhatsApp (opcional)</label>
+            <input
+              id="telefono"
+              name="telefono"
+              type="tel"
+              placeholder="Ej: 55 1234 5678"
+              class="mt-2 w-full rounded-sm border border-tinta-humo/40 bg-lienzo-blanco px-4 py-3 transition-colors focus:border-jade-profundo focus:outline-none"
+            />
+          </div>
+        </div>
+        <button
+          type="submit"
+          data-cursor
+          class="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all hover:scale-[1.02] hover:bg-oro-viejo"
+        >
+          <span aria-hidden="true">✆</span>
+          Continuar por WhatsApp
+        </button>
+        <p class="mt-4 text-center text-xs text-tinta-humo">
+          Al continuar abrirás WhatsApp con un mensaje pre-llenado. Sin pagos en línea, sin datos bancarios.
+        </p>
+      </form>
+
+      <!-- Qué esperar (conversación, no trámite) -->
+      <div class="fade-up mt-16 grid gap-6 md:grid-cols-3">
+        <div class="border-t-2 border-tinta-negra pt-6">
+          <p class="font-mono text-sm text-jade-profundo">01</p>
+          <p class="mt-2 text-sm leading-relaxed text-tinta-grafito">Envías tu mensaje por WhatsApp — el equipo te responde en horas hábiles.</p>
+        </div>
+        <div class="border-t-2 border-tinta-negra pt-6">
+          <p class="font-mono text-sm text-jade-profundo">02</p>
+          <p class="mt-2 text-sm leading-relaxed text-tinta-grafito">Conversas directamente: horarios, costos, materiales y dudas reales.</p>
+        </div>
+        <div class="border-t-2 border-tinta-negra pt-6">
+          <p class="font-mono text-sm text-jade-profundo">03</p>
+          <p class="mt-2 text-sm leading-relaxed text-tinta-grafito">Reservas tu lugar y comienzas tu camino artístico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0,166,107,0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212,175,55,0.06), transparent 70%);
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!prefersReduced) {
+    gsap.utils.toArray(".fade-up").forEach((el) => {
+      gsap.from(el, { opacity: 0, y: 32, duration: 0.9, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } });
+    });
+    gsap.from(".reveal-inner", { y: "110%", duration: 1, ease: "power4.out", delay: 0.2 });
+  }
+
+  // ── FASE 2: formulario mínimo → wa.me pre-llenado (conversación, no trámite) ──
+  const form = document.getElementById("form-inscripcion") as HTMLFormElement | null;
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nombre = (document.getElementById("nombre") as HTMLInputElement).value.trim();
+    const curso = (document.getElementById("curso") as HTMLSelectElement).value;
+    const telefono = (document.getElementById("telefono") as HTMLInputElement).value.trim();
+    const msg = `Hola ArteMichiko, quiero inscribirme${curso ? ` al curso: ${curso}` : ""}. Mi nombre es ${nombre || "…"}${telefono ? ` · Tel: ${telefono}` : ""}`;
+    const url = `https://wa.me/5215500000000?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank", "noopener");
+  });
+</script>

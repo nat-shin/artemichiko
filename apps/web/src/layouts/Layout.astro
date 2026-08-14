@@ -23,6 +23,9 @@ const {
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body class="bg-lienzo-blanco text-tinta-negra font-sans antialiased">
+    <!-- Scroll progress (barra dorada de lectura) -->
+    <div id="scroll-progress" class="fixed top-0 left-0 z-[9997] h-[2px] w-0 bg-oro-brillo" aria-hidden="true"></div>
+
     <!-- Cursor follower (solo pointer:fine, garnish) -->
     <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
 
@@ -156,6 +159,12 @@ const {
         gsap.ticker.add((time) => lenis.raf(time * 1000));
         gsap.ticker.lagSmoothing(0);
 
+        // ── Scroll progress bar ──
+        const progressBar = document.getElementById("scroll-progress");
+        lenis.on("scroll", ({ progress }) => {
+          if (progressBar) progressBar.style.width = `${Math.min(progress, 1) * 100}%`;
+        });
+
         // ── Header direction-aware ──
         const header = document.getElementById("site-header");
         let lastY = 0;
@@ -164,6 +173,19 @@ const {
           if (y > lastY && y > 120) header?.classList.add("hidden");
           else header?.classList.remove("hidden");
           lastY = y;
+        });
+
+        // ── Magnetic buttons (gsap.quickTo, técnica investigada 2026) ──
+        gsap.utils.toArray(".btn-magnetic, [data-magnetic]").forEach((el) => {
+          const strength = 24;
+          const xTo = gsap.quickTo(el, "x", { duration: 0.4, ease: "power3.out" });
+          const yTo = gsap.quickTo(el, "y", { duration: 0.4, ease: "power3.out" });
+          el.addEventListener("pointermove", (e) => {
+            const r = el.getBoundingClientRect();
+            xTo((e.clientX - (r.left + r.width / 2)) / r.width * strength);
+            yTo((e.clientY - (r.top + r.height / 2)) / r.height * strength);
+          });
+          el.addEventListener("pointerleave", () => { xTo(0); yTo(0); });
         });
 
         // ── Cursor follower (solo pointer:fine) ──

@@ -9,8 +9,9 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://artemichiko.com",
   output: "static",
-  // CSP con hash automático de scripts inline (Astro 6+; incluye islas React/GSAP)
-  csp: true,
+  security: {
+    csp: true, // CSP con hash automático de scripts inline (clave correcta: security.csp)
+  },
   adapter: cloudflare({
     imageService: "cloudflare-binding",
   }),

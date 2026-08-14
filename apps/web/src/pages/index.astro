@@ -1,7 +1,8 @@
 ---
 // ArteMichiko — Home nivel Awwwards (preloader + text reveal + zoom-parallax + máscaras)
-// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38 · Sin Canal Once
+// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38 · Video Canal 11 como modal
 import Layout from "../layouts/Layout.astro";
+import VideoModal from "../components/VideoModal.astro";
 ---
 
 <Layout title="Centro Cultural Académico de Dibujo y Pintura" description="ArteMichiko — academia de arte con sistema Oriental único en México. Dibujo, pintura, grabado y más.">
@@ -160,18 +161,24 @@ import Layout from "../layouts/Layout.astro";
     </div>
   </section>
 
-  <!-- ═══════ COMUNIDAD (redes + prueba social, sin Canal Once) ═══════ -->
+  <!-- ═══════ COMUNIDAD (redes + prueba social) ═══════ -->
   <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
     <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
-      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Comunidad</p>
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">En los medios</p>
       <h2 class="fade-up mt-4 max-w-3xl font-display text-5xl font-semibold tracking-tight md:text-6xl">
         El círculo <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">del arte</span>
       </h2>
       <p class="fade-up mx-auto mt-6 max-w-xl leading-relaxed text-lienzo-hueso/70">
-        Talleres abiertos, exposiciones y el colectivo de artistas que sostienen ArteMichiko. Síguenos y mira el trabajo de nuestros alumnos.
+        Talleres abiertos, exposiciones y el colectivo de artistas que sostienen ArteMichiko. Mira la presentación de nuestra academia en el programa cultural del Canal Once.
       </p>
-      <div class="fade-up mt-10 flex flex-wrap gap-4">
+      <div class="fade-up mt-10 flex flex-wrap items-center gap-4">
+        <VideoModal
+          id="video-canal11"
+          videoId="KsFEtwfALnQ"
+          title="ArteMichiko en Canal Once · Programa D Todo"
+          label="Ver video de la academia"
+        />
         <a href="https://www.instagram.com/arte_michiko" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">Instagram</a>
         <a href="https://www.facebook.com/centroculturalmichiko" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">Facebook</a>
         <a href="https://www.youtube.com/@centroculturalacademicoded7862" target="_blank" rel="noopener" data-cursor class="rounded-full border border-lienzo-hueso/25 px-6 py-3 text-sm transition-all hover:border-jade-base hover:text-jade-claro">YouTube</a>
