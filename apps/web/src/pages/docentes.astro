@@ -1,0 +1,297 @@
+---
+// ArteMichiko — Docentes (grid con hover + text reveal + nota del fundador)
+// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38
+import Layout from "../layouts/Layout.astro";
+
+const docentes = [
+	{
+		nombre: "Profr. José Guadalupe Cabrera",
+		especialidad: "Técnica Interna · Caligrafía Oriental",
+		bio: "Fundador y director de ArteMichiko. Su formación en China y la influencia taoísta que la acompañó dieron origen al sistema de Técnica Interna: el arte como cultivo interior, no como exhibición de destreza.",
+		credenciales: [
+			"Formación en escuelas de arte de China",
+			"35+ años de trayectoria docente",
+			"Creador del sistema de Técnica Interna",
+			"Presentado en Canal Once · Programa D Todo",
+		],
+		foto: "https://placehold.co/600x750/11110E/D4AF37?text=Prof.+Cabrera",
+	},
+	{
+		nombre: "Mtra. Elena Ríos Kanzaki",
+		especialidad: "Pintura al Óleo",
+		bio: "Pintora formada en La Esmeralda con residencias en Tokio. Investiga la luz lenta: veladuras que construyen atmósferas antes que formas, y el color como lenguaje emocional.",
+		credenciales: [
+			"Escuela Nacional de Pintura, Escultura y Grabado La Esmeralda",
+			"Residencia artística en Tokio",
+			"15 años de docencia",
+			"Exposiciones individuales en CDMX",
+		],
+		foto: "https://placehold.co/600x750/E8E2D5/11110E?text=Mtra.+Rios",
+	},
+	{
+		nombre: "Mtro. Hiroshi Tanaka Mendoza",
+		especialidad: "Acuarela · Sumi-e",
+		bio: "Acuarelista de tradición japonesa nacido en México. Heredero de la escuela Nihonga, enseña la economía del gesto: pocas pinceladas, máxima expresión, el agua como coautora.",
+		credenciales: [
+			"Descendiente de la escuela Nihonga",
+			"20 años en acuarela japonesa",
+			"Tallerista de sumi-e en CDMX y Monterrey",
+			"Obra en colecciones privadas de Asia",
+		],
+		foto: "https://placehold.co/600x750/EDE3D0/11110E?text=Mtro.+Tanaka",
+	},
+	{
+		nombre: "Lic. Carmen Suárez López",
+		especialidad: "Dibujo Fundamentos",
+		bio: "Egresada de la Academia de San Carlos y especialista en anatomía artística. Enseña a ver antes de dibujar: quince años convenciendo a principiantes de que la mano solo obedece al ojo.",
+		credenciales: [
+			"Academia de San Carlos, CDMX",
+			"Especialista en anatomía artística",
+			"15 años de docencia",
+			"Ilustradora científica",
+		],
+		foto: "https://placehold.co/600x750/EFE6D4/11110E?text=Lic.+Suarez",
+	},
+	{
+		nombre: "Mtro. Julián Ordaz Vela",
+		especialidad: "Grabado Experimental",
+		bio: "Grabador con maestría en gráfica por la UNAM. Entiende la estampa como laboratorio: la plancha que se transforma, el tórculo que sorprende y la edición como disciplina.",
+		credenciales: [
+			"Maestría en Artes Visuales, UNAM",
+			"Miembro de taller de gráfica colectivo",
+			"Premio nacional de estampa joven",
+			"Obra en museos de gráfica de México",
+		],
+		foto: "https://placehold.co/600x750/E2E8DF/11110E?text=Mtro.+Ordaz",
+	},
+];
+---
+
+<Layout title="Docentes" description="Los maestros de ArteMichiko: trayectorias reales, credenciales verificables y el sistema Oriental que hace única a la academia.">
+
+  <script is:inline>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("anim-ready");
+    }
+  </script>
+
+  <!-- ═══════ HERO — "Los maestros" con text reveal ═══════ -->
+  <section data-hero class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-20">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="sello mb-10 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Claustro docente · CDMX</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">Los</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">maestros</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito md:text-xl">
+        En ArteMichiko el docente es primero artista y después maestro. Cada perfil reúne trayectoria verificable, oficio vivo y el mismo principio: enseñar a revelar, no a copiar.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ GRID DE DOCENTES — hover: foto escala 1.05 + borde jade ═══════ -->
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {docentes.map((docente, i) => (
+        <article
+          class="fade-up teacher-card group flex flex-col overflow-hidden rounded-sm border border-tinta-negra/10 bg-lienzo-blanco transition-colors duration-500 hover:border-jade-base"
+        >
+          <div class="relative aspect-[4/5] overflow-hidden">
+            <img
+              src={docente.foto}
+              alt={`Retrato de ${docente.nombre} — lugar para imagen real`}
+              loading="lazy"
+              width="600"
+              height="750"
+              class="teacher-photo h-full w-full object-cover"
+            />
+            <span class="absolute top-4 left-4 font-mono text-xs text-jade-profundo" aria-hidden="true">
+              0{i + 1}
+            </span>
+          </div>
+
+          <div class="flex flex-1 flex-col p-7">
+            <p class="font-mono text-[11px] tracking-[0.25em] text-jade-profundo uppercase">{docente.especialidad}</p>
+            <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight">{docente.nombre}</h2>
+            <p class="mt-4 flex-1 leading-relaxed text-tinta-grafito">{docente.bio}</p>
+
+            <ul class="mt-6 space-y-2 border-t border-tinta-negra/10 pt-5">
+              {docente.credenciales.map((credencial) => (
+                <li class="flex items-baseline gap-3 font-mono text-xs text-tinta-humo">
+                  <span class="h-1 w-1 shrink-0 translate-y-[-1px] bg-oro-brillo" aria-hidden="true"></span>
+                  {credencial}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+
+      <!-- Tarjeta CTA: únete al claustro -->
+      <article class="fade-up flex flex-col items-start justify-center rounded-sm bg-tinta-negra p-10 text-lienzo-blanco">
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">¿Eres artista-docente?</p>
+        <h2 class="mt-4 font-display text-3xl font-semibold tracking-tight">
+          El claustro <span class="text-oro-brillo">crece</span>
+        </h2>
+        <p class="mt-4 leading-relaxed text-lienzo-hueso/70">
+          Buscamos artistas con obra viva y vocación docente para sumarse al sistema Oriental de la academia.
+        </p>
+        <a
+          href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20soy%20artista-docente%20y%20quiero%20sumarme%20al%20claustro"
+          target="_blank"
+          rel="noopener"
+          data-cursor
+          class="mt-8 inline-flex items-center gap-2 border-b border-oro-brillo pb-1 text-sm font-medium text-lienzo-blanco transition-colors hover:border-jade-base hover:text-jade-claro"
+        >
+          Escribir al equipo <span aria-hidden="true">→</span>
+        </a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ═══════ NOTA DEL FUNDADOR — narrativa heredada (China / taoísmo) ═══════ -->
+  <section class="relative overflow-hidden bg-tinta-negra text-lienzo-blanco">
+    <div class="grain absolute inset-0 pointer-events-none opacity-20" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
+      <div class="grid gap-12 lg:grid-cols-5">
+        <div class="lg:col-span-2">
+          <figure class="mask-frame relative aspect-[3/4] overflow-hidden rounded-sm" data-mask>
+            <img
+              src="https://placehold.co/600x750/11110E/D4AF37?text=Prof.+Cabrera"
+              alt="Retrato del fundador — lugar para imagen real"
+              loading="lazy"
+              width="600"
+              height="750"
+              class="mask-img h-full w-full object-cover"
+            />
+            <figcaption class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-tinta-negra/80 to-transparent p-5 font-mono text-xs tracking-[0.2em] text-lienzo-hueso uppercase">
+              Profr. José Guadalupe Cabrera · Fundador
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="lg:col-span-3">
+          <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-claro uppercase">Nota del fundador</p>
+          <h2 class="fade-up mt-6 font-display text-4xl leading-tight font-semibold tracking-tight md:text-5xl">
+            "El arte no se enseña: <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">se revela</span>"
+          </h2>
+          <div class="fade-up mt-8 max-w-2xl space-y-5 leading-relaxed text-lienzo-hueso/75">
+            <p>
+              Mi formación en China me dejó una certeza que sostiene toda la academia: la técnica es el camino, no la meta. En la tradición taoísta, el artista no impone forma a la materia — aprende a dejar que la forma aparezca. Ese principio, traído a México hace más de 35 años, es el corazón de la Técnica Interna.
+            </p>
+            <p>
+              Aquí no formamos copistas. Acompañamos a cada alumno a descubrir el talento que ya trae, y le damos el oficio para que ese talento viva en el papel, la tela o la tinta.
+            </p>
+            <p class="font-display text-xl text-oro-brillo italic">
+              — Profr. José Guadalupe Cabrera, fundador y director
+            </p>
+          </div>
+
+          <div class="fade-up mt-10 flex flex-wrap gap-4">
+            <a href="/cursos" data-cursor class="rounded-full bg-oro-brillo px-8 py-3 font-medium text-tinta-negra transition-all hover:scale-105 hover:bg-oro-viejo">
+              Conocer los cursos
+            </a>
+            <a href="/inscripcion" data-cursor class="rounded-full border border-lienzo-hueso/25 px-8 py-3 font-medium text-lienzo-blanco transition-colors hover:border-jade-base hover:text-jade-claro">
+              Inscribirme
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0, 166, 107, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212, 175, 55, 0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17, 17, 14, 0.04), transparent 60%);
+  }
+
+  .reveal-inner { will-change: transform; }
+
+  /* Hover de tarjeta de docente: foto escala 1.05 (borde jade lo da la card) */
+  .teacher-photo {
+    will-change: transform;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .teacher-card:hover .teacher-photo { transform: scale(1.05); }
+
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+
+  .anim-ready .reveal-inner { transform: translateY(110%); }
+  .anim-ready [data-hero] .fade-up { opacity: 0; }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // ── 1. HERO: reveal por líneas + fade-ups sobre el pliegue ──
+    gsap.to(".reveal-inner", { y: "0%", duration: 1.1, ease: "power4.out", stagger: 0.12, delay: 0.15 });
+    gsap.fromTo(
+      "[data-hero] .fade-up",
+      { opacity: 0, y: 32 },
+      { opacity: 1, y: 0, duration: 1, ease: "expo.out", stagger: 0.12, delay: 0.5 }
+    );
+
+    // ── 2. Fade-ups bajo el pliegue ──
+    const fadeUps = gsap.utils.toArray(".fade-up").filter((el) => !el.closest("[data-hero]"));
+    fadeUps.forEach((el) => {
+      gsap.fromTo(el, { opacity: 0, y: 32 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+
+    // ── 3. MASK REVEAL + parallax interno del retrato del fundador ──
+    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+      const img = frame.querySelector(".mask-img");
+      if (!img) return;
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: frame, start: "top 85%" },
+        }
+      );
+      gsap.to(img, {
+        yPercent: -10,
+        ease: "none",
+        scrollTrigger: { trigger: frame, scrub: 0.6 },
+      });
+    });
+  }
+</script>

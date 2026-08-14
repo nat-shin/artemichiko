@@ -1,0 +1,351 @@
+---
+// ArteMichiko — Catálogo de cursos (text reveal + filtro por nivel + mask reveal)
+// Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38
+import Layout from "../layouts/Layout.astro";
+
+const cursos = [
+	{
+		slug: "dibujo-fundamentos",
+		titulo: "Dibujo Fundamentos",
+		nivel: "Principiante",
+		duracion: "12 semanas · 2 sesiones/semana",
+		docente: "Lic. Carmen Suárez López",
+		descripcion:
+			"Del trazo al volumen: grafito, carboncillo y tinta para construir la base de toda expresión plástica.",
+		imagen:
+			"https://placehold.co/1200x800/E8E2D5/11110E?text=Dibujo+Fundamentos",
+	},
+	{
+		slug: "pintura-al-oleo",
+		titulo: "Pintura al Óleo",
+		nivel: "Intermedio",
+		duracion: "16 semanas · 1 sesión/semana",
+		docente: "Mtra. Elena Ríos Kanzaki",
+		descripcion:
+			"La luz y la emoción sobre la tela: veladuras, empastes y el color como forma de pensar.",
+		imagen: "https://placehold.co/1200x800/EFE6D4/11110E?text=Pintura+al+Oleo",
+	},
+	{
+		slug: "acuarela",
+		titulo: "Acuarela",
+		nivel: "Principiante",
+		duracion: "10 semanas · 1 sesión/semana",
+		docente: "Mtro. Hiroshi Tanaka Mendoza",
+		descripcion:
+			"Agua, pigmento y silencio: la técnica más antigua del color, entre el control y el azar.",
+		imagen: "https://placehold.co/1200x800/EDE3D0/11110E?text=Acuarela",
+	},
+	{
+		slug: "grabado-experimental",
+		titulo: "Grabado Experimental",
+		nivel: "Avanzado",
+		duracion: "14 semanas · 1 sesión/semana",
+		docente: "Mtro. Julián Ordaz Vela",
+		descripcion:
+			"Linóleo, punta seca y monotipia: la imagen multiplicada como laboratorio de riesgo controlado.",
+		imagen:
+			"https://placehold.co/1200x800/E2E8DF/11110E?text=Grabado+Experimental",
+	},
+	{
+		slug: "caligrafia-oriental",
+		titulo: "Caligrafía Oriental",
+		nivel: "Intermedio",
+		duracion: "8 semanas · 1 sesión/semana",
+		docente: "Profr. José Guadalupe Cabrera",
+		descripcion:
+			"El trazo como respiración: pincel, tinta y papel de arroz bajo la estética del vacío.",
+		imagen:
+			"https://placehold.co/1200x800/11110E/D4AF37?text=Caligrafia+Oriental",
+	},
+	{
+		slug: "tecnica-interna",
+		titulo: "Técnica Interna",
+		nivel: "Avanzado",
+		duracion: "20 semanas · 2 sesiones/semana",
+		docente: "Profr. José Guadalupe Cabrera",
+		descripcion:
+			"El sistema Oriental único en México: revela los talentos del alumnado desde adentro, no desde la copia.",
+		imagen: "https://placehold.co/1200x800/F5F0E6/11110E?text=Tecnica+Interna",
+	},
+];
+
+const niveles = ["todos", "Principiante", "Intermedio", "Avanzado"];
+---
+
+<Layout title="Cursos" description="Catálogo de cursos de ArteMichiko: dibujo, pintura al óleo, acuarela, grabado experimental, caligrafía oriental y Técnica Interna.">
+
+  <!-- Estado inicial de animación: se aplica ANTES del primer paint (sin JS = contenido visible) -->
+  <script is:inline>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("anim-ready");
+    }
+  </script>
+
+  <!-- ═══════ HERO — text reveal por líneas + filtro ═══════ -->
+  <section data-hero class="relative overflow-hidden pt-40 pb-16 md:pt-48 md:pb-20">
+    <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="ink-wash absolute inset-0 pointer-events-none opacity-40" aria-hidden="true"></div>
+
+    <div class="relative mx-auto max-w-7xl px-6">
+      <div class="sello mb-10 flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded-sm border-2 border-jade-profundo font-display text-jade-tinta" aria-hidden="true">印</span>
+        <p class="font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">Programa académico · CDMX</p>
+      </div>
+
+      <h1 class="max-w-4xl font-display text-6xl leading-[1.02] font-semibold tracking-tight md:text-8xl">
+        <span class="reveal-line block overflow-hidden"><span class="reveal-inner inline-block">El camino de</span></span>
+        <span class="reveal-line block overflow-hidden">
+          <span class="reveal-inner inline-block bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">la disciplina</span>
+        </span>
+      </h1>
+
+      <p class="fade-up mt-8 max-w-2xl text-lg leading-relaxed text-tinta-grafito md:text-xl">
+        Seis programas donde la técnica se aprende como oficio y se vive como cultivo interior. Elige tu nivel y escribe el primer trazo.
+      </p>
+
+      <!-- Filtro por nivel (chips, como en galería) -->
+      <div class="fade-up mt-12 flex flex-wrap gap-3" role="group" aria-label="Filtrar cursos por nivel">
+        {niveles.map((nivel, i) => (
+          <button
+            type="button"
+            data-filtro={nivel}
+            class:list={[
+              "chip cursor-pointer rounded-full border border-tinta-negra/20 px-5 py-2 font-mono text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:border-jade-base hover:text-jade-profundo",
+              { "chip-active": i === 0 },
+            ]}
+            data-cursor
+          >
+            {nivel}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ GRID DE CURSOS ═══════ -->
+  <section class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <div id="curso-grid" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {cursos.map((curso, i) => (
+        <article
+          data-nivel={curso.nivel}
+          class="group flex flex-col rounded-sm border border-tinta-negra/10 bg-lienzo-blanco p-8 transition-colors duration-500 hover:border-jade-base"
+        >
+          <div class="flex items-baseline justify-between font-mono text-xs">
+            <span class="text-jade-profundo">0{i + 1}</span>
+            <span class="tracking-[0.2em] text-tinta-humo uppercase">{curso.nivel}</span>
+          </div>
+
+          <h2 class="mt-6 font-display text-3xl font-semibold tracking-tight">
+            <a href={`/cursos/${curso.slug}`} data-cursor class="transition-colors hover:text-jade-profundo">
+              {curso.titulo}
+            </a>
+          </h2>
+
+          <p class="mt-4 flex-1 leading-relaxed text-tinta-grafito">{curso.descripcion}</p>
+
+          <div class="mt-6 flex flex-col gap-1 border-t border-tinta-negra/10 pt-5 font-mono text-xs text-tinta-humo">
+            <span>{curso.duracion}</span>
+            <span>{curso.docente}</span>
+          </div>
+
+          <div class="mt-8 flex items-center gap-6">
+            <a
+              href="/inscripcion"
+              data-cursor
+              class="inline-flex items-center gap-2 border-b border-oro-brillo pb-1 text-sm font-medium text-tinta-negra transition-colors hover:border-jade-base hover:text-jade-profundo"
+            >
+              Inscribirme <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href={`/cursos/${curso.slug}`}
+              data-cursor
+              class="text-sm text-tinta-humo transition-colors hover:text-jade-profundo"
+            >
+              Ver ficha
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- ═══════ BANDA DE TALLER — mask reveal + parallax interno ═══════ -->
+  <section class="border-y border-tinta-negra/10 bg-lienzo-hueso/50">
+    <div class="mx-auto max-w-7xl px-6 py-20 md:py-28">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">El taller</p>
+      <h2 class="fade-up mt-4 max-w-2xl font-display text-4xl font-semibold tracking-tight md:text-5xl">
+        Seis oficios, <span class="text-oro-brillo">un solo pulso</span>
+      </h2>
+
+      <div class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
+        {cursos.map((curso) => (
+          <a href={`/cursos/${curso.slug}`} data-cursor class="mask-frame group relative block aspect-[4/3] overflow-hidden rounded-sm" data-mask>
+            <img
+              src={curso.imagen}
+              alt={`Curso de ${curso.titulo} — lugar para imagen real`}
+              loading="lazy"
+              width="1200"
+              height="800"
+              class="mask-img h-full w-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-tinta-negra/70 via-transparent to-transparent"></div>
+            <p class="absolute bottom-0 left-0 w-full p-4 font-mono text-xs text-lienzo-hueso">
+              {curso.titulo}
+            </p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA FINAL → WhatsApp ═══════ -->
+  <section class="relative overflow-hidden">
+    <div class="ink-wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-4xl px-6 py-20 text-center md:py-28">
+      <p class="fade-up font-mono text-xs tracking-[0.3em] text-jade-profundo uppercase">¿No sabes por dónde empezar?</p>
+      <h2 class="fade-up mt-6 font-display text-4xl font-semibold tracking-tight md:text-6xl">
+        Escríbenos y <span class="bg-gradient-to-r from-oro-viejo via-oro-brillo to-oro-arena bg-clip-text text-transparent">te orientamos</span>
+      </h2>
+      <p class="fade-up mx-auto mt-6 max-w-xl leading-relaxed text-tinta-grafito">
+        Un docente real responde tus dudas: nivel adecuado, horarios y el método detrás de cada curso.
+      </p>
+      <a
+        href="https://wa.me/5215500000000?text=Hola%20ArteMichiko%2C%20quiero%20orientaci%C3%B3n%20para%20elegir%20un%20curso"
+        target="_blank"
+        rel="noopener"
+        data-cursor
+        class="fade-up mt-10 inline-flex items-center gap-3 rounded-full bg-oro-brillo px-10 py-4 font-medium text-tinta-negra shadow-[0_8px_40px_rgba(212,175,55,0.35)] transition-all hover:scale-105 hover:bg-oro-viejo"
+      >
+        <span class="text-lg" aria-hidden="true">✆</span>
+        Inscribirme por WhatsApp
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Textura de grano de papel */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+
+  /* Tinta lavada sumi-e */
+  .ink-wash {
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(0, 166, 107, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 35% at 85% 75%, rgba(212, 175, 55, 0.06), transparent 70%),
+      radial-gradient(ellipse 40% 30% at 70% 15%, rgba(17, 17, 14, 0.04), transparent 60%);
+  }
+
+  /* Reveal por línea (máscara overflow-hidden + translateY) */
+  .reveal-inner { will-change: transform; }
+
+  /* Mask reveal de imágenes */
+  .mask-frame { position: relative; }
+  .mask-img {
+    will-change: transform;
+    transform: scale(1.12);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mask-frame:hover .mask-img { transform: scale(1.05); }
+
+  /* Chip activo del filtro */
+  .chip-active {
+    background: #11110e;
+    border-color: #11110e !important;
+    color: #fdfbf7;
+  }
+  .chip-active:hover {
+    color: #fdfbf7 !important;
+    border-color: #11110e !important;
+  }
+
+  /* Estado inicial oculto SOLO con JS y motion permitido (sin JS = todo visible) */
+  .anim-ready .reveal-inner { transform: translateY(110%); }
+  .anim-ready [data-hero] .fade-up { opacity: 0; }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    // ── 1. HERO: reveal por líneas (al cargar) ──
+    gsap.to(".reveal-inner", { y: "0%", duration: 1.1, ease: "power4.out", stagger: 0.12, delay: 0.15 });
+
+    // ── 2. HERO: fade-ups sobre el pliegue (al cargar, con stagger) ──
+    gsap.fromTo(
+      "[data-hero] .fade-up",
+      { opacity: 0, y: 32 },
+      { opacity: 1, y: 0, duration: 1, ease: "expo.out", stagger: 0.12, delay: 0.5 }
+    );
+
+    // ── 3. Fade-ups bajo el pliegue (ScrollTrigger) ──
+    const fadeUps = gsap.utils.toArray(".fade-up").filter((el) => !el.closest("[data-hero]"));
+    fadeUps.forEach((el) => {
+      gsap.fromTo(el, { opacity: 0, y: 32 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        ease: "expo.out",
+        scrollTrigger: { trigger: el, start: "top 88%" },
+      });
+    });
+
+    // ── 4. MASK REVEAL + parallax interno de la banda de taller ──
+    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+      const img = frame.querySelector(".mask-img");
+      if (!img) return;
+      gsap.fromTo(
+        frame,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power4.out",
+          scrollTrigger: { trigger: frame, start: "top 85%" },
+        }
+      );
+      gsap.to(img, {
+        yPercent: -10,
+        ease: "none",
+        scrollTrigger: { trigger: frame, scrub: 0.6 },
+      });
+    });
+  }
+
+  // ── 5. FILTRO POR NIVEL (funciona con y sin animación) ──
+  const chips = document.querySelectorAll("[data-filtro]");
+  const cards = document.querySelectorAll("#curso-grid > [data-nivel]");
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => c.classList.remove("chip-active"));
+      chip.classList.add("chip-active");
+
+      const nivel = chip.dataset.filtro;
+      const visibles: HTMLElement[] = [];
+
+      cards.forEach((card) => {
+        const mostrar = nivel === "todos" || card.dataset.nivel === nivel;
+        card.classList.toggle("hidden", !mostrar);
+        if (mostrar) visibles.push(card as HTMLElement);
+      });
+
+      if (!prefersReduced) {
+        gsap.fromTo(visibles, { opacity: 0, y: 14 }, {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          ease: "power3.out",
+          stagger: 0.06,
+          overwrite: "auto",
+        });
+      }
+    });
+  });
+</script>
