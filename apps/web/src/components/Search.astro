@@ -109,6 +109,12 @@
   }
   .search-overlay.open { display: flex; }
 
+  /* Scroll-lock CSP-safe: body.style.overflow (CSSOM) es bloqueado por la
+     CSP meta de Astro en producción; la clase vive en el bundle con hash. */
+  .no-scroll {
+    overflow: hidden;
+  }
+
   .search-backdrop {
     position: absolute;
     inset: 0;
@@ -720,7 +726,7 @@
 
   function openSearch() {
     overlay!.classList.add("open");
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("no-scroll");
     input!.setAttribute("aria-expanded", "true");
     lastFocus = document.activeElement;
     if (!idleEl!.innerHTML && !resultsEl!.innerHTML) renderIdle();
@@ -730,7 +736,7 @@
 
   function closeSearch() {
     overlay!.classList.remove("open");
-    document.body.style.overflow = "";
+    document.body.classList.remove("no-scroll");
     input!.setAttribute("aria-expanded", "false");
     input!.removeAttribute("aria-activedescendant");
     activeIndex = -1;

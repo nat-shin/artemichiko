@@ -90,13 +90,40 @@ const { id, videoId, title, label = "Ver video" } = Astro.props;
   }
 </style>
 
+<style is:global>
+  /* Scroll-lock CSP-safe: body.style.overflow (CSSOM) es bloqueado por la
+     CSP meta de Astro en producción; la clase vive en el bundle con hash. */
+  .no-scroll {
+    overflow: hidden;
+  }
+</style>
+
 <script>
+  import { gsap } from "gsap";
+
   // ── Utilidades de apertura/cierre ──
   const triggerByModal = new WeakMap<HTMLElement, HTMLElement>();
 
+  // Los ancestros con transform inline residual (gsap.from de .fade-up deja
+  // matrix(1,0,0,1,0,0)) convierten el position:fixed del modal en absolute y
+  // lo descuadran. Al abrir, limpiar solo los ancestros del trigger (GSAP
+  // clearProps es definitivo: la animación ya completó y no se re-aplica).
+  function clearAncestorTransforms(start: HTMLElement) {
+    let el: HTMLElement | null = start.parentElement;
+    while (el && el !== document.documentElement) {
+      const inline = el.style?.transform;
+      if (inline && inline !== "none") {
+        gsap.set(el, { clearProps: "transform" });
+      }
+      el = el.parentElement;
+    }
+  }
+
   function openVideoModal(modal: HTMLElement) {
+    const trigger = triggerByModal.get(modal);
+    if (trigger) clearAncestorTransforms(trigger);
     modal.classList.add("open");
-    document.body.style.overflow = "hidden";
+    document.body.classList.add("no-scroll");
 
     const box = modal.querySelector<HTMLElement>(".video-modal-box");
     const videoId = box?.dataset.videoId;
@@ -124,7 +151,7 @@ const { id, videoId, title, label = "Ver video" } = Astro.props;
 
   function closeVideoModal(modal: HTMLElement) {
     modal.classList.remove("open");
-    document.body.style.overflow = "";
+    document.body.classList.remove("no-scroll");
 
     // Pausar sin desmontar: sin audio de fondo, y al reabrir NO se duplica
     // (el iframe ya existe y el placeholder ya fue removido)
