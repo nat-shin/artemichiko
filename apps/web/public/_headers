@@ -1,8 +1,25 @@
-# ArteMichiko — headers de seguridad (doc 8 §25.1 + auditoría 2026)
-# Astro copia public/_headers al build; el adapter lo fusiona con el cache de /_astro/*
+# ArteMichiko — headers de seguridad (doc 8 §25.1 + hardening 2026-08)
+# Astro copia public/_headers al build; Cloudflare Pages los aplica al sitio estático.
+# El CSP de páginas HTML lo emite Astro como meta tag (security.csp en astro.config).
+# /_astro/* repite el bloque base a propósito: si Cloudflare no fusiona reglas de
+# distinto nivel de especificidad, los assets conservan igual el bloque completo.
+
 /*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), magnetometer=(), gyroscope=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+
+# Assets hasheados: CORP estricto + CSP de assets (las imágenes externas de la
+# galería viven en páginas HTML, no aquí). COOP permite los popups wa.me (_blank).
+/_astro/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=(), usb=(), magnetometer=(), gyroscope=()
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Cross-Origin-Resource-Policy: same-origin
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:
