@@ -2,6 +2,19 @@
 // ArteMichiko — Galería: grid editorial + filtrado por técnica sin recarga
 // Identidad: blanco/negro/dorado/jade · mask reveal + parallax + chips jade
 // Filtrado client-side (JS vanilla); GSAP solo anima ocultar/reordenar.
+//
+// Image SEO + integridad:
+// - Alt-text descriptivo por obra (fuente única: obras.ts, campo `alt`).
+// - Primera imagen del grid = LCP: eager + fetchpriority="high".
+// - Resto: lazy + decoding="async" (fuera del viewport, no bloquean).
+// - referrerpolicy="no-referrer" en imágenes externas (placehold.co): no se
+//   filtra el referrer del sitio hacia terceros.
+// - width/height fijos (800×1000) → aspect-ratio reservado, CLS 0.
+// NOTA Cloudflare: si el sitio se sirve tras el proxy de Cloudflare, el
+// hotlinking de las imágenes propias se puede bloquear con una Transform
+// Rule (http.request.headers["referer"] no permitido → 403) en el dashboard.
+// No implementado aquí: aplica solo cuando las imágenes dejen de ser
+// placeholders externos y vivan en el propio dominio/R2.
 import Layout from "../layouts/Layout.astro";
 import { obras, tecnicas } from "../data/obras";
 ---
@@ -49,8 +62,11 @@ import { obras, tecnicas } from "../data/obras";
           <div class="mask-frame relative aspect-[3/4] overflow-hidden rounded-sm bg-lienzo-hueso" data-mask>
             <img
               src={obra.imagen}
-              alt={`${obra.titulo} — ${obra.tecnica}, ${obra.ano}`}
-              loading="lazy"
+              alt={obra.alt}
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding={i === 0 ? undefined : "async"}
+              fetchpriority={i === 0 ? "high" : undefined}
+              referrerpolicy="no-referrer"
               width="800"
               height="1000"
               class="mask-img h-full w-full object-cover"

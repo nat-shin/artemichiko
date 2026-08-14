@@ -2,6 +2,17 @@
 // ArteMichiko — Ficha de obra individual
 // Identidad: blanco/negro/dorado/jade · acento según colorTheme (jade/oro/neutro)
 // Entrada suave: View Transitions nativas cross-document (@view-transition en global.css)
+//
+// Image SEO + integridad:
+// - Imagen principal = LCP de la ficha: eager + fetchpriority="high".
+// - Relacionadas: lazy + decoding="async".
+// - referrerpolicy="no-referrer" en imágenes externas (placehold.co).
+// - VisualArtwork JSON-LD por obra (name/creator/image/description) → alimenta
+//   Google Images/Lens y motores multimodales; creator = Organization
+//   ArteMichiko, conectado al grafo de entidad del Layout (EducationalOrg).
+// - og:image por obra para previsualización al compartir.
+// NOTA Cloudflare: hotlinking protegible con Transform Rule por referer
+// (no implementado aquí; solo aplica cuando las imágenes vivan en dominio propio).
 import Layout from "../../layouts/Layout.astro";
 import { obras } from "../../data/obras";
 
@@ -19,9 +30,48 @@ const relacionadas = [
 	...obras.filter((o) => o.slug !== obra.slug && o.tecnica === obra.tecnica),
 	...obras.filter((o) => o.slug !== obra.slug && o.tecnica !== obra.tecnica),
 ].slice(0, 3);
+
+// Schema.org VisualArtwork — entidad obra conectada al grafo (creator = ArteMichiko)
+const schemaObra = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "VisualArtwork",
+	name: obra.titulo,
+	creator: {
+		"@type": "Organization",
+		name: "ArteMichiko — Centro Cultural Académico de Dibujo y Pintura Artística",
+		url: "https://artemichiko.com",
+	},
+	image: obra.imagen,
+	description: obra.descripcion,
+	artMedium: obra.tecnica,
+	dateCreated: obra.ano,
+	width: "800",
+	height: "1000",
+	url: Astro.url.href,
+});
+
+const obraUrl = Astro.url.href;
 ---
 
 <Layout title={obra.titulo} description={`${obra.titulo} — ${obra.tecnica}, ${obra.ano}. ${obra.descripcion}`}>
+  <!-- OpenGraph/Twitter por obra. Nota: Layout no expone slot en <head>;
+       los parsers de FB/WhatsApp/Twitter leen estas meta igualmente (lenient).
+       Al dar slot="head" a Layout.astro, moverlas ahí. -->
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content={`${obra.titulo} — ${obra.tecnica}, ${obra.ano} · ArteMichiko`} />
+  <meta property="og:description" content={obra.descripcion} />
+  <meta property="og:image" content={obra.imagen} />
+  <meta property="og:image:width" content="800" />
+  <meta property="og:image:height" content="1000" />
+  <meta property="og:url" content={obraUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={`${obra.titulo} · ArteMichiko`} />
+  <meta name="twitter:description" content={obra.descripcion} />
+  <meta name="twitter:image" content={obra.imagen} />
+
+  <!-- VisualArtwork JSON-LD — Image SEO / Google Images-Lens / IA multimodal -->
+  <script type="application/ld+json" set:html={schemaObra} />
+
   <article class="relative overflow-hidden pt-32 pb-24 md:pt-40">
     <div class="grain absolute inset-0 pointer-events-none" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-7xl px-6">
@@ -41,7 +91,10 @@ const relacionadas = [
         <figure class="mask-frame relative aspect-[3/4] overflow-hidden rounded-sm bg-lienzo-hueso" data-mask>
           <img
             src={obra.imagen}
-            alt={`${obra.titulo} — ${obra.tecnica}, ${obra.ano}`}
+            alt={obra.alt}
+            loading="eager"
+            fetchpriority="high"
+            referrerpolicy="no-referrer"
             width="800"
             height="1000"
             class="mask-img h-full w-full object-cover"
@@ -99,8 +152,10 @@ const relacionadas = [
               <div class="mask-frame relative aspect-[3/4] overflow-hidden rounded-sm bg-lienzo-hueso" data-mask>
                 <img
                   src={rel.imagen}
-                  alt={`${rel.titulo} — ${rel.tecnica}`}
+                  alt={rel.alt}
                   loading="lazy"
+                  decoding="async"
+                  referrerpolicy="no-referrer"
                   width="800"
                   height="1000"
                   class="mask-img h-full w-full object-cover"
