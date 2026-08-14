@@ -16,6 +16,7 @@ license: Propietario — ArteMichiko
 4. **Oro con disciplina**: cobertura 5–15% de la superficie. Oro metálico (foil/gradiente sutil), NUNCA amarillo plano `#FFD700` (neón = barato).
 5. **Imperfección deliberada** (wabi-sabi): asimetría sutil, textura de grano fino, trazo de pincel visible — como firma de artista, no como error.
 6. **Un sello, una voz**: el detalle rojo cinabrio (印章) queda SOLO para firma de artista/obra — no compite con el oro.
+7. **Proporción 70/25/5**: blanco 70%, negro 25%, dorado+jade 5% (oro ~2/3, jade ~1/3). Jade = acento secundario: éxito, hover secundario, detalles de obra, metadata. Nunca ambos a plena intensidad juntos (el jade enfría el calor del oro).
 
 ## Paleta (tokens oficiales)
 
@@ -30,6 +31,11 @@ license: Propietario — ArteMichiko
 | `oro-champagne` | `#C69B3C` | Hover, acentos secundarios, foil sutil |
 | `oro-arenoso` | `#EBDAB0` | Neutro cálido, fondos de sección especial |
 | `sello-cinabrio` | `#C3272B` | SOLO firma de artista/obra (印章) |
+| `jade-base` | `#00A86B` | **Acento secundario** (después del oro): éxito, hover secundario, detalles de obra, iconos de metadata |
+| `jade-profundo` | `#00965F` | Texto jade sobre claro (AA-lg 3.8:1), subrayados, bordes de foco |
+| `jade-tinta` | `#00452C` | Texto jade sobre claro (AA 11.1:1), sellos |
+| `jade-claro` | `#00E08F` | Texto jade sobre negro (AA 11.4:1), gradientes jade |
+| `jade-lechoso` | `#8BBBA6` | "Jade chino" lavado, fondos sutiles, bordes sobre oscuro |
 
 ## Tipografía (jerarquía couture)
 

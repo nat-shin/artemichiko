@@ -21,6 +21,7 @@ Referencia mental: doble-página de revista de arte + vitrina de galería. Cada 
 5. **Espacio como poder** — padding mínimo 6rem en desktop; el vacío hace "caro". Si quitar mejora, se quita.
 6. **Motion con propósito** — springs custom, easing `cubic-bezier` propio, transiciones que no llaman la atención. NUNCA scroll-reveal genérico, NUNCA `ease-in-out` default. GPU-safe (`transform`/`opacity` only).
 7. **Grano fino** — textura de papel (noise 0.03-0.05) sobre blancos; hace que el minimalismo se sienta material, no vacío.
+8. **Jade como segunda joya (poco)** — el verde jade chino (#00A86B, o #00965F para texto) aparece solo en: éxito/success, hover secundario, detalles de obra, metadata de catálogo, y el sello de autor. Proporción 70/25/5 (oro ~2/3 del 5%, jade ~1/3). Nunca jade y oro a plena intensidad juntos. El jade es la capa CULTURAL (serenidad, sabiduría, herencia asiática); el oro es la capa de ESTATUS (maestría).
 
 ## Anti-patrones (matan el lujo)
 

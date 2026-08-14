@@ -69,6 +69,8 @@ Consolida **literalmente** el contenido de los tres documentos base del proyecto
   JSON-LD derivado, llms.txt, presupuesto animación, R3F WebGPU, anti-AI-slop (30 reglas)
 - **E.37** Sección PRUEBA SOCIAL: redes + alumnos + video Canal 11 (oembed sin API key,
   video verificado KsFEtwfALnQ, click-to-play, componentes Astro social/, sin DB)
+- **E.38** Identidad con JADE (acento secundario cultural) + efectos Awwwards 2026
+  responsive + stack de animación final (Motion LazyMotion, ogl, presupuesto <60KB)
 
 ---
 
@@ -2378,5 +2380,92 @@ Todos consumen datos de **Content Collections** (colección `social` con campos:
 
 ### E.37.9 Decisión
 ✅ **ADOPTAR** — la sección de prueba social se implementa como página/ sección "Comunidad" + footer con iconos de redes + video Canal 11 en el Home (click-to-play). El video verificado es `KsFEtwfALnQ` (Canal Once). Los feeds de IG/FB se integran como cards de enlace (sin token). Todo con oembed sin API key + Content Collections.
+
+/////
+
+/////
+## E.38 IDENTIDAD CON JADE + EFECTOS AWWWARDS + STACK DE ANIMACIÓN FINAL
+
+> Investigación 13-ago-2026 (firecrawl + exa; tavily en límite de plan — pendiente re-verificar). El usuario definió los colores institucionales: **blanco, negro, dorado y POCO jade** (verde claro, tono del jade de China). Jade = acento secundario cultural.
+
+### E.38.1 Tokens de color oficiales (añadido al sistema "Barro y Tinta")
+
+| Token | Hex | Uso | Contraste |
+|---|---|---|---|
+| `lienzo-blanco` | `#FDFBF7` | Fondo principal (marfil cálido — NUNCA `#FFFFFF` puro) | — |
+| `lienzo-hueso` | `#F5F0E6` | Fondos secundarios (≈ Pantone COTY 2026 "Cloud Dancer" `#F0EEE9`) | — |
+| `tinta-negra` | `#11110E` | Texto principal, estructura (nunca `#000` puro) | 16.65 AA |
+| `tinta-grafito` | `#4A4A46` | Texto secundario | — |
+| `tinta-humo` | `#9A968C` | Líneas divisorias, inactivos | — |
+| `oro-brillo` | `#D4AF37` | **Joyas**: CTA primario, títulos display, hairlines | 11.44 AA sobre negro |
+| `oro-viejo` | `#CA9E3B` | Hover, foil sutil | 7.99 AA sobre negro |
+| **`jade-base`** | `#00A86B` | **Acento secundario**: éxito, hover secundario, detalles de obra, iconos metadata | 6.43 AA sobre negro (nunca texto sobre claro) |
+| **`jade-profundo`** | `#00965F` | Texto jade sobre claro (AA-lg 3.8), bordes de foco | 3.80 AA-lg |
+| **`jade-tinta`** | `#00452C` | Texto jade sobre claro (AA 11.1), sellos | 11.13 AA |
+| **`jade-claro`** | `#00E08F` | Texto jade sobre negro (AA 11.4), gradientes jade | 11.38 AA |
+| **`jade-lechoso`** | `#8BBBA6` | "Jade chino" lavado, fondos sutiles sobre oscuro | 9.21 AA |
+| **`jade-matte`** | `#67906E` | Jade tierra (único que acompaña al oro viejo) | 5.46 AA |
+| `sello-cinabrio` | `#C3272B` | SOLO firma de artista/obra (印章) | — |
+
+### E.38.2 Reglas de uso del jade (10)
+
+1. **Proporción 70/25/5**: blanco 70% · negro 25% · **dorado+jade 5%** (oro ~2/3, jade ~1/3). Si una vista tiene oro, el jade baja o desaparece — nunca ambos a plena intensidad (Figma: el jade enfría el calor del oro).
+2. **El sello, literal**: jade `#00965F`/`#00A86B` en un cuadrado ~20×20px (silueta de sello tallado) junto a cada obra y testimonios — la marca del maestro. Único caso donde jade y oro coexisten (sello jade + firma dorada del artista).
+3. **Nunca texto jade sobre fondo claro** — solo `jade-tinta #00452C` sobre hueso, o `jade-claro #00E08F` sobre negro. El jade medio es para bordes/líneas/iconos/UI (≥3:1).
+4. **Éxito = jade** (reemplaza "musgo" de la Parte 3.1): "enviado", "matriculado", checkboxes → `#00A86B`. Sin parecer formulario genérico.
+5. **Hover/focus = jade; click/CTA = oro** — hover de links, foco de campos, hover de tarjetas → jade; botón primario de conversión → oro. Jerarquía dinámica sin pelear por el mismo estado.
+6. **Detalles de obra = la capa jade natural**: `colorTheme` de obras puede tirar a jade; líneas de metadata en `mono_espaciada` sobre línea jade `#00965F`; el eje Z se marca con un hilo jade.
+7. **Fondo jade solo sobre negro** o como tinta lavada: gradiente `#00E08F→#00452C` en héroes de sección sobre negro; `jade-lechoso` a <10% de opacidad como textura. Sobre blanco casi nunca (solo `jade-matte` en tandas grandes).
+8. **Contraste por regla, no por ojo** — el foco de formulario con jade base sobre hueso NO cumple 4.5:1 → usar `jade-profundo #00965F` o doble señal (línea + label, WCAG 1.4.1 no-color).
+9. **Un jade a la vez por vista** (regla dura heredada de "Barro y Tinta"): jade base O claro O sello, nunca dos. El sello no cuenta (es firma).
+10. **El jade no aparece donde el oro ya habla**: CTA primario, títulos display, nombres de exhibición → oro únicamente. Jade = secundario de verdad.
+
+**Por qué jade y no esmeralda**: el jade `#00A86B` tiene subtono azul (armoniza con oro); la esmeralda `#50C878` tiene subtono amarillo que choca. El jade es el verde **asiático de herencia** (sabiduría, serenidad, prosperidad) — exactamente la capa cultural de una academia con raíces chinas/japonesas. El oro vende maestría; el jade vende serenidad de aprendizaje.
+
+### E.38.3 Efectos Awwwards 2026 (responsive móvil + desktop)
+
+**Principio del jurado**: "Un sitio 2D impecable gana a un 3D con jank todas las veces" + "Random effects" (todo parallaxea → nada importa) = penalizado. El patrón ganador es **Directed motion**: UN signature moment protegido por presupuesto de performance.
+
+| Efecto | Verdict 2026 | Uso en ArteMichiko |
+|---|---|---|
+| **Preloader de marca** | Premium si 1.5-2.5s, una vez por sesión (contador 0→100 + curtain lift orquestado en GSAP que entrega el hero). Barra de progreso de 6s = penalización | ✅ Sí — primera visita |
+| **Text scramble** | Premium SOLO en 1-2 headers de identidad | ✅ Sí — el "terminal" encaja con Tinta/Digital |
+| **Magnetic buttons** | Premium en CTAs principales; **desktop-only, desactivado en touch** | ✅ Sí — CTA del hero |
+| **Marquee infinito** | Premium como banda de ritmo (nombres de medios, técnicas) con control de velocidad por mouse (`quickTo`, 60fps) | ✅ Sí |
+| **Cursor follower** | Premium si sutil y NO oculta el cursor nativo; crece sobre obras, muestra "+" | ⚠️ Opcional — enhancement layer |
+| **Parallax** | Premium si sutil (capas a velocidades distintas); gimmick si todo parallaxea | ✅ Sí — hero/galería |
+| **Clip-path reveals** | Usar con criterio (Chrome 128+: animar clip-path repinta cada frame) | ⚠️ Con medida |
+| **Tilt cards 3D** | **Gimmick en 2026** (irrelevante en táctil) | ❌ NO |
+| **Scroll jacking** | Penalizado por usabilidad (30% del score) | ❌ NO |
+| **Image distortion/WebGL** | Premium pero mayor riesgo de jank; solo 1-2 piezas hero con tiers GPU | ⚠️ Solo hero |
+
+**Responsive obligatorio** (jurado juzga en laptop + celular gama media):
+- **4 tiers de GPU** (patrón Codrops/Shopify Spring 26): Tier 0 sin WebGL fallback estático → Tier 3 desktop full; móvil capped agresivamente.
+- Cap de device-pixel-ratio (no renderizar a 3x en teléfono).
+- Fluid typography con `clamp()` base `em` (respeta zoom WCAG 1.4.4 200%); NUNCA `vw` puro.
+- Solo `transform`/`opacity` en animaciones (compositor thread); `content-visibility: auto` + `contain-intrinsic-size` (-50% render inicial).
+- **Siempre el escape a la cuadrícula** (patrón Oculi Mundi "Research Mode"): la galería espacial también tiene vista de grid.
+
+### E.38.4 Stack de animación FINAL (verificado 2026)
+
+| Librería | Peso (gz) | Rol | Decisión |
+|---|---|---|---|
+| GSAP 3.15 + ScrollTrigger | ~27+12KB | Scroll choreography (pin/scrub/parallax) | ✅ Ya tenemos |
+| Lenis 1.3.26 | ~3KB | Smooth scroll | ✅ Ya tenemos |
+| R3F 9.7 + drei | +50KB (lazy) | 2-3 piezas hero WebGL/WebGPU | ✅ Ya tenemos |
+| Astro View Transitions | 0KB JS | Transiciones MPA (NUNCA barba/swup — duplican) | ✅ Ya tenemos |
+| SplitText (GSAP 3.13+) | ~4.8KB | Texto animado (mask + autoSplit + a11y) | ✅ Ya tenemos |
+| **Motion (`motion/react`)** | 4.6-31KB | Islands SOLO (galería filtrado `layoutId`, matriculación `AnimatePresence`) con `LazyMotion` | ✅ **AÑADIR** |
+| **ogl** | 13.5KB | Shaders ligeros (grano cinematográfico, displacement) si no necesitan React | ⚠️ Opcional |
+| **react-parallax-tilt** | ~2KB | Tilt del grid de obras | ⚠️ Opcional |
+| **tailwind-animations** (midudev) | 0KB JS | Reveals scroll-driven en páginas de contenido | ⚠️ Opcional |
+| AOS / ScrollMagic / Locomotive / SplitType / anime.js / barba / swup | — | **Obsoletos o duplicados** | ❌ NO |
+| Howler.js | ~7KB | Sonido (solo Fase 2+, opt-in, botón mute) | ⏸ Posponer |
+
+**La regla de oro (presupuesto por página)**: Umbral/Galería/Matriculación pueden cargar GSAP+ST+Lenis+Motion+isla R3F (presupuesto total JS animación < 60KB); las 17 páginas de contenido → **0KB JS de animación** (CSS scroll-driven + View Transitions). Es el patrón que miden los jurados: "native first, Motion cuando native no alcanza, GSAP cuando ni Motion".
+
+**Sync canónico (un solo loop)**: `lenis.on('scroll', ScrollTrigger.update)` + `gsap.ticker.add(t => lenis.raf(t*1000))` + `gsap.ticker.lagSmoothing(0)`. Dos loops compitiendo = causa #1 de jank.
+
+**Preloader**: 1.5-2.5s, una vez por sesión, `prefers-reduced-motion` lo omite. El sitio es estático/edge — no hay red que esperar; es "arribo percibido".
 
 /////
