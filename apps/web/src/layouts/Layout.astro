@@ -21,6 +21,37 @@ const {
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="stylesheet" href="/src/styles/global.css" />
+    <!-- Entidad raíz — EducationalOrganization + sameAs (GEO/Entity SEO, mapa estratégico 2026) -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "ArteMichiko — Centro Cultural Académico de Dibujo y Pintura Artística",
+        "alternateName": ["ArteMichiko", "Arte Michiko", "Michiko"],
+        "description": "Academia de arte con Sistema y Metodología Oriental único en México: grafito, color, tinta y óleo. Fundada por el Mtro. José Guadalupe Cabrera.",
+        "url": "https://artemichiko.com",
+        "telephone": "+52 55 1259 5906",
+        "email": "maestraelviramena@hotmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. Revolución 718-101",
+          "addressLocality": "San José Insurgentes, Benito Juárez",
+          "postalCode": "03910",
+          "addressCountry": "MX"
+        },
+        "founder": {
+          "@type": "Person",
+          "name": "José Guadalupe Cabrera Cabrera",
+          "jobTitle": "Director y Fundador Académico Artístico"
+        },
+        "sameAs": [
+          "https://www.instagram.com/arte_michiko",
+          "https://www.facebook.com/centroculturalmichiko",
+          "https://www.youtube.com/@centroculturalacademicoded7862",
+          "https://www.tiktok.com/@artemichiko"
+        ]
+      }
+    </script>
   </head>
   <body class="bg-lienzo-blanco text-tinta-negra font-sans antialiased">
     <!-- Scroll progress (barra dorada de lectura) -->
