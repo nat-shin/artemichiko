@@ -264,7 +264,7 @@ import Layout from "../layouts/Layout.astro";
           const finalText = goldTarget.textContent ?? "";
           const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
           const scramble = { p: 0 };
-          gsap.delayedCall(1.9, () => {
+          gsap.delayedCall(1.2, () => {
             gsap.to(scramble, {
               p: 1,
               duration: 1.2,
@@ -288,16 +288,16 @@ import Layout from "../layouts/Layout.astro";
     });
     preTl.to(counter, {
       value: 100,
-      duration: 1.6,
+      duration: 0.9,
       ease: "power2.inOut",
       onUpdate: () => {
         if (countEl) countEl.textContent = String(Math.round(counter.value));
         if (barEl) barEl.style.width = `${counter.value}%`;
       },
     });
-    preTl.to(preloader, { yPercent: -100, duration: 0.9, ease: "power4.inOut" }, "+=0.15");
-    // Fallback: si algo falla, quitar el preloader a los 4s
-    setTimeout(() => preloader?.remove(), 4000);
+    preTl.to(preloader, { yPercent: -100, duration: 0.7, ease: "power4.inOut" }, "+=0.1");
+    // Fallback: si algo falla, quitar el preloader a los 2.5s
+    setTimeout(() => preloader?.remove(), 2500);
 
     // ── 2. Fade-ups (secciones) ──
     gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el) => {
@@ -354,14 +354,15 @@ import Layout from "../layouts/Layout.astro";
     // ── 5. MARQUEE infinito (pausa en hover) ──
     gsap.utils.toArray<HTMLElement>("[data-marquee]").forEach((marquee) => {
       const tracks = marquee.querySelectorAll(".marquee-track");
-      gsap.to(tracks, {
+      // Guardar la referencia del tween para controlar la velocidad con .timeScale()
+      const tween = gsap.to(tracks, {
         xPercent: -100,
         repeat: -1,
         duration: 28,
         ease: "none",
       });
-      marquee.addEventListener("mouseenter", () => gsap.to(tracks, { timeScale: 0.2, duration: 0.4 }));
-      marquee.addEventListener("mouseleave", () => gsap.to(tracks, { timeScale: 1, duration: 0.4 }));
+      marquee.addEventListener("mouseenter", () => tween.timeScale(0.2));
+      marquee.addEventListener("mouseleave", () => tween.timeScale(1));
     });
   }
 </script>

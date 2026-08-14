@@ -18,7 +18,7 @@ export default defineConfig({
 		{ name: "webkit", use: { ...devices["Desktop Safari"] } },
 	],
 	webServer: {
-		command: "pnpm dev",
+		command: "astro dev --host 127.0.0.1 --port 4321",
 		url: "http://127.0.0.1:4321",
 		reuseExistingServer: !process.env.CI,
 	},

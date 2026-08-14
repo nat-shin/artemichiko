@@ -185,24 +185,21 @@
 
 <script>
   // Pagefind: se carga lazy al abrir el buscador (no penaliza CWV)
-  // Carga con script tag dinámico — Vite no debe resolver /pagefind/ (se genera post-build)
-  let pagefind: any = null;
-  let loaded = false;
+  // El cliente real vive en /pagefind-client.js (módulo externo ESM, CSP-safe —
+  // usa import() nativo, sin eval). Este script solo habla con window.__artemichikoSearch.
+  let searchReady = false;
 
-  function loadPagefind(): Promise<void> {
+  function loadSearchClient(): Promise<void> {
     return new Promise((resolve) => {
-      if (loaded) return resolve();
-      loaded = true;
+      if (searchReady) return resolve();
+      searchReady = true;
       const script = document.createElement("script");
-      script.src = "/pagefind/pagefind.js";
+      script.src = "/pagefind-client.js";
+      script.type = "module";
       script.async = true;
-      script.onload = () => {
-        // @ts-ignore — Pagefind se expone en window
-        pagefind = window.Pagefind;
-        resolve();
-      };
+      script.onload = () => resolve();
       script.onerror = () => {
-        console.warn("Pagefind no disponible");
+        console.warn("Buscador no disponible");
         resolve();
       };
       document.head.appendChild(script);
@@ -212,9 +209,11 @@
   async function doSearch(term: string) {
     const resultsEl = document.querySelector("[data-search-results]") as HTMLElement | null;
     if (!resultsEl) return;
-    if (!pagefind) {
-      await loadPagefind();
-      if (!pagefind) {
+    const api = (window as any).__artemichikoSearch;
+    if (!api?.search) {
+      await loadSearchClient();
+      const api2 = (window as any).__artemichikoSearch;
+      if (!api2?.search) {
         resultsEl.innerHTML = `<p class="search-no-results">Búsqueda no disponible ahora.</p>`;
         return;
       }
@@ -223,13 +222,12 @@
       resultsEl.innerHTML = "";
       return;
     }
-    // @ts-ignore — Pagefind index API
-    const search = await pagefind.search(term);
-    if (!search.results || search.results.length === 0) {
+    const searchResult = await (window as any).__artemichikoSearch.search(term);
+    if (!searchResult.results || searchResult.results.length === 0) {
       resultsEl.innerHTML = `<p class="search-no-results">Sin resultados para «${term}». Prueba con: grafito, óleo, cursos, galería.</p>`;
       return;
     }
-    const items = await Promise.all(search.results.slice(0, 10).map((r: any) => r.data()));
+    const items = await Promise.all(searchResult.results.slice(0, 10).map((r: any) => r.data()));
     resultsEl.innerHTML = items
       .map(
         (d: any) => `
@@ -248,7 +246,7 @@
       if (!overlay) return;
       overlay.classList.add("open");
       document.body.style.overflow = "hidden";
-      void loadPagefind();
+      void loadSearchClient();
       const input = overlay.querySelector("[data-search-input]") as HTMLInputElement | null;
       setTimeout(() => input?.focus(), 50);
     });
