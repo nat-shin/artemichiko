@@ -2,6 +2,7 @@
 // ArteMichiko — Matriculación conversacional vía WhatsApp (sin DB, sin pagos)
 // Doc 6 §2.3 adaptado: FASE 1-2 del embudo → formulario mínimo → wa.me pre-llenado
 import Layout from "../layouts/Layout.astro";
+
 const cursos = [
 	{ id: "grafito", nombre: "Grafito" },
 	{
@@ -150,7 +151,7 @@ const cursos = [
 
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!prefersReduced) {
-    gsap.utils.toArray(".fade-up").forEach((el) => {
+    gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el) => {
       gsap.from(el, { opacity: 0, y: 32, duration: 0.9, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } });
     });
     gsap.from(".reveal-inner", { y: "110%", duration: 1, ease: "power4.out", delay: 0.2 });

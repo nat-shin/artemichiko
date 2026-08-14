@@ -92,7 +92,7 @@ const mapaRuta =
 	"https://www.google.com/maps/dir/?api=1&destination=Av.+Revoluci%C3%B3n+718-101,+03910+CDMX";
 
 // CSP: permite el iframe de Google Maps solo en esta página (sin tocar astro.config.mjs)
-Astro.csp.insertDirective("frame-src https://www.google.com");
+Astro.csp?.insertDirective("frame-src https://www.google.com");
 ---
 
 <Layout

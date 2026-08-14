@@ -1,8 +1,8 @@
 ---
+import VideoModal from "../components/VideoModal.astro";
 // ArteMichiko — Home nivel Awwwards (preloader + text reveal + zoom-parallax + máscaras)
 // Identidad: blanco/negro/dorado/jade · MAESTRO E.35/E.38 · Video Canal 11 como modal
 import Layout from "../layouts/Layout.astro";
-import VideoModal from "../components/VideoModal.astro";
 ---
 
 <Layout title="Centro Cultural Académico de Dibujo y Pintura" description="ArteMichiko — academia de arte con sistema Oriental único en México. Dibujo, pintura, grabado y más.">
@@ -300,7 +300,7 @@ import VideoModal from "../components/VideoModal.astro";
     setTimeout(() => preloader?.remove(), 4000);
 
     // ── 2. Fade-ups (secciones) ──
-    gsap.utils.toArray(".fade-up").forEach((el) => {
+    gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el) => {
       gsap.from(el, {
         opacity: 0,
         y: 32,
@@ -311,7 +311,7 @@ import VideoModal from "../components/VideoModal.astro";
     });
 
     // ── 3. MASK REVEAL de imágenes (la obra viaja en su marco) ──
-    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+    gsap.utils.toArray<HTMLElement>("[data-mask]").forEach((frame) => {
       const img = frame.querySelector(".mask-img");
       if (!img) return;
       gsap.fromTo(
@@ -352,7 +352,7 @@ import VideoModal from "../components/VideoModal.astro";
     }
 
     // ── 5. MARQUEE infinito (pausa en hover) ──
-    gsap.utils.toArray("[data-marquee]").forEach((marquee) => {
+    gsap.utils.toArray<HTMLElement>("[data-marquee]").forEach((marquee) => {
       const tracks = marquee.querySelectorAll(".marquee-track");
       gsap.to(tracks, {
         xPercent: -100,

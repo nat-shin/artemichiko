@@ -1,4 +1,5 @@
 ---
+import { obras } from "../../data/obras";
 // ArteMichiko — Ficha de obra individual
 // Identidad: blanco/negro/dorado/jade · acento según colorTheme (jade/oro/neutro)
 // Entrada suave: View Transitions nativas cross-document (@view-transition en global.css)
@@ -14,7 +15,6 @@
 // NOTA Cloudflare: hotlinking protegible con Transform Rule por referer
 // (no implementado aquí; solo aplica cuando las imágenes vivan en dominio propio).
 import Layout from "../../layouts/Layout.astro";
-import { obras } from "../../data/obras";
 
 export function getStaticPaths() {
 	return obras.map((obra) => ({

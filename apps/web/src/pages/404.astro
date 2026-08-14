@@ -116,7 +116,7 @@ import Layout from "../layouts/Layout.astro";
     gsap.to(".reveal-inner", { y: "0%", duration: 1, ease: "power4.out", stagger: 0.12 });
 
     // Fade-ups
-    gsap.utils.toArray(".fade-up").forEach((el, i) => {
+    gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el, i) => {
       gsap.from(el, {
         opacity: 0,
         y: 28,

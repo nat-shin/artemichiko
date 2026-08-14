@@ -348,7 +348,7 @@ const articleSchema = {
     gsap.to(".reveal-inline", { y: "0%", duration: 1, ease: "power4.out" });
 
     // Fade-ups
-    gsap.utils.toArray(".fade-up").forEach((el) => {
+    gsap.utils.toArray<HTMLElement>(".fade-up").forEach((el) => {
       gsap.from(el, {
         opacity: 0,
         y: 32,
@@ -359,7 +359,7 @@ const articleSchema = {
     });
 
     // Mask reveal de la portada
-    gsap.utils.toArray("[data-mask]").forEach((frame) => {
+    gsap.utils.toArray<HTMLElement>("[data-mask]").forEach((frame) => {
       gsap.fromTo(
         frame,
         { clipPath: "inset(100% 0 0 0)" },

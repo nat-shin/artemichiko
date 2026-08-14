@@ -1,4 +1,5 @@
 ---
+import { obras, tecnicas } from "../data/obras";
 // ArteMichiko — Galería: grid editorial + filtrado por técnica sin recarga
 // Identidad: blanco/negro/dorado/jade · mask reveal + parallax + chips jade
 // Filtrado client-side (JS vanilla); GSAP solo anima ocultar/reordenar.
@@ -16,7 +17,6 @@
 // No implementado aquí: aplica solo cuando las imágenes dejen de ser
 // placeholders externos y vivan en el propio dominio/R2.
 import Layout from "../layouts/Layout.astro";
-import { obras, tecnicas } from "../data/obras";
 ---
 
 <Layout title="Galería" description="Galería de obras de ArteMichiko — dibujo, pintura, grabado, acuarela, óleo y Técnica Interna. Colección del taller y del alumnado.">
